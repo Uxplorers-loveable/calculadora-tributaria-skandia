@@ -17,7 +17,7 @@ interface Step3Props {
 }
 
 const Step3FVP = ({ formData, setFormData, onNext, onBack }: Step3Props) => {
-  const update = (partial: Partial<FormData>) => setFormData(prev => ({ ...prev, ...partial }));
+  const update = (partial: Partial<FormData>) => setFormData((prev) => ({ ...prev, ...partial }));
 
   return (
     <motion.div key="step3" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
@@ -40,48 +40,48 @@ const Step3FVP = ({ formData, setFormData, onNext, onBack }: Step3Props) => {
           <Switch checked={formData.hasPAC} onCheckedChange={(v) => update({ hasPAC: v })} />
         </div>
 
-        {formData.hasPAC && (
-          <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="space-y-6 pt-4 border-t border-border">
+        {formData.hasPAC &&
+        <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="space-y-6 pt-4 border-t border-border">
             <CurrencyInput
-              label="¿Cuánto aporta tu empresa al PAC durante el año?"
-              hint="Total anual. Lo encuentras en tu extracto del FVP o en el portal de clientes Skandia."
-              value={formData.pacEmpresa}
-              onChange={(v) => update({ pacEmpresa: v })}
-            />
+            label="¿Cuánto aporta tu empresa al PAC durante el año?"
+            hint="Total anual. Lo encuentras en tu extracto del FVP o en el portal de clientes Skandia."
+            value={formData.pacEmpresa}
+            onChange={(v) => update({ pacEmpresa: v })} />
+          
             <CurrencyInput
-              label="¿Y tú cuánto aportas adicional al PAC durante el año?"
-              hint="Aportes voluntarios tuyos, por encima de los de tu empresa. Ingresa el total del año."
-              value={formData.pacPropio}
-              onChange={(v) => update({ pacPropio: v })}
-            />
+            label="¿Y tú cuánto aportas adicional al PAC durante el año?"
+            hint="Aportes voluntarios tuyos, por encima de los de tu empresa. Ingresa el total del año."
+            value={formData.pacPropio}
+            onChange={(v) => update({ pacPropio: v })} />
+          
             <CurrencyInput
-              label="¿Cuánto tienes acumulado en el PAC hoy?"
-              hint="El saldo total a la fecha. Lo encuentras en el portal de clientes o en tu último extracto mensual."
-              value={formData.pacSaldo}
-              onChange={(v) => update({ pacSaldo: v })}
-            />
+            label="¿Cuánto tienes acumulado en el PAC hoy?"
+            hint="El saldo total a la fecha. Lo encuentras en el portal de clientes o en tu último extracto mensual."
+            value={formData.pacSaldo}
+            onChange={(v) => update({ pacSaldo: v })} />
+          
             <SkandiaTooltip color="green" content="¿Cómo funciona el beneficio tributario del PAC? Los aportes de tu empresa son deducibles para ella (hasta 3.800 UVT por empleado). Los tuyos cuentan como renta exenta para ti — igual que el FVP. Ambos comparten el cupo de 30% del ingreso / 3.800 UVT." />
           </motion.div>
-        )}
+        }
       </Card>
 
       {/* Card 8: PACK */}
-      {formData.hasBono && (
-        <Card className="mb-6 p-8 rounded-lg border-t-4 space-y-6" style={{ borderTopColor: 'hsl(var(--skandia-gold))', borderColor: 'hsl(var(--border))' }}>
+      {formData.hasBono &&
+      <Card className="mb-6 p-8 rounded-lg border-t-4 space-y-6" style={{ borderTopColor: 'hsl(var(--skandia-gold))', borderColor: 'hsl(var(--border))' }}>
           <div className="flex items-center gap-3 flex-wrap">
-            <h3 className="text-lg font-bold font-display text-foreground">PACK — enviar el bono al PAC antes de recibirlo</h3>
+            <h3 className="text-lg font-bold font-display text-foreground">PAC — enviar el bono al PAC antes de recibirlo</h3>
             <Badge className="bg-skandia-gold-light text-foreground border-skandia-gold-border text-xs">Mayor impacto posible</Badge>
           </div>
 
           <SkandiaTooltip color="amber" content="¿Cómo funciona el PACK? Cuando envías tu bono al Fondo Voluntario de Pensión antes de recibirlo, ese valor no aparece en tu certificado de ingresos y retenciones. No paga impuesto de renta ni retención en la fuente en el año en que se recibe. Es la estrategia con mayor impacto para reducir tu declaración." />
 
           <div className="flex items-center justify-between">
-            <p className="font-medium text-foreground">¿Quieres evaluar el impacto del PACK con tu bono?</p>
+            <p className="font-medium text-foreground">¿Quieres evaluar el impacto del PAC con tu bono?</p>
             <Switch checked={formData.usePACK} onCheckedChange={(v) => update({ usePACK: v })} />
           </div>
           <SkandiaTooltip color="blue" content="El simulador te muestra los dos escenarios — con PACK y sin PACK — para que evalúes con números reales y tomes la decisión que más te convenga." />
         </Card>
-      )}
+      }
 
       {/* Card 9: FVP individual / AFC */}
       <Card className="skandia-card space-y-6 mb-6">
@@ -93,23 +93,23 @@ const Step3FVP = ({ formData, setFormData, onNext, onBack }: Step3Props) => {
           <Switch checked={formData.hasFVP} onCheckedChange={(v) => update({ hasFVP: v })} />
         </div>
 
-        {formData.hasFVP && (
-          <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="space-y-6 pt-4 border-t border-border">
+        {formData.hasFVP &&
+        <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="space-y-6 pt-4 border-t border-border">
             <CurrencyInput
-              label="¿Cuánto aportaste al FVP en 2026? (total del año)"
-              hint="Suma todos los aportes al FVP Skandia individual. Lo encuentras en tu extracto o en el portal de clientes."
-              value={formData.fvpTotal}
-              onChange={(v) => update({ fvpTotal: v })}
-            />
+            label="¿Cuánto aportaste al FVP en 2026? (total del año)"
+            hint="Suma todos los aportes al FVP Skandia individual. Lo encuentras en tu extracto o en el portal de clientes."
+            value={formData.fvpTotal}
+            onChange={(v) => update({ fvpTotal: v })} />
+          
             <CurrencyInput
-              label="¿Cuánto aportaste a cuenta AFC en 2026? (total del año)"
-              hint="Si tienes una cuenta AFC en una entidad financiera, ingresa el total aportado. Si no tienes AFC, deja en cero."
-              value={formData.afcTotal}
-              onChange={(v) => update({ afcTotal: v })}
-            />
+            label="¿Cuánto aportaste a cuenta AFC en 2026? (total del año)"
+            hint="Si tienes una cuenta AFC en una entidad financiera, ingresa el total aportado. Si no tienes AFC, deja en cero."
+            value={formData.afcTotal}
+            onChange={(v) => update({ afcTotal: v })} />
+          
             <SkandiaTooltip color="blue" content="Art. 126-1 y 126-4 ET: FVP + AFC + PAC comparten el mismo cupo — hasta el 30% de tu ingreso anual o $199.021.200 (3.800 UVT), lo que sea menor. El simulador calcula automáticamente cuánto te queda disponible." />
           </motion.div>
-        )}
+        }
       </Card>
 
       <div className="flex justify-between mt-8">
@@ -120,8 +120,8 @@ const Step3FVP = ({ formData, setFormData, onNext, onBack }: Step3Props) => {
           Ver mi panorama <ChevronRight className="ml-2 w-4 h-4" />
         </Button>
       </div>
-    </motion.div>
-  );
+    </motion.div>);
+
 };
 
 export default Step3FVP;
