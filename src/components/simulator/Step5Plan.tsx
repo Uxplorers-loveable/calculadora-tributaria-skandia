@@ -52,10 +52,10 @@ const Step5Plan = ({ formData, setFormData, results, onBack }: Step5Props) => {
             Si quieres distribuirlo, son ${formatCOP(aporteMensual)} al mes durante {mesesRestantes} meses
           </p>
           <div className="flex flex-col sm:flex-row gap-3">
-            <Button variant="outline" className="h-12 px-6 font-semibold rounded-full border-white/80 hover:bg-white/10" style={{ color: 'white', borderColor: 'rgba(255,255,255,0.8)' }}>
+            <Button variant="outline" className="h-12 px-6 font-semibold rounded-full bg-transparent border-white/80 hover:bg-white/10" style={{ color: 'white', borderColor: 'rgba(255,255,255,0.8)' }}>
               Explorar cómo programar mis aportes
             </Button>
-            <Button variant="outline" className="h-12 px-6 rounded-full border-white/80 hover:bg-white/10" style={{ color: 'white', borderColor: 'rgba(255,255,255,0.8)' }}>
+            <Button variant="outline" className="h-12 px-6 rounded-full bg-transparent border-white/80 hover:bg-white/10" style={{ color: 'white', borderColor: 'rgba(255,255,255,0.8)' }}>
               Hablar con mi Financial Planner
             </Button>
           </div>
