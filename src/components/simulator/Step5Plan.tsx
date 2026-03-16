@@ -55,7 +55,7 @@ const Step5Plan = ({ formData, setFormData, results, onBack }: Step5Props) => {
             <Button className="h-12 px-6 bg-card text-primary hover:bg-grey-100 font-semibold rounded-full">
               Explorar cómo programar mis aportes
             </Button>
-            <Button variant="outline" className="h-12 px-6 border-primary-foreground/30 hover:bg-primary-foreground/10" style={{ color: 'white', borderColor: 'rgba(255,255,255,0.3)' }}>
+            <Button variant="outline" className="h-12 px-6 border-primary-foreground/30 hover:bg-primary-foreground/10 rounded-full" style={{ color: 'white', borderColor: 'rgba(255,255,255,0.3)' }}>
               Hablar con mi Financial Planner
             </Button>
           </div>
