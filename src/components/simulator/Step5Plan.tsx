@@ -45,7 +45,7 @@ const Step5Plan = ({ formData, setFormData, results, onBack }: Step5Props) => {
           <p className="text-sm mb-6 opacity-90" style={{ color: 'white' }}>
             Aprovechando el cupo disponible en tu Fondo Voluntario de Pensión, puedes reducir tu impuesto de renta en ${formatCOP(results.ahorroTopup)}.
           </p>
-          <p className="text-4xl font-bold font-display mb-2" style={{ color: 'hsl(356 80% 85%)' }}>
+          <p className="text-4xl font-bold font-display mb-2" style={{ color: 'hsl(145 80% 85%)' }}>
             ${formatCOP(results.topup)}
           </p>
           <p className="text-sm mb-8 opacity-80" style={{ color: 'white' }}>
