@@ -38,7 +38,7 @@ const Step5Plan = ({ formData, setFormData, results, onBack }: Step5Props) => {
 
       {/* Hero CTA Banner */}
       {results.topup > 0 && (
-        <div className="rounded-2xl p-8 mb-8" style={{ background: 'linear-gradient(135deg, hsl(356 90% 35%), hsl(356 95% 46%))' }}>
+        <div className="rounded-2xl p-8 mb-8" style={{ background: 'linear-gradient(135deg, hsl(145 100% 24%), hsl(145 100% 39%))' }}>
           <h2 className="text-xl font-bold font-display mb-2" style={{ color: 'white' }}>
             Este es tu potencial de ahorro tributario en 2026
           </h2>
