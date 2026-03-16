@@ -107,7 +107,7 @@ const Step5Plan = ({ formData, setFormData, results, onBack }: Step5Props) => {
                   color="green"
                   content="Con este plan, al cierre de diciembre de 2026 habrás aprovechado tu máximo beneficio tributario disponible. Tu Financial Planner Skandia se comunica contigo para acompañarte en los siguientes pasos."
                 />
-                <Button className="mt-6 bg-primary hover:bg-skandia-red-dark text-primary-foreground h-12 px-8">
+                <Button className="mt-6 bg-primary hover:bg-skandia-green-dark text-primary-foreground h-12 px-8 rounded-full">
                   Confirmar y notificar a mi Financial Planner
                 </Button>
               </div>

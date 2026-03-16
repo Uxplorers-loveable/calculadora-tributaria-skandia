@@ -289,7 +289,7 @@ const Step4Results = ({ formData, results, onNext, onBack }: Step4Props) => {
         <Button variant="ghost" onClick={onBack} className="h-12 text-muted-foreground">
           <ChevronLeft className="mr-2 w-4 h-4" /> Ajustar mis datos
         </Button>
-        <Button onClick={onNext} className="bg-primary hover:bg-skandia-red-dark text-primary-foreground h-12 px-8">
+        <Button onClick={onNext} className="bg-primary hover:bg-skandia-green-dark text-primary-foreground h-12 px-8 rounded-full">
           Ver mi plan <ChevronRight className="ml-2 w-4 h-4" />
         </Button>
       </div>
