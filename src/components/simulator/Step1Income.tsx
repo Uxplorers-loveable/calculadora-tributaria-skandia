@@ -194,7 +194,7 @@ const Step1Income = ({ formData, setFormData, totalIngresos, onNext }: Step1Prop
           <p className="text-2xl font-bold font-display">${formatCOP(totalIngresos)}</p>
           <p className="text-xs text-grey-400 mt-1">Salario {formData.tipo === 'Integral' ? '× 12' : '× 14.12'} meses + auxilios + variable + bono</p>
         </div>
-        <Button onClick={onNext} className="bg-primary hover:bg-skandia-red-dark text-primary-foreground h-12 px-8">
+        <Button onClick={onNext} className="bg-primary hover:bg-skandia-green-dark text-primary-foreground h-12 px-8 rounded-full">
           Continuar <ChevronRight className="ml-2 w-4 h-4" />
         </Button>
       </div>

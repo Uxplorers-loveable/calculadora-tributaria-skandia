@@ -38,24 +38,24 @@ const Step5Plan = ({ formData, setFormData, results, onBack }: Step5Props) => {
 
       {/* Hero CTA Banner */}
       {results.topup > 0 && (
-        <div className="rounded-2xl p-8 mb-8" style={{ background: 'linear-gradient(135deg, hsl(356 90% 35%), hsl(356 95% 46%))' }}>
+        <div className="rounded-2xl p-8 mb-8" style={{ background: 'linear-gradient(135deg, hsl(145 100% 24%), hsl(145 100% 39%))' }}>
           <h2 className="text-xl font-bold font-display mb-2" style={{ color: 'white' }}>
             Este es tu potencial de ahorro tributario en 2026
           </h2>
           <p className="text-sm mb-6 opacity-90" style={{ color: 'white' }}>
             Aprovechando el cupo disponible en tu Fondo Voluntario de Pensión, puedes reducir tu impuesto de renta en ${formatCOP(results.ahorroTopup)}.
           </p>
-          <p className="text-4xl font-bold font-display mb-2" style={{ color: 'hsl(356 80% 85%)' }}>
+          <p className="text-4xl font-bold font-display mb-2" style={{ color: 'hsl(145 80% 85%)' }}>
             ${formatCOP(results.topup)}
           </p>
           <p className="text-sm mb-8 opacity-80" style={{ color: 'white' }}>
             Si quieres distribuirlo, son ${formatCOP(aporteMensual)} al mes durante {mesesRestantes} meses
           </p>
           <div className="flex flex-col sm:flex-row gap-3">
-            <Button className="h-12 px-6 bg-card text-primary hover:bg-grey-100 font-semibold">
+            <Button className="h-12 px-6 bg-card text-primary hover:bg-grey-100 font-semibold rounded-full">
               Explorar cómo programar mis aportes
             </Button>
-            <Button variant="outline" className="h-12 px-6 border-primary-foreground/30 hover:bg-primary-foreground/10" style={{ color: 'white', borderColor: 'rgba(255,255,255,0.3)' }}>
+            <Button variant="outline" className="h-12 px-6 border-primary-foreground/30 hover:bg-primary-foreground/10 rounded-full" style={{ color: 'white', borderColor: 'rgba(255,255,255,0.3)' }}>
               Hablar con mi Financial Planner
             </Button>
           </div>
@@ -107,7 +107,7 @@ const Step5Plan = ({ formData, setFormData, results, onBack }: Step5Props) => {
                   color="green"
                   content="Con este plan, al cierre de diciembre de 2026 habrás aprovechado tu máximo beneficio tributario disponible. Tu Financial Planner Skandia se comunica contigo para acompañarte en los siguientes pasos."
                 />
-                <Button className="mt-6 bg-primary hover:bg-skandia-red-dark text-primary-foreground h-12 px-8">
+                <Button className="mt-6 bg-primary hover:bg-skandia-green-dark text-primary-foreground h-12 px-8 rounded-full">
                   Confirmar y notificar a mi Financial Planner
                 </Button>
               </div>
