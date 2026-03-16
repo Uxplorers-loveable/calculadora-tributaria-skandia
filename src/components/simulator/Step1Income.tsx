@@ -140,7 +140,7 @@ const Step1Income = ({ formData, setFormData, totalIngresos, onNext }: Step1Prop
                 </div>
                 <SkandiaTooltip
                   color="amber"
-                  content="¿Qué es el PACK? Es una estrategia que te permite enviar tu bono al Fondo Voluntario de Pensión antes de recibirlo. Cuando lo haces, ese valor no aparece en tu certificado de ingresos y retenciones — no paga impuesto de renta ese año. Más adelante te mostramos en pesos cuánto representaría este beneficio para ti."
+                  content="¿Qué es el PAC? Es una estrategia que te permite enviar tu bono al Fondo Voluntario de Pensión antes de recibirlo. Cuando lo haces, ese valor no aparece en tu certificado de ingresos y retenciones — no paga impuesto de renta ese año. Más adelante te mostramos en pesos cuánto representaría este beneficio para ti."
                 />
               </motion.div>
             )}
