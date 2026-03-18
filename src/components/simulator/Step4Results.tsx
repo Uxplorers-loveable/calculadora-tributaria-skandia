@@ -135,7 +135,7 @@ const Step4Results = ({ formData, results, onNext, onBack }: Step4Props) => {
 
       {/* Hero metrics */}
       <div className="skandia-hero-dark p-8 mb-8">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className={`grid gap-6 ${hasFE ? 'grid-cols-1 sm:grid-cols-2 xl:grid-cols-4' : 'grid-cols-1 md:grid-cols-3'}`}>
           <div>
             <Wallet className="w-5 h-5 mb-2 text-skandia-gold" />
             <p className="text-xs text-grey-400 mb-1">Cupo disponible FVP</p>
