@@ -3,7 +3,6 @@ import { ChevronLeft, CheckCircle2, AlertTriangle, XCircle, TrendingUp, Wallet, 
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Progress } from '@/components/ui/progress';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import SamiBubble from './SamiBubble';
 import { FormData } from '@/lib/simulator-types';
@@ -168,28 +167,6 @@ const Step4Results = ({ formData, results, onBack }: Step4Props) => {
         )}
       </div>
 
-      <Card className="skandia-card space-y-4 mb-8 border-primary/20">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <div className="space-y-1">
-            <div className="flex items-center gap-2 text-primary">
-              <MessageCircle className="w-5 h-5" />
-              <p className="font-bold font-display">Contacta a tu Asesor comercial</p>
-            </div>
-            <p className="text-sm text-muted-foreground">
-              {results.topup > 0
-                ? 'Ya tienes tu panorama tributario. El siguiente paso es hablar con tu Asesor comercial para revisar las opciones disponibles contigo.'
-                : 'Ya terminaste la calculadora. Si quieres revisar alternativas o resolver dudas, tu Asesor comercial puede ayudarte.'}
-            </p>
-          </div>
-          <Button
-            onClick={() => window.open('https://inversiones.skandia.com.co/asesoria', '_blank', 'noopener,noreferrer')}
-            className="bg-primary hover:bg-skandia-green-dark text-primary-foreground h-12 px-8 rounded-full"
-          >
-            Contactar a mi Asesor comercial
-          </Button>
-        </div>
-      </Card>
-
       <Card className="skandia-card space-y-8 mb-8">
         <MeterBar label="Cupo global de deducciones — 1.340 UVT" used={results.dedAdmis} max={results.maxBeneficio} />
         <div className="border-t border-border pt-8">
@@ -301,11 +278,33 @@ const Step4Results = ({ formData, results, onBack }: Step4Props) => {
         </CollapsibleContent>
       </Collapsible>
 
-      <div className="flex justify-start">
+      <div className="flex justify-start mb-8">
         <Button variant="ghost" onClick={onBack} className="h-12 text-muted-foreground">
           <ChevronLeft className="mr-2 w-4 h-4" /> Ajustar mis datos
         </Button>
       </div>
+
+      <Card className="skandia-card space-y-4 border-primary/20">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div className="space-y-1">
+            <div className="flex items-center gap-2 text-primary">
+              <MessageCircle className="w-5 h-5" />
+              <p className="font-bold font-display">Contacta a tu Asesor comercial</p>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              {results.topup > 0
+                ? 'Ya tienes tu panorama tributario. El siguiente paso es hablar con tu Asesor comercial para revisar las opciones disponibles contigo.'
+                : 'Ya terminaste la calculadora. Si quieres revisar alternativas o resolver dudas, tu Asesor comercial puede ayudarte.'}
+            </p>
+          </div>
+          <Button
+            onClick={() => window.open('https://inversiones.skandia.com.co/asesoria', '_blank', 'noopener,noreferrer')}
+            className="bg-primary hover:bg-skandia-green-dark text-primary-foreground h-12 px-8 rounded-full"
+          >
+            Contactar a mi Asesor comercial
+          </Button>
+        </div>
+      </Card>
     </motion.div>
   );
 };
