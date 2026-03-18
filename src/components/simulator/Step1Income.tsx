@@ -7,7 +7,6 @@ import { Switch } from '@/components/ui/switch';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import SamiBubble from './SamiBubble';
 import SkandiaTooltip from './SkandiaTooltip';
 import CurrencyInput from './CurrencyInput';
 import { FormData } from '@/lib/simulator-types';
@@ -42,17 +41,14 @@ const Step1Income = ({ formData, setFormData, totalIngresos, onNext }: Step1Prop
   };
 
   return (
-    <motion.div key="step1" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
-      <SamiBubble text="Hola 👋 Esta herramienta te ayuda a entender cuánto puedes optimizar en tu declaración de renta 2027, usando los beneficios tributarios disponibles para el año gravable 2026. Para empezar, cuéntame sobre tus ingresos. Si tienes tu desprendible de nómina a la mano, mejor — muchos de estos datos están ahí." />
-
-      {/* Card 1: Tu salario */}
+    <motion.div key="step1" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }} className="space-y-6">
       <Card className="skandia-card space-y-8 mb-6">
-        <h3 className="text-lg font-bold font-display text-foreground">Tu salario</h3>
+        <h2 className="text-lg font-bold font-display text-foreground">Tus ingresos</h2>
         <div className="grid md:grid-cols-2 gap-8">
-          <div>
+          <div data-sami-key="income_salary">
             <CurrencyInput
               label="Salario básico mensual *"
-              hint="El valor base que aparece en tu desprendible, antes de cualquier descuento. No incluyas auxilios ni comisiones — esos los preguntamos por separado."
+              hint="Tu salario base antes de descuentos. Si recibes otros ingresos, los veremos más abajo."
               value={formData.salMensual}
               onChange={(v) => update({ salMensual: v })}
             />
@@ -64,7 +60,7 @@ const Step1Income = ({ formData, setFormData, totalIngresos, onNext }: Step1Prop
             )}
           </div>
 
-          <div className="space-y-2">
+          <div data-sami-key="income_salary_type" className="space-y-2">
             <Label className="text-sm font-semibold text-grey-600 font-display">Tipo de salario</Label>
             <Select value={formData.tipo} onValueChange={(v) => update({ tipo: v as 'Ordinario' | 'Integral' })}>
               <SelectTrigger className="h-12">
@@ -72,33 +68,32 @@ const Step1Income = ({ formData, setFormData, totalIngresos, onNext }: Step1Prop
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="Ordinario">Ordinario – recibo prima y cesantías</SelectItem>
-                <SelectItem value="Integral">Integral– no recibo prima ni cesantías, están incluidas en el salario</SelectItem>
+                <SelectItem value="Integral">Integral – todo va incluido en el salario</SelectItem>
               </SelectContent>
             </Select>
-            <p className="text-xs text-muted-foreground">Esto cambia cómo calculamos tu ingreso anual y tu base de seguridad social.</p>
+            <p className="text-xs text-muted-foreground">Esto nos ayuda a proyectar tu ingreso anual correctamente.</p>
           </div>
         </div>
 
         <SkandiaTooltip
           color="blue"
-          content="¿Cómo sé cuál es el mío? El salario integral aplica cuando ganas más de 13 salarios mínimos (~$22.7M) y tu contrato lo dice expresamente. Si eres comercial con comisiones altas, probablemente eres ordinario aunque superes ese valor. ¿Por qué importa? El salario ordinario se multiplica × 14.12 para calcular el ingreso anual (incluye prima y cesantías). El integral se multiplica × 12."
+          content="Si tu contrato dice salario integral, elige esa opción. Si no, normalmente corresponde a salario ordinario."
         />
 
         <div className="space-y-6 pt-6 border-t border-border">
-          {/* Auxilios */}
-          <div>
+          <div data-sami-key="income_auxilios">
             <div className="flex items-center justify-between mb-2">
               <div>
                 <p className="font-medium text-foreground">¿Recibes auxilios?</p>
-                <p className="text-xs text-muted-foreground">Los auxilios son ingreso gravado — pagas impuesto sobre ellos — pero no entran a la base de seguridad social.</p>
+                <p className="text-xs text-muted-foreground">Por ejemplo, alimentación, conectividad o movilización.</p>
               </div>
               <Switch checked={formData.hasAuxilios} onCheckedChange={(v) => update({ hasAuxilios: v, auxMensual: v ? formData.auxMensual : 0 })} />
             </div>
             {formData.hasAuxilios && (
               <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="mt-4">
                 <CurrencyInput
-                  label="¿Cuánto recibes en auxilios al mes, en promedio?"
-                  hint="Si varía según festivos, usa un promedio. Ingresa el valor mensual — lo multiplicamos × 12 automáticamente."
+                  label="¿Cuánto recibes al mes en auxilios?"
+                  hint="Si cambia mes a mes, usa un promedio."
                   value={formData.auxMensual}
                   onChange={(v) => update({ auxMensual: v })}
                 />
@@ -106,20 +101,19 @@ const Step1Income = ({ formData, setFormData, totalIngresos, onNext }: Step1Prop
             )}
           </div>
 
-          {/* Variables */}
-          <div>
+          <div data-sami-key="income_variable">
             <div className="flex items-center justify-between mb-2">
               <div>
                 <p className="font-medium text-foreground">¿Recibes comisiones o ingresos variables?</p>
-                <p className="text-xs text-muted-foreground">Las comisiones sí cuentan como salario — afectan tu base de seguridad social y tu ingreso gravable.</p>
+                <p className="text-xs text-muted-foreground">Si una parte de tu ingreso cambia, aquí puedes incluirla.</p>
               </div>
               <Switch checked={formData.hasVariable} onCheckedChange={(v) => update({ hasVariable: v, variableAnual: v ? formData.variableAnual : 0 })} />
             </div>
             {formData.hasVariable && (
               <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="mt-4">
                 <CurrencyInput
-                  label="¿Cuánto estimas recibir al mes en comisiones o variable?"
-                  hint="Ingresa un promedio mensual. Nosotros lo multiplicamos × 12 automáticamente para calcular el total anual."
+                  label="¿Cuánto recibes al mes en promedio?"
+                  hint="Usa un promedio mensual para proyectar el total del año."
                   value={formData.variableAnual}
                   onChange={(v) => update({ variableAnual: v })}
                 />
@@ -127,12 +121,11 @@ const Step1Income = ({ formData, setFormData, totalIngresos, onNext }: Step1Prop
             )}
           </div>
 
-          {/* Bono */}
-          <div>
+          <div data-sami-key="income_bono">
             <div className="flex items-center justify-between mb-2">
               <div>
                 <p className="font-medium text-foreground">¿Recibes bonificación anual?</p>
-                <p className="text-xs text-muted-foreground">Por ejemplo: bono de desempeño, bono de fin de año o participación en utilidades.</p>
+                <p className="text-xs text-muted-foreground">Por ejemplo, bono de desempeño, fin de año o utilidades.</p>
               </div>
               <Switch checked={formData.hasBono} onCheckedChange={(v) => update({ hasBono: v, bonoAnual: v ? formData.bonoAnual : 0 })} />
             </div>
@@ -140,12 +133,12 @@ const Step1Income = ({ formData, setFormData, totalIngresos, onNext }: Step1Prop
               <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="mt-4 space-y-4">
                 <div className="grid md:grid-cols-2 gap-4">
                   <CurrencyInput
-                    label="¿Cuál es el valor mensual equivalente de tu bono?"
-                    hint="Ingresa el promedio mensual equivalente. Nosotros lo multiplicamos × 12 automáticamente para el cálculo anual."
+                    label="Valor mensual equivalente de tu bono"
+                    hint="Usa un promedio mensual equivalente para hacer la proyección anual."
                     value={formData.bonoAnual}
                     onChange={(v) => update({ bonoAnual: v })}
                   />
-                  <div className="space-y-2">
+                  <div data-sami-key="income_bonus_type" className="space-y-2">
                     <Label className="text-sm font-semibold text-grey-600 font-display">¿Es un bono salarial?</Label>
                     <Select value={formData.bonoEsSalarial ? 'si' : 'no'} onValueChange={(v) => update({ bonoEsSalarial: v === 'si' })}>
                       <SelectTrigger className="h-12">
@@ -156,12 +149,12 @@ const Step1Income = ({ formData, setFormData, totalIngresos, onNext }: Step1Prop
                         <SelectItem value="si">Salarial</SelectItem>
                       </SelectContent>
                     </Select>
-                    <p className="text-xs text-muted-foreground">Tu empresa debe indicártelo. Si es salarial, paga seguridad social. El bono Skandia, por ejemplo, no es salarial.</p>
+                    <p className="text-xs text-muted-foreground">Si no estás seguro, puedes validarlo con tu empresa.</p>
                   </div>
                 </div>
                 <SkandiaTooltip
                   color="amber"
-                  content="¿Qué es el PAC? Es una estrategia que te permite enviar tu bono al Fondo Voluntario de Pensión antes de recibirlo. Cuando lo haces, ese valor no aparece en tu certificado de ingresos y retenciones — no paga impuesto de renta ese año. Más adelante te mostramos en pesos cuánto representaría este beneficio para ti."
+                  content="El PAC es una forma de llevar parte de tu bono a ahorro pensional voluntario. Eso puede ayudarte a pagar menos impuesto y a construir patrimonio al mismo tiempo."
                 />
               </motion.div>
             )}
@@ -169,8 +162,7 @@ const Step1Income = ({ formData, setFormData, totalIngresos, onNext }: Step1Prop
         </div>
       </Card>
 
-      {/* Card 2: Fondo de pensiones */}
-      <Card className="skandia-card space-y-6 mb-6">
+      <Card data-sami-key="income_pension" className="skandia-card space-y-6 mb-6">
         <h3 className="text-lg font-bold font-display text-foreground">Tu fondo de pensiones</h3>
         <div className="space-y-2">
           <Label className="text-sm font-semibold text-grey-600 font-display">¿En qué fondo estás?</Label>
@@ -183,39 +175,38 @@ const Step1Income = ({ formData, setFormData, totalIngresos, onNext }: Step1Prop
               <SelectItem value="Colpensiones">Colpensiones</SelectItem>
             </SelectContent>
           </Select>
-          <p className="text-xs text-muted-foreground">Fondos privados: Skandia, Porvenir, Protección, Colfondos. Fondo público: Colpensiones.</p>
+          <p className="text-xs text-muted-foreground">Esto nos ayuda a ubicar correctamente tus aportes dentro del simulador.</p>
         </div>
 
-        <div>
+        <div data-sami-key="income_voluntary">
           <div className="flex items-center justify-between mb-2">
             <div>
               <p className="font-medium text-foreground">¿Haces aportes voluntarios a tu fondo obligatorio?</p>
-              <p className="text-xs text-muted-foreground">Solo aplica si estás en fondo privado. Son aportes adicionales al 4% obligatorio, con un beneficio tributario diferente al del FVP.</p>
+              <p className="text-xs text-muted-foreground">Si ya haces aportes extra, aquí los incluimos en tu panorama.</p>
             </div>
             <Switch checked={formData.hasVolOblig} onCheckedChange={(v) => update({ hasVolOblig: v, volObligAnual: v ? formData.volObligAnual : 0 })} />
           </div>
           {formData.hasVolOblig && (
             <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="mt-4">
               <CurrencyInput
-                label="¿Cuánto aportas al mes al fondo obligatorio de manera voluntaria?"
-                hint="Ingresa tu aporte mensual promedio. Nosotros lo multiplicamos × 12 automáticamente. Este beneficio tiene su propio cupo independiente — no comparte tope con el FVP ni el AFC. Máximo: 25% de tu ingreso anual o $130.935.000 (2.500 UVT), lo que sea menor."
+                label="¿Cuánto aportas al mes de manera voluntaria?"
+                hint="Ingresa tu promedio mensual."
                 value={formData.volObligAnual}
                 onChange={(v) => update({ volObligAnual: v })}
               />
-              <SkandiaTooltip color="green" content="Art. 55 ET: estos aportes son ingreso no constitutivo de renta — se restan de tus ingresos brutos antes de calcular cualquier otra cosa." />
+              <SkandiaTooltip color="green" content="Estos aportes tienen un beneficio tributario diferente al del FVP y se calculan por separado." />
             </motion.div>
           )}
         </div>
       </Card>
 
-      {/* Summary bar */}
-      <div className="skandia-hero-dark p-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+      <div className="skandia-hero-dark sticky top-20 z-30 p-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <p className="text-grey-400 text-sm">Tu ingreso bruto anual estimado 2026</p>
+          <p className="text-grey-400 text-sm">Resumen consolidado</p>
           <p className="text-2xl font-bold font-display">${formatCOP(totalIngresos)}</p>
-          <p className="text-xs text-grey-400 mt-1">Salario {formData.tipo === 'Integral' ? '× 12' : '× 14.12'} meses + auxilios + variable + bono</p>
+          <p className="text-xs text-grey-400 mt-1">Tu ingreso bruto anual estimado para 2026</p>
         </div>
-        <Button onClick={handleNext} className="bg-primary hover:bg-skandia-green-dark text-primary-foreground h-12 px-8 rounded-full">
+        <Button onClick={handleNext} className="bg-primary hover:bg-primary/90 text-primary-foreground h-12 px-8 rounded-full">
           Continuar <ChevronRight className="ml-2 w-4 h-4" />
         </Button>
       </div>
