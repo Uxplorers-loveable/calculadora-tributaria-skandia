@@ -4,6 +4,7 @@ import { Card } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import SamiBubble from './SamiBubble';
 import SkandiaTooltip from './SkandiaTooltip';
 import CurrencyInput from './CurrencyInput';
 import { FormData } from '@/lib/simulator-types';
@@ -20,19 +21,21 @@ const Step3FVP = ({ formData, setFormData, onNext, onBack }: Step3Props) => {
 
   return (
     <motion.div key="step3" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
+      <SamiBubble text="Aquí está el mayor potencial de optimización. El Fondo Voluntario de Pensión y el PAC Skandia son los instrumentos que más impactan tu declaración de renta. Cuéntame qué tienes activo hoy para calcular cuánto espacio te queda." />
+
       {/* Card 7: PAC */}
       <Card className="mb-6 p-8 rounded-lg border-t-4 space-y-6" style={{ borderTopColor: 'hsl(var(--skandia-gold))', borderColor: 'hsl(var(--border))' }}>
         <div className="flex items-center gap-3 flex-wrap">
           <h3 className="text-lg font-bold font-display text-foreground">Plan de Ahorro Corporativo (PAC) Skandia</h3>
-          <Badge className="bg-skandia-gold-light text-foreground border-skandia-gold-border text-xs">Potencial estratégico</Badge>
+          <Badge className="bg-skandia-gold-light text-foreground border-skandia-gold-border text-xs">Beneficio exclusivo</Badge>
         </div>
 
-        <SkandiaTooltip color="amber" content="El PAC conecta aportes de tu empresa y aportes tuyos dentro del Fondo Voluntario de Pensión. En la práctica, convierte parte de tu compensación en una estrategia que puede mejorar la eficiencia tributaria mientras fortalece tu patrimonio." />
+        <SkandiaTooltip color="amber" content="El PAC es un programa donde tu empresa hace aportes a tu nombre dentro del Fondo Voluntario de Pensión Skandia. Tú también puedes hacer aportes adicionales. El beneficio tributario es el mismo que el del FVP individual — y el aporte de tu empresa también es deducible para ella. (Art. 126-1 ET)" />
 
         <div className="flex items-center justify-between">
           <div>
             <p className="font-medium text-foreground">¿Tu empresa tiene un PAC Skandia activo para ti?</p>
-            <p className="text-xs text-muted-foreground">Si no lo tienes claro, puedes revisarlo en tu extracto o conversarlo con tu área de RR. HH. o con tu wealth planner.</p>
+            <p className="text-xs text-muted-foreground">Si no estás seguro, revisa tu extracto del Fondo Voluntario Skandia o consulta con tu área de RR.HH. o Financial Planner.</p>
           </div>
           <Switch checked={formData.hasPAC} onCheckedChange={(v) => update({ hasPAC: v })} />
         </div>
@@ -41,41 +44,41 @@ const Step3FVP = ({ formData, setFormData, onNext, onBack }: Step3Props) => {
         <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="space-y-6 pt-4 border-t border-border">
             <CurrencyInput
             label="¿Cuánto aporta tu empresa al PAC cada mes?"
-            hint="Ingresa el aporte mensual y nosotros proyectamos su impacto anual."
+            hint="Ingresa el aporte mensual. Nosotros lo multiplicamos × 12 automáticamente para el cálculo anual."
             value={formData.pacEmpresa}
             onChange={(v) => update({ pacEmpresa: v })} />
-
+          
             <CurrencyInput
-            label="¿Cuánto aportas tú adicionalmente al PAC cada mes?"
-            hint="Ingresa tu aporte mensual promedio y nosotros calculamos la proyección anual."
+            label="¿Y tú cuánto aportas adicional al PAC cada mes?"
+            hint="Ingresa tu aporte mensual promedio. Nosotros lo multiplicamos × 12 automáticamente."
             value={formData.pacPropio}
             onChange={(v) => update({ pacPropio: v })} />
-
+          
             <CurrencyInput
             label="¿Cuánto tienes acumulado en el PAC hoy?"
-            hint="Este saldo nos ayuda a conectar tu situación actual con una conversación más completa sobre tu patrimonio."
+            hint="El saldo total a la fecha. Lo encuentras en el portal de clientes o en tu último extracto mensual."
             value={formData.pacSaldo}
             onChange={(v) => update({ pacSaldo: v })} />
-
-            <SkandiaTooltip color="green" content="PAC, FVP y AFC comparten el mismo cupo tributario. Por eso es tan valioso verlo en conjunto: no se trata solo de aportar más, sino de decidir mejor cómo usar tu espacio disponible." />
+          
+            <SkandiaTooltip color="green" content="¿Cómo funciona el beneficio tributario del PAC? Los aportes de tu empresa son deducibles para ella (hasta 3.800 UVT por empleado). Los tuyos cuentan como renta exenta para ti — igual que el FVP. Ambos comparten el cupo de 30% del ingreso / 3.800 UVT." />
           </motion.div>
         }
 
         {formData.hasBono && (
           <div className="space-y-4 pt-4 border-t border-border">
             <div className="flex items-center justify-between gap-4">
-              <p className="font-medium text-foreground">¿Quieres ver cómo cambiaría tu panorama si conectas tu bono con el PAC?</p>
+              <p className="font-medium text-foreground">¿Quieres evaluar el impacto del PAC con tu bono?</p>
               <Switch checked={formData.usePACK} onCheckedChange={(v) => update({ usePACK: v })} />
             </div>
-            <SkandiaTooltip color="blue" content="Te mostramos ambos escenarios para que hagas tangible el impacto y entiendas con números reales cuánto puede cambiar tu resultado." />
+            <SkandiaTooltip color="blue" content="El simulador te muestra los dos escenarios — con PAC y sin PAC — para que evalúes con números reales y tomes la decisión que más te convenga." />
           </div>
         )}
       </Card>
 
       {/* Card 9: FVP individual / AFC */}
       <Card className="skandia-card space-y-6 mb-6">
-        <h3 className="text-lg font-bold font-display text-foreground">Tu ahorro voluntario también puede trabajar mejor</h3>
-        <p className="text-xs text-muted-foreground">El FVP y la AFC son vehículos que pueden ayudarte a optimizar impuestos mientras fortaleces tu estrategia de largo plazo.</p>
+        <h3 className="text-lg font-bold font-display text-foreground">¿Tienes FVP individual o cuenta AFC?</h3>
+        <p className="text-xs text-muted-foreground">El FVP es un ahorro voluntario en Skandia que puedes hacer de forma independiente a tu empleador. La AFC (Ahorro para el Fomento a la Construcción) es una cuenta de ahorro para vivienda con beneficio tributario equivalente.</p>
 
         <div className="flex items-center justify-between">
           <p className="font-medium text-foreground">¿Tienes aportes al FVP o AFC en 2026?</p>
@@ -86,17 +89,17 @@ const Step3FVP = ({ formData, setFormData, onNext, onBack }: Step3Props) => {
         <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="space-y-6 pt-4 border-t border-border">
             <CurrencyInput
             label="¿Cuánto aportas al mes al FVP?"
-            hint="Ingresa tu aporte mensual promedio y nosotros lo proyectamos al año."
+            hint="Ingresa tu aporte mensual promedio al FVP Skandia individual. Nosotros lo multiplicamos × 12 automáticamente."
             value={formData.fvpTotal}
             onChange={(v) => update({ fvpTotal: v })} />
-
+          
             <CurrencyInput
             label="¿Cuánto aportas al mes a cuenta AFC?"
-            hint="Si tienes AFC, ingresa tu promedio mensual. Si no, puedes dejarlo en cero."
+            hint="Si tienes una cuenta AFC en una entidad financiera, ingresa tu aporte mensual promedio. Si no tienes AFC, deja en cero. Nosotros lo multiplicamos × 12 automáticamente."
             value={formData.afcTotal}
             onChange={(v) => update({ afcTotal: v })} />
-
-            <SkandiaTooltip color="blue" content="Aquí no solo medimos un ahorro. También medimos cuánto más eficiente puede volverse tu capital cuando el beneficio tributario y la estrategia de inversión avanzan juntos." />
+          
+            <SkandiaTooltip color="blue" content="Art. 126-1 y 126-4 ET: FVP + AFC + PAC comparten el mismo cupo — hasta el 30% de tu ingreso anual o $199.021.200 (3.800 UVT), lo que sea menor. El simulador calcula automáticamente cuánto te queda disponible." />
           </motion.div>
         }
       </Card>
@@ -106,7 +109,7 @@ const Step3FVP = ({ formData, setFormData, onNext, onBack }: Step3Props) => {
           <ChevronLeft className="mr-2 w-4 h-4" /> Atrás
         </Button>
         <Button onClick={onNext} className="bg-primary hover:bg-skandia-green-dark text-primary-foreground h-12 px-8 rounded-full">
-          Descubrir mi panorama <ChevronRight className="ml-2 w-4 h-4" />
+          Ver mi panorama <ChevronRight className="ml-2 w-4 h-4" />
         </Button>
       </div>
     </motion.div>);

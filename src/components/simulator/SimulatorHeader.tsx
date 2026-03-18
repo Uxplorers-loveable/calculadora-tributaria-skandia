@@ -4,14 +4,14 @@ interface SimulatorHeaderProps {
   currentStep: number;
 }
 
-const STEP_LABELS = ['Tu capital hoy', 'Tu espacio tributario', 'Tu estrategia FVP', 'Tu panorama'];
+const STEP_LABELS = ['Tus ingresos', 'Tus deducciones', 'FVP y PAC', 'Tu panorama'];
 
 const SimulatorHeader = ({ currentStep }: SimulatorHeaderProps) => {
   const showProgress = currentStep > 0;
 
   return (
     <header className="bg-card border-b border-border sticky top-0 z-50">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:h-20 sm:px-6">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between gap-4">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 bg-skandia-green rounded-sm flex items-center justify-center">
             <svg width="18" height="18" viewBox="0 0 74 96" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -60,7 +60,7 @@ const SimulatorHeader = ({ currentStep }: SimulatorHeaderProps) => {
             </div>
           </>
         ) : (
-          <span className="text-sm font-medium text-muted-foreground">Tu punto de partida</span>
+          <span className="text-sm font-medium text-muted-foreground">Validación inicial</span>
         )}
       </div>
     </header>

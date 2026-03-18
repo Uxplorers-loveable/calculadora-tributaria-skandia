@@ -71,7 +71,7 @@ const Step4Results = ({ formData, results, onBack }: Step4Props) => {
 
   const scenarioChartConfig = {
     sinOptimizar: {
-      label: 'Escenario actual',
+      label: 'Sin optimizar',
       color: 'hsl(var(--grey-500))',
     },
     conPAC: {
@@ -79,37 +79,37 @@ const Step4Results = ({ formData, results, onBack }: Step4Props) => {
       color: 'hsl(var(--skandia-gold))',
     },
     fvpOptimo: {
-      label: 'Con FVP óptimo',
+      label: 'FVP óptimo',
       color: 'hsl(var(--primary))',
     },
   } satisfies ChartConfig;
 
   const samiMsg = results.topup > 0
-    ? `Este es tu panorama: hoy tienes una oportunidad real para que tu capital trabaje con mayor eficiencia. En tu escenario actual, tu impuesto estimado es de $${formatCOP(results.impNormal)}. Si aprovechas el cupo disponible en FVP por $${formatCOP(results.topup)}, tu impuesto estimado podría bajar a $${formatCOP(results.impTopup)} y generar un ahorro de $${formatCOP(results.ahorroTopup)}.${hasPACK ? ` Si además conectas tu PAC, el ahorro estimado asociado es de $${formatCOP(results.ahorroPAC)}.` : ''}${hasFE ? ` Tus compras con factura electrónica también pueden sumar hasta $${formatCOP(results.dedFE1)} adicionales por fuera del tope global.` : ''}`
-    : 'Tu panorama muestra que ya estás aprovechando casi todo el espacio tributario disponible para 2026. Ahora la conversación puede enfocarse en cómo seguir haciendo evolucionar tu portafolio con acompañamiento experto.';
+    ? `Aquí está tu panorama. Tu impuesto estimado sin optimizar es $${formatCOP(results.impNormal)}. Tienes $${formatCOP(results.topup)} de cupo disponible en el FVP — si lo usas, tu impuesto quedaría en $${formatCOP(results.impTopup)}, un ahorro de $${formatCOP(results.ahorroTopup)}.${hasPACK ? ` El PAC, adicionalmente, representa un ahorro de $${formatCOP(results.ahorroPAC)}.` : ''}${hasFE ? ` Y con tus compras con factura electrónica puedes descontar hasta $${formatCOP(results.dedFE1)} más — por fuera del tope global.` : ''}`
+    : 'Ya estás aprovechando prácticamente todo el cupo tributario disponible para 2026. Tu impuesto estimado es $' + formatCOP(results.impTopup) + '. Si quieres revisar nuevas oportunidades, tu Asesor comercial puede acompañarte.';
 
   const benefits = [
     {
-      icon: '🏥', name: 'Seguridad social y aportes voluntarios obligatorios',
+      icon: '🏥', name: 'Seguridad social y aportes vol. obligatorio',
       desc: `EPS $${formatCOP(results.eps)} + Pensión $${formatCOP(results.pension)} + FSP $${formatCOP(results.fsp)}`,
       used: results.incNoCons, max: results.incNoCons, article: 'Art. 55 ET',
       show: true
     },
     {
-      icon: '👨‍👩‍👧‍👦', name: 'Dependientes',
+      icon: '👨‍👩‍👧‍👦', name: 'Personas a cargo / dependientes',
       desc: `${formData.numDep} dependiente${formData.numDep !== 1 ? 's' : ''}`,
       used: results.dep, max: UVT * 32 * 12, article: 'Art. 387 ET',
       show: formData.numDep > 0
     },
     {
-      icon: '🏠', name: 'Intereses de vivienda',
+      icon: '🏠', name: 'Intereses crédito de vivienda',
       desc: 'Intereses pagados en 2026',
       used: results.hip, max: 100 * UVT * 12, article: 'Art. 119 ET',
       show: formData.hasHip
     },
     {
-      icon: '🏥', name: 'Salud complementaria',
-      desc: 'Medicina prepagada o seguro de salud',
+      icon: '🏥', name: 'Medicina prepagada o seguro de salud',
+      desc: 'Plan de salud complementario',
       used: results.salud, max: 16 * UVT * 12, article: 'Art. 387 ET',
       show: formData.hasSalud
     },
@@ -121,12 +121,12 @@ const Step4Results = ({ formData, results, onBack }: Step4Props) => {
     },
     {
       icon: '📊', name: 'FVP + AFC + PAC Skandia',
-      desc: 'Aportes voluntarios que pueden hacer más eficiente tu patrimonio',
+      desc: 'Aportes voluntarios con beneficio tributario',
       used: results.afc, max: results.topeFVP, article: 'Art. 126-1 y 126-4 ET',
       show: true
     },
     {
-      icon: '📋', name: 'Renta exenta laboral',
+      icon: '📋', name: 'Renta exenta por ingresos laborales 25%',
       desc: '25% de la renta líquida laboral',
       used: results.reLaboral, max: UVT * 790, article: 'Art. 206 num. 10 ET',
       show: true
@@ -139,7 +139,7 @@ const Step4Results = ({ formData, results, onBack }: Step4Props) => {
 
       <div className={`grid gap-4 mb-8 ${hasPACK ? 'md:grid-cols-3' : 'md:grid-cols-2'}`}>
         <Card className="p-6 bg-secondary border-border">
-          <p className="text-sm text-muted-foreground mb-1">Escenario actual</p>
+          <p className="text-sm text-muted-foreground mb-1">Sin optimizar</p>
           <p className="text-2xl font-bold font-display text-muted-foreground">${formatCOP(results.impNormal)}</p>
           <p className="text-[10px] uppercase tracking-wider mt-2 text-muted-foreground">Impuesto estimado 2026</p>
         </Card>
@@ -148,30 +148,30 @@ const Step4Results = ({ formData, results, onBack }: Step4Props) => {
           <Card className="p-6 border-skandia-gold-border bg-skandia-gold-light">
             <p className="text-sm font-medium mb-1 text-foreground">Con PAC</p>
             <p className="text-2xl font-bold font-display text-foreground">${formatCOP(results.impPAC)}</p>
-            <p className="text-[10px] uppercase tracking-wider mt-2 text-muted-foreground">Eficiencia estimada: ${formatCOP(results.ahorroPAC)}</p>
+            <p className="text-[10px] uppercase tracking-wider mt-2 text-muted-foreground">Ahorro: ${formatCOP(results.ahorroPAC)}</p>
           </Card>
         )}
 
         <Card className="p-6 shadow-lg bg-primary text-primary-foreground">
-          <p className="text-sm mb-1 opacity-80">Con FVP óptimo</p>
+          <p className="text-sm mb-1 opacity-80">FVP Óptimo</p>
           <p className="text-2xl font-bold font-display">${formatCOP(results.impTopup)}</p>
-          <p className="text-[10px] uppercase tracking-wider mt-2 opacity-80">Ahorro estimado: ${formatCOP(results.ahorroTopup)}</p>
+          <p className="text-[10px] uppercase tracking-wider mt-2 opacity-80">Ahorro: ${formatCOP(results.ahorroTopup)}</p>
         </Card>
       </div>
 
       <Card className="skandia-card mb-8 overflow-hidden">
         <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
           <div>
-            <p className="text-sm font-medium text-primary mb-1">Hazlo tangible</p>
-            <h3 className="text-xl font-bold font-display text-foreground">Cómo cambia tu panorama cuando tu capital trabaja mejor</h3>
+            <p className="text-sm font-medium text-primary mb-1">Visualízalo rápido</p>
+            <h3 className="text-xl font-bold font-display text-foreground">Comparativo de tu impuesto estimado</h3>
             <p className="text-sm text-muted-foreground mt-2 max-w-2xl">
-              Esta comparación convierte el cálculo en una decisión visible: te muestra cuánto puede cambiar tu impuesto cuando conectas beneficio tributario y estrategia de inversión.
+              Esta gráfica compara tu escenario actual frente a las alternativas optimizadas para que entiendas de inmediato el impacto potencial en tu impuesto.
             </p>
           </div>
           <div className="rounded-xl border border-border bg-secondary px-4 py-3">
             <p className="text-xs uppercase tracking-wider text-muted-foreground">Reducción estimada</p>
             <p className="text-2xl font-bold font-display text-primary">{Math.round(ahorroPct)}%</p>
-            <p className="text-xs text-muted-foreground">frente a tu escenario actual</p>
+            <p className="text-xs text-muted-foreground">vs. escenario sin optimizar</p>
           </div>
         </div>
 
@@ -205,59 +205,59 @@ const Step4Results = ({ formData, results, onBack }: Step4Props) => {
         <div className={`grid gap-6 ${hasFE ? 'grid-cols-1 sm:grid-cols-2 xl:grid-cols-4' : 'grid-cols-1 md:grid-cols-3'}`}>
           <div>
             <Wallet className="w-5 h-5 mb-2 text-skandia-gold" />
-            <p className="text-xs text-grey-400 mb-1">Espacio disponible en FVP</p>
+            <p className="text-xs text-grey-400 mb-1">Cupo disponible FVP</p>
             <p className="text-xl font-bold font-display text-skandia-gold">${formatCOP(results.topup)}</p>
-            <p className="text-[10px] text-grey-400 mt-1">Capital que aún puedes activar en 2026</p>
+            <p className="text-[10px] text-grey-400 mt-1">Sin usar en 2026</p>
           </div>
           <div>
             <TrendingUp className="w-5 h-5 mb-2" />
-            <p className="text-xs text-grey-400 mb-1">Ahorro estimado en impuesto</p>
+            <p className="text-xs text-grey-400 mb-1">Ahorro posible en impuesto</p>
             <p className="text-xl font-bold font-display">${formatCOP(results.ahorroTopup)}</p>
-            <p className="text-[10px] text-grey-400 mt-1">Más eficiencia en tu declaración 2027</p>
+            <p className="text-[10px] text-grey-400 mt-1">Menos en tu declaración 2027</p>
           </div>
           <div>
             <Building2 className="w-5 h-5 mb-2 text-skandia-green-light" />
             <p className="text-xs text-grey-400 mb-1">Aporte mensual estimado</p>
             <p className="text-xl font-bold font-display text-skandia-green-light">${formatCOP(aporteMensual)}</p>
-            <p className="text-[10px] text-grey-400 mt-1">Para aprovechar el tiempo que queda del año</p>
+            <p className="text-[10px] text-grey-400 mt-1">{mesesRestantes} meses para el cierre</p>
           </div>
           {hasFE && (
             <div>
               <CheckCircle2 className="w-5 h-5 mb-2 text-success" />
-              <p className="text-xs text-grey-400 mb-1">Beneficio por factura electrónica</p>
+              <p className="text-xs text-grey-400 mb-1">Ahorro factura electrónica</p>
               <p className="text-xl font-bold font-display">${formatCOP(results.dedFE1)}</p>
-              <p className="text-[10px] text-grey-400 mt-1">Eficiencia adicional fuera del tope global</p>
+              <p className="text-[10px] text-grey-400 mt-1">Fuera del tope global</p>
             </div>
           )}
         </div>
         {formData.hasPAC && formData.pacSaldo > 0 && (
           <div className="mt-6 pt-6 border-t border-grey-700">
-            <p className="text-xs text-grey-400 mb-1">Saldo acumulado en PAC</p>
+            <p className="text-xs text-grey-400 mb-1">Saldo acumulado PAC</p>
             <p className="text-xl font-bold font-display text-skandia-gold">${formatCOP(formData.pacSaldo)}</p>
-            <p className="text-[10px] text-grey-400 mt-1">Un punto de partida valioso dentro de tu estrategia</p>
+            <p className="text-[10px] text-grey-400 mt-1">En tu cuenta Skandia hoy</p>
           </div>
         )}
       </div>
 
       <Card className="skandia-card space-y-8 mb-8">
-        <MeterBar label="Espacio global de deducciones — 1.340 UVT" used={results.dedAdmis} max={results.maxBeneficio} />
+        <MeterBar label="Cupo global de deducciones — 1.340 UVT" used={results.dedAdmis} max={results.maxBeneficio} />
         <div className="border-t border-border pt-8">
-          <MeterBar label="Espacio FVP + AFC + PAC — 30% del ingreso o 3.800 UVT" used={results.afc} max={results.topeFVP} />
-          <p className="text-xs text-muted-foreground italic mt-2">Aquí ves cuánto de tu espacio disponible ya está activo y cuánto podría convertirse en una nueva oportunidad.</p>
+          <MeterBar label="Cupo FVP + AFC + PAC — 30% del ingreso o 3.800 UVT" used={results.afc} max={results.topeFVP} />
+          <p className="text-xs text-muted-foreground italic mt-2">Este cupo corresponde al 30% de tu ingreso o 3.800 UVT, lo que sea menor.</p>
         </div>
         {formData.hasPAC && (
           <div className="border-t border-border pt-8">
             <MeterBar label="PAC Skandia" used={pacAnual} max={results.topeFVP} color="gold" />
             <div className="flex gap-4 mt-2 text-xs text-muted-foreground">
               <span>Empresa: ${formatCOP(formData.pacEmpresa * 12)}/año</span>
-              <span>Tú: ${formatCOP(formData.pacPropio * 12)}/año</span>
+              <span>Propios: ${formatCOP(formData.pacPropio * 12)}/año</span>
             </div>
           </div>
         )}
       </Card>
 
       <Card className="skandia-card space-y-4 mb-8">
-        <h3 className="text-lg font-bold font-display text-foreground">Qué está construyendo hoy tu eficiencia tributaria</h3>
+        <h3 className="text-lg font-bold font-display text-foreground">Beneficios tributarios activos</h3>
         <div className="divide-y divide-border">
           {benefits.filter(b => b.show).map((b, i) => (
             <div key={i} className="py-4 flex flex-col sm:flex-row sm:items-center gap-3">
@@ -301,7 +301,7 @@ const Step4Results = ({ formData, results, onBack }: Step4Props) => {
       <Collapsible open={showDetail} onOpenChange={setShowDetail}>
         <CollapsibleTrigger asChild>
           <Button variant="outline" className="w-full mb-8 h-12">
-            {showDetail ? '▾ Ocultar detalle de mi panorama' : '▸ Ver detalle completo de mi panorama'}
+            {showDetail ? '▾ Ocultar detalle de cálculos' : '▸ Ver detalle completo de cálculos'}
           </Button>
         </CollapsibleTrigger>
         <CollapsibleContent>
@@ -355,26 +355,26 @@ const Step4Results = ({ formData, results, onBack }: Step4Props) => {
           <div className="space-y-1">
             <div className="flex items-center gap-2 text-primary">
               <MessageCircle className="w-5 h-5" />
-              <p className="font-bold font-display">Conversa con tu wealth planner</p>
+              <p className="font-bold font-display">Contacta a tu Asesor comercial</p>
             </div>
             <p className="text-sm text-muted-foreground">
               {results.topup > 0
-                ? 'Ya tienes una lectura clara de tu panorama. El siguiente paso puede ser revisar contigo cómo convertir esta oportunidad en una estrategia que combine beneficio tributario, diversificación y crecimiento patrimonial.'
-                : 'Tu panorama ya está muy avanzado. Si quieres explorar nuevas alternativas, un wealth planner puede ayudarte a darle el siguiente nivel a tu estrategia.'}
+                ? 'Ya tienes tu panorama tributario. El siguiente paso es hablar con tu Asesor comercial para revisar las opciones disponibles contigo.'
+                : 'Ya terminaste la calculadora. Si quieres revisar alternativas o resolver dudas, tu Asesor comercial puede ayudarte.'}
             </p>
           </div>
           <Button
             onClick={() => window.open('https://inversiones.skandia.com.co/asesoria', '_blank', 'noopener,noreferrer')}
             className="bg-primary hover:bg-skandia-green-dark text-primary-foreground h-12 px-8 rounded-full"
           >
-            Hablar con un wealth planner
+            Contactar a mi Asesor comercial
           </Button>
         </div>
       </Card>
 
       <div className="flex justify-start">
         <Button variant="ghost" onClick={onBack} className="h-12 text-muted-foreground">
-          <ChevronLeft className="mr-2 w-4 h-4" /> Ajustar mi panorama
+          <ChevronLeft className="mr-2 w-4 h-4" /> Ajustar mis datos
         </Button>
       </div>
     </motion.div>

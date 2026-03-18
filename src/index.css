@@ -154,19 +154,4 @@
     background: hsl(var(--skandia-gold-light));
     border-color: hsl(var(--skandia-gold-border));
   }
-
-  .sami-panel {
-    @apply rounded-[2rem] border border-border bg-card;
-    box-shadow: 0 24px 60px -32px hsl(var(--grey-900) / 0.24);
-  }
-
-  .sami-panel-hero {
-    @apply border-b border-border;
-    background: linear-gradient(180deg, hsl(var(--background)), hsl(var(--secondary)));
-  }
-
-  .sami-panel-section {
-    @apply rounded-[1.5rem] border border-border px-4 py-4;
-    background: linear-gradient(180deg, hsl(var(--card)), hsl(var(--secondary)));
-  }
 }
