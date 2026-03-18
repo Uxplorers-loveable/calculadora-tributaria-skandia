@@ -28,6 +28,7 @@ const documentSchema = z.object({
   documentNumber: z
     .string()
     .trim()
+    .min(1, 'El número de documento es obligatorio.')
     .regex(/^\d{5,20}$/, 'Ingresa un número de documento válido.'),
 });
 
