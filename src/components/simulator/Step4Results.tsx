@@ -278,13 +278,7 @@ const Step4Results = ({ formData, results, onBack }: Step4Props) => {
         </CollapsibleContent>
       </Collapsible>
 
-      <div className="flex justify-start mb-8">
-        <Button variant="ghost" onClick={onBack} className="h-12 text-muted-foreground">
-          <ChevronLeft className="mr-2 w-4 h-4" /> Ajustar mis datos
-        </Button>
-      </div>
-
-      <Card className="skandia-card space-y-4 border-primary/20">
+      <Card className="skandia-card space-y-4 border-primary/20 mb-6">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div className="space-y-1">
             <div className="flex items-center gap-2 text-primary">
@@ -305,6 +299,12 @@ const Step4Results = ({ formData, results, onBack }: Step4Props) => {
           </Button>
         </div>
       </Card>
+
+      <div className="flex justify-start">
+        <Button variant="ghost" onClick={onBack} className="h-12 text-muted-foreground">
+          <ChevronLeft className="mr-2 w-4 h-4" /> Ajustar mis datos
+        </Button>
+      </div>
     </motion.div>
   );
 };
