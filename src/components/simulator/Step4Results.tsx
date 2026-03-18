@@ -54,6 +54,7 @@ const Step4Results = ({ formData, results, onNext, onBack }: Step4Props) => {
 
   const mesesRestantes = Math.max(1, 12 - new Date().getMonth());
   const aporteMensual = results.topup > 0 ? results.topup / mesesRestantes : 0;
+  const pacAnual = (formData.pacEmpresa + formData.pacPropio) * 12;
 
   const samiMsg = results.topup > 0
     ? `Aquí está tu panorama. Tu impuesto estimado sin optimizar es $${formatCOP(results.impNormal)}. Tienes $${formatCOP(results.topup)} de cupo disponible en el FVP — si lo usas, tu impuesto quedaría en $${formatCOP(results.impTopup)}, un ahorro de $${formatCOP(results.ahorroTopup)}.${hasPACK ? ` El PAC, adicionalmente, representa un ahorro de $${formatCOP(results.ahorroPAC)}.` : ''}${hasFE ? ` Y con tus compras con factura electrónica puedes descontar hasta $${formatCOP(results.dedFE1)} más — por fuera del tope global.` : ''}`
@@ -180,10 +181,10 @@ const Step4Results = ({ formData, results, onNext, onBack }: Step4Props) => {
         </div>
         {formData.hasPAC && (
           <div className="border-t border-border pt-8">
-            <MeterBar label="PAC Skandia" used={formData.pacEmpresa + formData.pacPropio} max={results.topeFVP} color="gold" />
+            <MeterBar label="PAC Skandia" used={pacAnual} max={results.topeFVP} color="gold" />
             <div className="flex gap-4 mt-2 text-xs text-muted-foreground">
-              <span>Empresa: ${formatCOP(formData.pacEmpresa)}</span>
-              <span>Propios: ${formatCOP(formData.pacPropio)}</span>
+              <span>Empresa: ${formatCOP(formData.pacEmpresa * 12)}/año</span>
+              <span>Propios: ${formatCOP(formData.pacPropio * 12)}/año</span>
             </div>
           </div>
         )}

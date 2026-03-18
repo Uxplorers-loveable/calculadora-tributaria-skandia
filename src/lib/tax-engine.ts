@@ -105,15 +105,15 @@ export interface SimulatorInputs {
   salMensual: number;
   tipo: 'Ordinario' | 'Integral';
   auxMensual: number;
-  variableAnual: number;
-  bonoAnual: number;
+  variableAnual: number; // input mensual, se anualiza internamente
+  bonoAnual: number; // input mensual equivalente, se anualiza internamente
   bonoEsSalarial: boolean;
-  volObligAnual: number;
+  volObligAnual: number; // input mensual, se anualiza internamente
   numDep: number;
-  interesesVivienda: number;
-  pagosSalud: number;
-  comprasFE: number;
-  afcTotal: number; // FVP + AFC + PAC (empresa + propio)
+  interesesVivienda: number; // input mensual, se anualiza internamente
+  pagosSalud: number; // input mensual, se anualiza internamente
+  comprasFE: number; // input mensual, se anualiza internamente
+  afcTotal: number; // total mensual FVP + AFC + PAC (empresa + propio)
 }
 
 export interface SimulatorResults {
@@ -162,8 +162,13 @@ export interface SimulatorResults {
 export function ejecutarSimulador(inputs: SimulatorInputs): SimulatorResults {
   const salAnual = calcularSalarioAnual(inputs.salMensual, inputs.tipo);
   const auxAnual = inputs.auxMensual * 12;
-  const variable = inputs.variableAnual;
-  const bono = inputs.bonoAnual;
+  const variable = inputs.variableAnual * 12;
+  const bono = inputs.bonoAnual * 12;
+  const aporteVoluntarioObligatorio = inputs.volObligAnual * 12;
+  const hip = inputs.interesesVivienda * 12;
+  const salud = inputs.pagosSalud * 12;
+  const afc = inputs.afcTotal * 12;
+  const comprasFE = inputs.comprasFE * 12;
   const totalIng = salAnual + auxAnual + variable + bono;
 
   const baseSS = calcularBaseSegSocial(salAnual, variable, inputs.tipo);
@@ -171,7 +176,7 @@ export function ejecutarSimulador(inputs: SimulatorInputs): SimulatorResults {
   const eps = calcularAporteEPS(baseSS, baseBono);
   const pension = calcularAportePension(eps);
   const fsp = calcularFSP(baseSS);
-  const incNoCons = eps + pension + fsp + inputs.volObligAnual;
+  const incNoCons = eps + pension + fsp + aporteVoluntarioObligatorio;
 
   const rentaLiq = totalIng - incNoCons;
   const rentaLiqPAC = totalIng - bono - incNoCons;
@@ -179,10 +184,7 @@ export function ejecutarSimulador(inputs: SimulatorInputs): SimulatorResults {
   const maxBeneficio = UVT * 1340;
 
   const dep = calcularDependientes(inputs.numDep, inputs.salMensual);
-  const hip = inputs.interesesVivienda;
-  const salud = inputs.pagosSalud;
   const ces = calcularCesantias(inputs.salMensual, inputs.tipo);
-  const afc = inputs.afcTotal;
 
   const reSinLim = calcularRentaExentaSinLimite(rentaLiq, dep, hip, salud, ces, afc);
   const reLaboral = calcularRentaExentaLaboral(reSinLim);
@@ -201,7 +203,6 @@ export function ejecutarSimulador(inputs: SimulatorInputs): SimulatorResults {
   const baseGravTU = Math.max(0, totalIng - incNoCons - dedOptima);
   const impTopup = calcularImpuesto(baseGravTU / UVT);
 
-  const comprasFE = inputs.comprasFE;
   const dedFE1 = Math.min(comprasFE * 0.01, TOPE_FE);
   const dedFE5 = Math.min(comprasFE * 0.05, TOPE_FE);
   const impFE1 = calcularImpuesto(Math.max(0, baseGravTU - dedFE1) / UVT);
