@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ChevronRight, ChevronLeft, CheckCircle2, AlertTriangle, XCircle, TrendingUp, Wallet, Building2 } from 'lucide-react';
+import { ChevronLeft, CheckCircle2, AlertTriangle, XCircle, TrendingUp, Wallet, Building2, MessageCircle } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -13,7 +13,6 @@ import { useState } from 'react';
 interface Step4Props {
   formData: FormData;
   results: SimulatorResults;
-  onNext: () => void;
   onBack: () => void;
 }
 
@@ -47,7 +46,7 @@ const MeterBar = ({ label, used, max, color = 'default' }: { label: string; used
   );
 };
 
-const Step4Results = ({ formData, results, onNext, onBack }: Step4Props) => {
+const Step4Results = ({ formData, results, onBack }: Step4Props) => {
   const [showDetail, setShowDetail] = useState(false);
   const hasPACK = formData.usePACK && formData.hasBono;
   const hasFE = formData.comprasFE > 0;
@@ -58,9 +57,8 @@ const Step4Results = ({ formData, results, onNext, onBack }: Step4Props) => {
 
   const samiMsg = results.topup > 0
     ? `Aquí está tu panorama. Tu impuesto estimado sin optimizar es $${formatCOP(results.impNormal)}. Tienes $${formatCOP(results.topup)} de cupo disponible en el FVP — si lo usas, tu impuesto quedaría en $${formatCOP(results.impTopup)}, un ahorro de $${formatCOP(results.ahorroTopup)}.${hasPACK ? ` El PAC, adicionalmente, representa un ahorro de $${formatCOP(results.ahorroPAC)}.` : ''}${hasFE ? ` Y con tus compras con factura electrónica puedes descontar hasta $${formatCOP(results.dedFE1)} más — por fuera del tope global.` : ''}`
-    : 'Ya estás aprovechando prácticamente todo el cupo tributario disponible para 2026. Tu impuesto estimado es $' + formatCOP(results.impTopup) + '. Si quieres explorar otras oportunidades, tu Financial Planner puede acompañarte.';
+    : 'Ya estás aprovechando prácticamente todo el cupo tributario disponible para 2026. Tu impuesto estimado es $' + formatCOP(results.impTopup) + '. Si quieres revisar nuevas oportunidades, tu Asesor comercial puede acompañarte.';
 
-  // Build benefits table
   const benefits = [
     {
       icon: '🏥', name: 'Seguridad social y aportes vol. obligatorio',
@@ -76,31 +74,31 @@ const Step4Results = ({ formData, results, onNext, onBack }: Step4Props) => {
     },
     {
       icon: '🏠', name: 'Intereses crédito de vivienda',
-      desc: `Intereses pagados en 2026`,
+      desc: 'Intereses pagados en 2026',
       used: results.hip, max: 100 * UVT * 12, article: 'Art. 119 ET',
       show: formData.hasHip
     },
     {
       icon: '🏥', name: 'Medicina prepagada o seguro de salud',
-      desc: `Plan de salud complementario`,
+      desc: 'Plan de salud complementario',
       used: results.salud, max: 16 * UVT * 12, article: 'Art. 387 ET',
       show: formData.hasSalud
     },
     {
       icon: '💼', name: 'Cesantías exentas',
-      desc: `Equivalente a un mes de salario`,
+      desc: 'Equivalente a un mes de salario',
       used: results.ces, max: results.ces, article: 'Art. 206 num. 4 ET',
       show: formData.tipo === 'Ordinario'
     },
     {
       icon: '📊', name: 'FVP + AFC + PAC Skandia',
-      desc: `Aportes voluntarios con beneficio tributario`,
+      desc: 'Aportes voluntarios con beneficio tributario',
       used: results.afc, max: results.topeFVP, article: 'Art. 126-1 y 126-4 ET',
       show: true
     },
     {
       icon: '📋', name: 'Renta exenta por ingresos laborales 25%',
-      desc: `25% de la renta líquida laboral`,
+      desc: '25% de la renta líquida laboral',
       used: results.reLaboral, max: UVT * 790, article: 'Art. 206 num. 10 ET',
       show: true
     },
@@ -110,7 +108,6 @@ const Step4Results = ({ formData, results, onNext, onBack }: Step4Props) => {
     <motion.div key="step4" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
       <SamiBubble text={samiMsg} type={results.topup > 0 ? 'default' : 'gold'} />
 
-      {/* Scenario comparison */}
       <div className={`grid gap-4 mb-8 ${hasPACK ? 'md:grid-cols-3' : 'md:grid-cols-2'}`}>
         <Card className="p-6 bg-secondary border-border">
           <p className="text-sm text-muted-foreground mb-1">Sin optimizar</p>
@@ -120,20 +117,19 @@ const Step4Results = ({ formData, results, onNext, onBack }: Step4Props) => {
 
         {hasPACK && (
           <Card className="p-6 border-skandia-gold-border bg-skandia-gold-light">
-            <p className="text-sm font-medium mb-1" style={{ color: 'hsl(var(--info-amber-text))' }}>Con PAC</p>
+            <p className="text-sm font-medium mb-1 text-foreground">Con PAC</p>
             <p className="text-2xl font-bold font-display text-foreground">${formatCOP(results.impPAC)}</p>
-            <p className="text-[10px] uppercase tracking-wider mt-2" style={{ color: 'hsl(var(--info-amber-text))' }}>Ahorro: ${formatCOP(results.ahorroPAC)}</p>
+            <p className="text-[10px] uppercase tracking-wider mt-2 text-muted-foreground">Ahorro: ${formatCOP(results.ahorroPAC)}</p>
           </Card>
         )}
 
-        <Card className="p-6 shadow-lg" style={{ background: 'hsl(var(--skandia-navy))', color: 'white' }}>
+        <Card className="p-6 shadow-lg bg-primary text-primary-foreground">
           <p className="text-sm mb-1 opacity-80">FVP Óptimo</p>
           <p className="text-2xl font-bold font-display">${formatCOP(results.impTopup)}</p>
           <p className="text-[10px] uppercase tracking-wider mt-2 opacity-80">Ahorro: ${formatCOP(results.ahorroTopup)}</p>
         </Card>
       </div>
 
-      {/* Hero metrics */}
       <div className="skandia-hero-dark p-8 mb-8">
         <div className={`grid gap-6 ${hasFE ? 'grid-cols-1 sm:grid-cols-2 xl:grid-cols-4' : 'grid-cols-1 md:grid-cols-3'}`}>
           <div>
@@ -172,7 +168,28 @@ const Step4Results = ({ formData, results, onNext, onBack }: Step4Props) => {
         )}
       </div>
 
-      {/* Meters */}
+      <Card className="skandia-card space-y-4 mb-8 border-primary/20">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div className="space-y-1">
+            <div className="flex items-center gap-2 text-primary">
+              <MessageCircle className="w-5 h-5" />
+              <p className="font-bold font-display">Contacta a tu Asesor comercial</p>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              {results.topup > 0
+                ? 'Ya tienes tu panorama tributario. El siguiente paso es hablar con tu Asesor comercial para revisar las opciones disponibles contigo.'
+                : 'Ya terminaste la calculadora. Si quieres revisar alternativas o resolver dudas, tu Asesor comercial puede ayudarte.'}
+            </p>
+          </div>
+          <Button
+            onClick={() => window.open('https://inversiones.skandia.com.co/asesoria', '_blank', 'noopener,noreferrer')}
+            className="bg-primary hover:bg-skandia-green-dark text-primary-foreground h-12 px-8 rounded-full"
+          >
+            Contactar a mi Asesor comercial
+          </Button>
+        </div>
+      </Card>
+
       <Card className="skandia-card space-y-8 mb-8">
         <MeterBar label="Cupo global de deducciones — 1.340 UVT" used={results.dedAdmis} max={results.maxBeneficio} />
         <div className="border-t border-border pt-8">
@@ -190,7 +207,6 @@ const Step4Results = ({ formData, results, onNext, onBack }: Step4Props) => {
         )}
       </Card>
 
-      {/* Benefits table */}
       <Card className="skandia-card space-y-4 mb-8">
         <h3 className="text-lg font-bold font-display text-foreground">Beneficios tributarios activos</h3>
         <div className="divide-y divide-border">
@@ -233,7 +249,6 @@ const Step4Results = ({ formData, results, onNext, onBack }: Step4Props) => {
         </div>
       </Card>
 
-      {/* Collapsible detail */}
       <Collapsible open={showDetail} onOpenChange={setShowDetail}>
         <CollapsibleTrigger asChild>
           <Button variant="outline" className="w-full mb-8 h-12">
@@ -286,12 +301,9 @@ const Step4Results = ({ formData, results, onNext, onBack }: Step4Props) => {
         </CollapsibleContent>
       </Collapsible>
 
-      <div className="flex justify-between">
+      <div className="flex justify-start">
         <Button variant="ghost" onClick={onBack} className="h-12 text-muted-foreground">
           <ChevronLeft className="mr-2 w-4 h-4" /> Ajustar mis datos
-        </Button>
-        <Button onClick={onNext} className="bg-primary hover:bg-skandia-green-dark text-primary-foreground h-12 px-8 rounded-full">
-          Ver mi plan <ChevronRight className="ml-2 w-4 h-4" />
         </Button>
       </div>
     </motion.div>

@@ -1,16 +1,16 @@
-import { useState, useMemo, useCallback, useRef, useEffect } from 'react';
+import { useState, useMemo, useCallback, useRef } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import SimulatorHeader from '@/components/simulator/SimulatorHeader';
+import Step0Identity from '@/components/simulator/Step0Identity';
 import Step1Income from '@/components/simulator/Step1Income';
 import Step2Deductions from '@/components/simulator/Step2Deductions';
 import Step3FVP from '@/components/simulator/Step3FVP';
 import Step4Results from '@/components/simulator/Step4Results';
-import Step5Plan from '@/components/simulator/Step5Plan';
 import { defaultFormData, FormData } from '@/lib/simulator-types';
 import { ejecutarSimulador, SimulatorInputs } from '@/lib/tax-engine';
 
 const Index = () => {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(0);
   const [formData, setFormData] = useState<FormData>(defaultFormData);
   const mainRef = useRef<HTMLDivElement>(null);
 
@@ -21,7 +21,6 @@ const Index = () => {
     }, 50);
   }, []);
 
-  // Compute afcTotal from sub-fields
   const afcTotal = useMemo(() => {
     let total = 0;
     if (formData.hasFVP) total += formData.fvpTotal + formData.afcTotal;
@@ -51,6 +50,13 @@ const Index = () => {
       <SimulatorHeader currentStep={step} />
       <main ref={mainRef} className="max-w-4xl mx-auto px-4 sm:px-6 pt-8 sm:pt-12">
         <AnimatePresence mode="wait">
+          {step === 0 && (
+            <Step0Identity
+              formData={formData}
+              setFormData={setFormData}
+              onNext={() => goTo(1)}
+            />
+          )}
           {step === 1 && (
             <Step1Income
               formData={formData}
@@ -79,16 +85,7 @@ const Index = () => {
             <Step4Results
               formData={formData}
               results={results}
-              onNext={() => goTo(5)}
               onBack={() => goTo(3)}
-            />
-          )}
-          {step === 5 && (
-            <Step5Plan
-              formData={formData}
-              setFormData={setFormData}
-              results={results}
-              onBack={() => goTo(4)}
             />
           )}
         </AnimatePresence>

@@ -1,4 +1,6 @@
 export interface FormData {
+  documentType: string;
+  documentNumber: string;
   salMensual: number;
   tipo: 'Ordinario' | 'Integral';
   hasAuxilios: boolean;
@@ -29,6 +31,8 @@ export interface FormData {
 }
 
 export const defaultFormData: FormData = {
+  documentType: '',
+  documentNumber: '',
   salMensual: 0,
   tipo: 'Ordinario',
   hasAuxilios: false,
