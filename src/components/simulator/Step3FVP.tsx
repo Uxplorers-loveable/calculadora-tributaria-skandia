@@ -43,14 +43,14 @@ const Step3FVP = ({ formData, setFormData, onNext, onBack }: Step3Props) => {
         {formData.hasPAC &&
         <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="space-y-6 pt-4 border-t border-border">
             <CurrencyInput
-            label="¿Cuánto aporta tu empresa al PAC durante el año?"
-            hint="Total anual. Lo encuentras en tu extracto del FVP o en el portal de clientes Skandia."
+            label="¿Cuánto aporta tu empresa al PAC cada mes?"
+            hint="Ingresa el aporte mensual. Nosotros lo multiplicamos × 12 automáticamente para el cálculo anual."
             value={formData.pacEmpresa}
             onChange={(v) => update({ pacEmpresa: v })} />
           
             <CurrencyInput
-            label="¿Y tú cuánto aportas adicional al PAC durante el año?"
-            hint="Aportes voluntarios tuyos, por encima de los de tu empresa. Ingresa el total del año."
+            label="¿Y tú cuánto aportas adicional al PAC cada mes?"
+            hint="Ingresa tu aporte mensual promedio. Nosotros lo multiplicamos × 12 automáticamente."
             value={formData.pacPropio}
             onChange={(v) => update({ pacPropio: v })} />
           

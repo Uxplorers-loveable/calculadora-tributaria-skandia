@@ -105,15 +105,15 @@ export interface SimulatorInputs {
   salMensual: number;
   tipo: 'Ordinario' | 'Integral';
   auxMensual: number;
-  variableAnual: number;
-  bonoAnual: number;
+  variableAnual: number; // input mensual, se anualiza internamente
+  bonoAnual: number; // input mensual equivalente, se anualiza internamente
   bonoEsSalarial: boolean;
-  volObligAnual: number;
+  volObligAnual: number; // input mensual, se anualiza internamente
   numDep: number;
-  interesesVivienda: number;
-  pagosSalud: number;
-  comprasFE: number;
-  afcTotal: number; // FVP + AFC + PAC (empresa + propio)
+  interesesVivienda: number; // input mensual, se anualiza internamente
+  pagosSalud: number; // input mensual, se anualiza internamente
+  comprasFE: number; // input mensual, se anualiza internamente
+  afcTotal: number; // total mensual FVP + AFC + PAC (empresa + propio)
 }
 
 export interface SimulatorResults {

@@ -98,8 +98,8 @@ const Step1Income = ({ formData, setFormData, totalIngresos, onNext }: Step1Prop
             {formData.hasVariable && (
               <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="mt-4">
                 <CurrencyInput
-                  label="¿Cuánto estimas recibir en comisiones o variable durante todo el 2026?"
-                  hint="Ingresa el total del año. Si es difícil estimarlo, lo que recibiste en 2025 es una buena referencia."
+                  label="¿Cuánto estimas recibir al mes en comisiones o variable?"
+                  hint="Ingresa un promedio mensual. Nosotros lo multiplicamos × 12 automáticamente para calcular el total anual."
                   value={formData.variableAnual}
                   onChange={(v) => update({ variableAnual: v })}
                 />
@@ -120,7 +120,8 @@ const Step1Income = ({ formData, setFormData, totalIngresos, onNext }: Step1Prop
               <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="mt-4 space-y-4">
                 <div className="grid md:grid-cols-2 gap-4">
                   <CurrencyInput
-                    label="¿Cuánto es el bono? (total del año)"
+                    label="¿Cuál es el valor mensual equivalente de tu bono?"
+                    hint="Ingresa el promedio mensual equivalente. Nosotros lo multiplicamos × 12 automáticamente para el cálculo anual."
                     value={formData.bonoAnual}
                     onChange={(v) => update({ bonoAnual: v })}
                   />

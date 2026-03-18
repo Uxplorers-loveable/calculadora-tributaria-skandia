@@ -22,8 +22,9 @@ interface Step2Props {
 const Step2Deductions = ({ formData, setFormData, onNext, onBack }: Step2Props) => {
   const update = (partial: Partial<FormData>) => setFormData((prev) => ({ ...prev, ...partial }));
 
-  const dedFE1 = Math.min(formData.comprasFE * 0.01, TOPE_FE);
-  const dedFE5 = Math.min(formData.comprasFE * 0.05, TOPE_FE);
+  const comprasFEAnuales = formData.comprasFE * 12;
+  const dedFE1 = Math.min(comprasFEAnuales * 0.01, TOPE_FE);
+  const dedFE5 = Math.min(comprasFEAnuales * 0.05, TOPE_FE);
 
   return (
     <motion.div key="step2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
