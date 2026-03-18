@@ -4,7 +4,7 @@ interface SimulatorHeaderProps {
   currentStep: number;
 }
 
-const STEP_LABELS = ['Tus ingresos', 'Tus deducciones', 'FVP y PAC', 'Tu panorama'];
+const STEP_LABELS = ['Tu capital hoy', 'Tu espacio tributario', 'Tu estrategia FVP', 'Tu panorama'];
 
 const SimulatorHeader = ({ currentStep }: SimulatorHeaderProps) => {
   const showProgress = currentStep > 0;
@@ -60,7 +60,7 @@ const SimulatorHeader = ({ currentStep }: SimulatorHeaderProps) => {
             </div>
           </>
         ) : (
-          <span className="text-sm font-medium text-muted-foreground">Validación inicial</span>
+          <span className="text-sm font-medium text-muted-foreground">Tu punto de partida</span>
         )}
       </div>
     </header>
