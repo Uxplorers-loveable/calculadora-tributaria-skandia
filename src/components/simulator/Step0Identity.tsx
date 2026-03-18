@@ -7,7 +7,6 @@ import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import SamiBubble from './SamiBubble';
 import { FormData } from '@/lib/simulator-types';
 
 interface Step0Props {
@@ -60,8 +59,6 @@ const Step0Identity = ({ formData, setFormData, onNext }: Step0Props) => {
 
   return (
     <motion.div key="step0" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
-      <SamiBubble text="Bienvenido. Aquí vas a descubrir cómo convertir tu Fondo de Pensiones Voluntarias en una herramienta de optimización tributaria para que tu patrimonio crezca con mayor eficiencia. Empecemos validando tus datos." />
-
       <Card className="skandia-card space-y-8 mb-6">
         <div className="space-y-2">
           <h3 className="text-lg font-bold font-display text-foreground">Comencemos con tu identificación</h3>

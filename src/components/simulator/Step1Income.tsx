@@ -7,7 +7,6 @@ import { Switch } from '@/components/ui/switch';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import SamiBubble from './SamiBubble';
 import SkandiaTooltip from './SkandiaTooltip';
 import CurrencyInput from './CurrencyInput';
 import { FormData } from '@/lib/simulator-types';
@@ -43,8 +42,6 @@ const Step1Income = ({ formData, setFormData, totalIngresos, onNext }: Step1Prop
 
   return (
     <motion.div key="step1" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
-      <SamiBubble text="Las inversiones que buscas están aquí, y este es el primer paso para encontrarlas con claridad. Cuéntame cómo se compone tu ingreso y te mostraré dónde puede haber espacio para optimizar hoy tu impuesto y mañana tu patrimonio." />
-
       {/* Card 1: Tu salario */}
       <Card className="skandia-card space-y-8 mb-6">
         <h3 className="text-lg font-bold font-display text-foreground">Tu ingreso hoy</h3>
