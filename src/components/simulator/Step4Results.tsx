@@ -1,9 +1,11 @@
 import { motion } from 'framer-motion';
 import { ChevronLeft, CheckCircle2, AlertTriangle, XCircle, TrendingUp, Wallet, Building2, MessageCircle } from 'lucide-react';
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from 'recharts';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { ChartContainer, ChartLegend, ChartLegendContent, ChartTooltip, ChartTooltipContent, type ChartConfig } from '@/components/ui/chart';
 import SamiBubble from './SamiBubble';
 import { FormData } from '@/lib/simulator-types';
 import { SimulatorResults, formatCOP, UVT, TOPE_FE } from '@/lib/tax-engine';
@@ -45,6 +47,9 @@ const MeterBar = ({ label, used, max, color = 'default' }: { label: string; used
   );
 };
 
+const formatCompactCOP = (value: number) =>
+  `$${new Intl.NumberFormat('es-CO', { notation: 'compact', maximumFractionDigits: 1 }).format(value)}`;
+
 const Step4Results = ({ formData, results, onBack }: Step4Props) => {
   const [showDetail, setShowDetail] = useState(false);
   const hasPACK = formData.usePACK && formData.hasBono;
@@ -53,6 +58,31 @@ const Step4Results = ({ formData, results, onBack }: Step4Props) => {
   const mesesRestantes = Math.max(1, 12 - new Date().getMonth());
   const aporteMensual = results.topup > 0 ? results.topup / mesesRestantes : 0;
   const pacAnual = (formData.pacEmpresa + formData.pacPropio) * 12;
+  const ahorroPct = results.impNormal > 0 ? (results.ahorroTopup / results.impNormal) * 100 : 0;
+
+  const scenarioChartData = [
+    {
+      escenario: 'Impuesto estimado',
+      sinOptimizar: results.impNormal,
+      ...(hasPACK ? { conPAC: results.impPAC } : {}),
+      fvpOptimo: results.impTopup,
+    },
+  ];
+
+  const scenarioChartConfig = {
+    sinOptimizar: {
+      label: 'Sin optimizar',
+      color: 'hsl(var(--grey-500))',
+    },
+    conPAC: {
+      label: 'Con PAC',
+      color: 'hsl(var(--skandia-gold))',
+    },
+    fvpOptimo: {
+      label: 'FVP óptimo',
+      color: 'hsl(var(--primary))',
+    },
+  } satisfies ChartConfig;
 
   const samiMsg = results.topup > 0
     ? `Aquí está tu panorama. Tu impuesto estimado sin optimizar es $${formatCOP(results.impNormal)}. Tienes $${formatCOP(results.topup)} de cupo disponible en el FVP — si lo usas, tu impuesto quedaría en $${formatCOP(results.impTopup)}, un ahorro de $${formatCOP(results.ahorroTopup)}.${hasPACK ? ` El PAC, adicionalmente, representa un ahorro de $${formatCOP(results.ahorroPAC)}.` : ''}${hasFE ? ` Y con tus compras con factura electrónica puedes descontar hasta $${formatCOP(results.dedFE1)} más — por fuera del tope global.` : ''}`
@@ -128,6 +158,48 @@ const Step4Results = ({ formData, results, onBack }: Step4Props) => {
           <p className="text-[10px] uppercase tracking-wider mt-2 opacity-80">Ahorro: ${formatCOP(results.ahorroTopup)}</p>
         </Card>
       </div>
+
+      <Card className="skandia-card mb-8 overflow-hidden">
+        <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p className="text-sm font-medium text-primary mb-1">Visualízalo rápido</p>
+            <h3 className="text-xl font-bold font-display text-foreground">Comparativo de tu impuesto estimado</h3>
+            <p className="text-sm text-muted-foreground mt-2 max-w-2xl">
+              Esta gráfica compara tu escenario actual frente a las alternativas optimizadas para que entiendas de inmediato el impacto potencial en tu impuesto.
+            </p>
+          </div>
+          <div className="rounded-xl border border-border bg-secondary px-4 py-3">
+            <p className="text-xs uppercase tracking-wider text-muted-foreground">Reducción estimada</p>
+            <p className="text-2xl font-bold font-display text-primary">{Math.round(ahorroPct)}%</p>
+            <p className="text-xs text-muted-foreground">vs. escenario sin optimizar</p>
+          </div>
+        </div>
+
+        <ChartContainer config={scenarioChartConfig} className="mt-6 h-[300px] w-full aspect-auto">
+          <BarChart data={scenarioChartData} barGap={16} margin={{ top: 12, right: 12, left: 12, bottom: 8 }}>
+            <CartesianGrid vertical={false} />
+            <XAxis dataKey="escenario" tickLine={false} axisLine={false} />
+            <YAxis tickLine={false} axisLine={false} width={88} tickFormatter={(value) => formatCompactCOP(Number(value))} />
+            <ChartTooltip
+              cursor={false}
+              content={
+                <ChartTooltipContent
+                  formatter={(value, name) => (
+                    <div className="flex min-w-[180px] items-center justify-between gap-4">
+                      <span className="text-muted-foreground">{scenarioChartConfig[name as keyof typeof scenarioChartConfig]?.label ?? String(name)}</span>
+                      <span className="font-mono font-medium text-foreground">${formatCOP(Number(value))}</span>
+                    </div>
+                  )}
+                />
+              }
+            />
+            <ChartLegend content={<ChartLegendContent />} />
+            <Bar dataKey="sinOptimizar" fill="var(--color-sinOptimizar)" radius={[10, 10, 0, 0]} maxBarSize={72} />
+            {hasPACK && <Bar dataKey="conPAC" fill="var(--color-conPAC)" radius={[10, 10, 0, 0]} maxBarSize={72} />}
+            <Bar dataKey="fvpOptimo" fill="var(--color-fvpOptimo)" radius={[10, 10, 0, 0]} maxBarSize={72} />
+          </BarChart>
+        </ChartContainer>
+      </Card>
 
       <div className="skandia-hero-dark p-8 mb-8">
         <div className={`grid gap-6 ${hasFE ? 'grid-cols-1 sm:grid-cols-2 xl:grid-cols-4' : 'grid-cols-1 md:grid-cols-3'}`}>
