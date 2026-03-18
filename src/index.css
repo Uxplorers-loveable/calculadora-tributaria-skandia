@@ -154,4 +154,14 @@
     background: hsl(var(--skandia-gold-light));
     border-color: hsl(var(--skandia-gold-border));
   }
+
+  .benefit-mountain {
+    clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+    background: hsl(var(--grey-200));
+  }
+
+  .benefit-mountain-fill {
+    clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+    background: hsl(var(--primary));
+  }
 }

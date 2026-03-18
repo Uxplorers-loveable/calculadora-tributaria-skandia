@@ -6,16 +6,27 @@ import Step1Income from '@/components/simulator/Step1Income';
 import Step2Deductions from '@/components/simulator/Step2Deductions';
 import Step3FVP from '@/components/simulator/Step3FVP';
 import Step4Results from '@/components/simulator/Step4Results';
+import SamiAssistantPanel from '@/components/simulator/SamiAssistantPanel';
 import { defaultFormData, FormData } from '@/lib/simulator-types';
 import { ejecutarSimulador, SimulatorInputs } from '@/lib/tax-engine';
+
+const DEFAULT_SAMI_KEY_BY_STEP: Record<number, string> = {
+  0: 'step0_intro',
+  1: 'income_salary',
+  2: 'ded_dependents',
+  3: 'pac',
+  4: 'results_mountain',
+};
 
 const Index = () => {
   const [step, setStep] = useState(0);
   const [formData, setFormData] = useState<FormData>(defaultFormData);
+  const [activeSamiKey, setActiveSamiKey] = useState(DEFAULT_SAMI_KEY_BY_STEP[0]);
   const mainRef = useRef<HTMLDivElement>(null);
 
   const goTo = useCallback((s: number) => {
     setStep(s);
+    setActiveSamiKey(DEFAULT_SAMI_KEY_BY_STEP[s] ?? DEFAULT_SAMI_KEY_BY_STEP[0]);
     setTimeout(() => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }, 50);
@@ -45,50 +56,62 @@ const Index = () => {
 
   const results = useMemo(() => ejecutarSimulador(inputs), [inputs]);
 
+  const handleSamiContext = useCallback((event: React.SyntheticEvent<HTMLElement>) => {
+    const target = event.target as HTMLElement | null;
+    const key = target?.closest?.('[data-sami-key]')?.getAttribute('data-sami-key');
+    if (key) setActiveSamiKey(key);
+  }, []);
+
   return (
     <div className="min-h-screen bg-secondary font-body pb-20">
       <SimulatorHeader currentStep={step} />
-      <main ref={mainRef} className="max-w-4xl mx-auto px-4 sm:px-6 pt-8 sm:pt-12">
-        <AnimatePresence mode="wait">
-          {step === 0 && (
-            <Step0Identity
-              formData={formData}
-              setFormData={setFormData}
-              onNext={() => goTo(1)}
-            />
-          )}
-          {step === 1 && (
-            <Step1Income
-              formData={formData}
-              setFormData={setFormData}
-              totalIngresos={results.totalIngresos}
-              onNext={() => goTo(2)}
-            />
-          )}
-          {step === 2 && (
-            <Step2Deductions
-              formData={formData}
-              setFormData={setFormData}
-              onNext={() => goTo(3)}
-              onBack={() => goTo(1)}
-            />
-          )}
-          {step === 3 && (
-            <Step3FVP
-              formData={formData}
-              setFormData={setFormData}
-              onNext={() => goTo(4)}
-              onBack={() => goTo(2)}
-            />
-          )}
-          {step === 4 && (
-            <Step4Results
-              formData={formData}
-              results={results}
-              onBack={() => goTo(3)}
-            />
-          )}
-        </AnimatePresence>
+      <main ref={mainRef} className="max-w-[1280px] mx-auto px-4 sm:px-6 pt-8 sm:pt-12 lg:grid lg:grid-cols-[minmax(0,1fr)_360px] lg:gap-8 lg:items-start">
+        <section onClickCapture={handleSamiContext} onFocusCapture={handleSamiContext}>
+          <AnimatePresence mode="wait">
+            {step === 0 && (
+              <Step0Identity
+                formData={formData}
+                setFormData={setFormData}
+                onNext={() => goTo(1)}
+              />
+            )}
+            {step === 1 && (
+              <Step1Income
+                formData={formData}
+                setFormData={setFormData}
+                totalIngresos={results.totalIngresos}
+                onNext={() => goTo(2)}
+              />
+            )}
+            {step === 2 && (
+              <Step2Deductions
+                formData={formData}
+                setFormData={setFormData}
+                onNext={() => goTo(3)}
+                onBack={() => goTo(1)}
+              />
+            )}
+            {step === 3 && (
+              <Step3FVP
+                formData={formData}
+                setFormData={setFormData}
+                onNext={() => goTo(4)}
+                onBack={() => goTo(2)}
+              />
+            )}
+            {step === 4 && (
+              <Step4Results
+                formData={formData}
+                results={results}
+                onBack={() => goTo(3)}
+              />
+            )}
+          </AnimatePresence>
+        </section>
+
+        <div className="mt-8 lg:mt-0">
+          <SamiAssistantPanel step={step} activeKey={activeSamiKey} formData={formData} results={results} />
+        </div>
       </main>
     </div>
   );

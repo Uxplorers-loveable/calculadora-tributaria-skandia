@@ -7,7 +7,6 @@ import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import SamiBubble from './SamiBubble';
 import { FormData } from '@/lib/simulator-types';
 
 interface Step0Props {
@@ -17,12 +16,7 @@ interface Step0Props {
 }
 
 const documentSchema = z.object({
-  documentType: z.enum([
-    'Cédula de Ciudadanía',
-    'Tarjeta de Identidad',
-    'Cédula de Extranjería',
-    'Registro Civil de Nacimiento',
-  ], {
+  documentType: z.enum(['Cédula de Ciudadanía', 'Cédula de Extranjería'], {
     errorMap: () => ({ message: 'Selecciona un tipo de documento.' }),
   }),
   documentNumber: z
@@ -59,17 +53,30 @@ const Step0Identity = ({ formData, setFormData, onNext }: Step0Props) => {
   };
 
   return (
-    <motion.div key="step0" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
-      <SamiBubble text="Antes de comenzar, necesitamos validar tus datos para empezar tu simulación tributaria." />
+    <motion.div key="step0" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }} className="space-y-6">
+      <Card data-sami-key="step0_intro" className="skandia-card space-y-6">
+        <div className="space-y-3">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Bienvenido</p>
+          <h1 className="text-3xl sm:text-4xl font-bold font-display text-foreground max-w-3xl">
+            Haz que tu estrategia patrimonial avance con una lectura simple de tu beneficio tributario.
+          </h1>
+          <p className="text-base leading-8 text-muted-foreground max-w-3xl">
+            En Skandia conectas tu capital con oportunidades globales y conviertes tu Fondo de Pensiones Voluntarias en una herramienta para crecer con mayor eficiencia. Este simulador te muestra ese panorama de forma clara y cercana.
+          </p>
+          <p className="text-sm leading-7 text-foreground max-w-3xl">
+            Con el acompañamiento de nuestros Wealth Planners, información simple y seguimiento continuo, tu portafolio puede evolucionar contigo.
+          </p>
+        </div>
+      </Card>
 
       <Card className="skandia-card space-y-8 mb-6">
         <div className="space-y-2">
-          <h3 className="text-lg font-bold font-display text-foreground">Validación inicial</h3>
-          <p className="text-sm text-muted-foreground">Ingresa tu tipo y número de documento para continuar con la calculadora.</p>
+          <h2 className="text-lg font-bold font-display text-foreground">Comencemos con tus datos básicos</h2>
+          <p className="text-sm text-muted-foreground">Solo te tomará un momento. Así iniciamos tu simulación con un contexto más preciso.</p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-6">
-          <div className="space-y-2">
+          <div data-sami-key="documentType" className="space-y-2">
             <Label className="text-sm font-semibold text-grey-600 font-display">Tipo de documento</Label>
             <Select value={formData.documentType} onValueChange={(value) => update({ documentType: value })}>
               <SelectTrigger className="h-12">
@@ -77,15 +84,13 @@ const Step0Identity = ({ formData, setFormData, onNext }: Step0Props) => {
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="Cédula de Ciudadanía">Cédula de Ciudadanía</SelectItem>
-                <SelectItem value="Tarjeta de Identidad">Tarjeta de Identidad</SelectItem>
                 <SelectItem value="Cédula de Extranjería">Cédula de Extranjería</SelectItem>
-                <SelectItem value="Registro Civil de Nacimiento">Registro Civil de Nacimiento</SelectItem>
               </SelectContent>
             </Select>
             {errors.documentType && <p className="text-xs text-destructive">{errors.documentType}</p>}
           </div>
 
-          <div className="space-y-2">
+          <div data-sami-key="documentNumber" className="space-y-2">
             <Label className="text-sm font-semibold text-grey-600 font-display">
               Número de documento <span className="text-destructive">*</span>
             </Label>
@@ -96,11 +101,11 @@ const Step0Identity = ({ formData, setFormData, onNext }: Step0Props) => {
               aria-required="true"
               aria-invalid={errors.documentNumber ? 'true' : 'false'}
               className="h-12 text-base font-medium"
-              placeholder="Ingresa tu número"
+              placeholder="Ej. 123456789"
               value={formData.documentNumber}
               onChange={(e) => update({ documentNumber: e.target.value.replace(/\D/g, '') })}
             />
-            <p className="text-xs text-muted-foreground">Solo números, sin puntos ni espacios.</p>
+            <p className="text-xs text-muted-foreground">Escríbelo solo con números.</p>
             {errors.documentNumber && <p className="text-xs text-destructive">{errors.documentNumber}</p>}
           </div>
         </div>
@@ -108,10 +113,10 @@ const Step0Identity = ({ formData, setFormData, onNext }: Step0Props) => {
 
       <div className="skandia-hero-dark p-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <p className="text-sm text-grey-400">Paso previo obligatorio</p>
-          <p className="text-lg font-bold font-display">Valida tu documento para iniciar</p>
+          <p className="text-sm text-grey-400">Inicio del recorrido</p>
+          <p className="text-lg font-bold font-display">Activa tu simulación tributaria</p>
         </div>
-        <Button onClick={handleContinue} className="bg-primary hover:bg-skandia-green-dark text-primary-foreground h-12 px-8 rounded-full">
+        <Button onClick={handleContinue} className="bg-primary hover:bg-primary/90 text-primary-foreground h-12 px-8 rounded-full">
           Empezar <ChevronRight className="ml-2 w-4 h-4" />
         </Button>
       </div>
