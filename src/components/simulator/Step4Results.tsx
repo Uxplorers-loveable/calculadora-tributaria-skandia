@@ -278,9 +278,15 @@ const Step4Results = ({ formData, results, onBack }: Step4Props) => {
         </CollapsibleContent>
       </Collapsible>
 
+      <div className="flex justify-start mb-8">
+        <Button variant="ghost" onClick={onBack} className="h-12 text-muted-foreground">
+          <ChevronLeft className="mr-2 w-4 h-4" /> Ajustar mis datos
+        </Button>
+      </div>
+
       <Card className="skandia-card space-y-4 border-primary/20">
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-          <div className="space-y-1 lg:flex-1">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div className="space-y-1">
             <div className="flex items-center gap-2 text-primary">
               <MessageCircle className="w-5 h-5" />
               <p className="font-bold font-display">Contacta a tu Asesor comercial</p>
@@ -291,17 +297,12 @@ const Step4Results = ({ formData, results, onBack }: Step4Props) => {
                 : 'Ya terminaste la calculadora. Si quieres revisar alternativas o resolver dudas, tu Asesor comercial puede ayudarte.'}
             </p>
           </div>
-          <div className="flex flex-col sm:flex-row gap-3 lg:flex-shrink-0">
-            <Button variant="ghost" onClick={onBack} className="h-12 text-muted-foreground justify-center">
-              <ChevronLeft className="mr-2 w-4 h-4" /> Ajustar mis datos
-            </Button>
-            <Button
-              onClick={() => window.open('https://inversiones.skandia.com.co/asesoria', '_blank', 'noopener,noreferrer')}
-              className="bg-primary hover:bg-skandia-green-dark text-primary-foreground h-12 px-8 rounded-full"
-            >
-              Contactar a mi Asesor comercial
-            </Button>
-          </div>
+          <Button
+            onClick={() => window.open('https://inversiones.skandia.com.co/asesoria', '_blank', 'noopener,noreferrer')}
+            className="bg-primary hover:bg-skandia-green-dark text-primary-foreground h-12 px-8 rounded-full"
+          >
+            Contactar a mi Asesor comercial
+          </Button>
         </div>
       </Card>
     </motion.div>
