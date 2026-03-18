@@ -177,8 +177,8 @@ const Step1Income = ({ formData, setFormData, totalIngresos, onNext }: Step1Prop
           {formData.hasVolOblig && (
             <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="mt-4">
               <CurrencyInput
-                label="¿Cuánto aportaste al fondo obligatorio de manera voluntaria en 2026? (total del año)"
-                hint="Este beneficio tiene su propio cupo independiente — no comparte tope con el FVP ni el AFC. Máximo: 25% de tu ingreso anual o $130.935.000 (2.500 UVT), lo que sea menor."
+                label="¿Cuánto aportas al mes al fondo obligatorio de manera voluntaria?"
+                hint="Ingresa tu aporte mensual promedio. Nosotros lo multiplicamos × 12 automáticamente. Este beneficio tiene su propio cupo independiente — no comparte tope con el FVP ni el AFC. Máximo: 25% de tu ingreso anual o $130.935.000 (2.500 UVT), lo que sea menor."
                 value={formData.volObligAnual}
                 onChange={(v) => update({ volObligAnual: v })}
               />

@@ -96,14 +96,14 @@ const Step3FVP = ({ formData, setFormData, onNext, onBack }: Step3Props) => {
         {formData.hasFVP &&
         <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="space-y-6 pt-4 border-t border-border">
             <CurrencyInput
-            label="¿Cuánto aportaste al FVP en 2026? (total del año)"
-            hint="Suma todos los aportes al FVP Skandia individual. Lo encuentras en tu extracto o en el portal de clientes."
+            label="¿Cuánto aportas al mes al FVP?"
+            hint="Ingresa tu aporte mensual promedio al FVP Skandia individual. Nosotros lo multiplicamos × 12 automáticamente."
             value={formData.fvpTotal}
             onChange={(v) => update({ fvpTotal: v })} />
           
             <CurrencyInput
-            label="¿Cuánto aportaste a cuenta AFC en 2026? (total del año)"
-            hint="Si tienes una cuenta AFC en una entidad financiera, ingresa el total aportado. Si no tienes AFC, deja en cero."
+            label="¿Cuánto aportas al mes a cuenta AFC?"
+            hint="Si tienes una cuenta AFC en una entidad financiera, ingresa tu aporte mensual promedio. Si no tienes AFC, deja en cero. Nosotros lo multiplicamos × 12 automáticamente."
             value={formData.afcTotal}
             onChange={(v) => update({ afcTotal: v })} />
           

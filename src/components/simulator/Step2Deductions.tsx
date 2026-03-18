@@ -61,8 +61,8 @@ const Step2Deductions = ({ formData, setFormData, onNext, onBack }: Step2Props) 
           <Switch checked={formData.hasHip} onCheckedChange={(v) => update({ hasHip: v, interesesVivienda: v ? formData.interesesVivienda : 0 })} />
         </div>
         {formData.hasHip && <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="space-y-4">
-            <CurrencyInput label="¿Cuánto pagaste en intereses durante el 2026? (total del año)"
-          hint="El banco te entrega un certificado anual que separa capital e intereses. Usa solo el valor de los intereses — el capital no es deducible. Si no lo tienes aún, puedes estimarlo o pedírselo a tu banco."
+            <CurrencyInput label="¿Cuánto pagas al mes en intereses de tu crédito?"
+          hint="Usa un promedio mensual solo de intereses. Nosotros lo multiplicamos × 12 automáticamente para calcular el total anual."
           value={formData.interesesVivienda}
           onChange={(v) => update({ interesesVivienda: v })} />
           
@@ -80,8 +80,8 @@ const Step2Deductions = ({ formData, setFormData, onNext, onBack }: Step2Props) 
         {formData.hasSalud &&
         <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="space-y-4">
             <CurrencyInput
-            label="¿Cuánto pagas al año en total por ese plan?"
-            hint="Suma lo que pagas por ti, tu cónyuge e hijos. Si tienes el valor mensual, multiplícalo × 12. Aplica para planes de entidades vigiladas por la Superintendencia Nacional de Salud (Colsanitas, Compensar, Coomeva, Medisanitas, entre otras)."
+            label="¿Cuánto pagas al mes por ese plan?"
+            hint="Suma lo que pagas mensualmente por ti, tu cónyuge e hijos. Nosotros lo multiplicamos × 12 automáticamente. Aplica para planes de entidades vigiladas por la Superintendencia Nacional de Salud (Colsanitas, Compensar, Coomeva, Medisanitas, entre otras)."
             value={formData.pagosSalud}
             onChange={(v) => update({ pagosSalud: v })} />
           
@@ -97,8 +97,8 @@ const Step2Deductions = ({ formData, setFormData, onNext, onBack }: Step2Props) 
           <Badge className="bg-success-light text-success border-success-border text-xs">Fuera del tope global</Badge>
         </div>
         <CurrencyInput
-          label="¿Cuánto estimas gastar con factura electrónica durante todo el 2026?"
-          hint="Restaurantes, supermercados, ropa, servicios, viajes — cualquier compra pagada con tarjeta débito, crédito o transferencia, con factura electrónica a tu nombre."
+          label="¿Cuánto estimas gastar al mes con factura electrónica?"
+          hint="Restaurantes, supermercados, ropa, servicios, viajes — cualquier compra pagada con tarjeta débito, crédito o transferencia, con factura electrónica a tu nombre. Nosotros lo multiplicamos × 12 automáticamente."
           value={formData.comprasFE}
           onChange={(v) => update({ comprasFE: v })} />
         

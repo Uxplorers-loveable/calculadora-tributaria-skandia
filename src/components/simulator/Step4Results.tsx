@@ -181,10 +181,10 @@ const Step4Results = ({ formData, results, onNext, onBack }: Step4Props) => {
         </div>
         {formData.hasPAC && (
           <div className="border-t border-border pt-8">
-            <MeterBar label="PAC Skandia" used={formData.pacEmpresa + formData.pacPropio} max={results.topeFVP} color="gold" />
+            <MeterBar label="PAC Skandia" used={pacAnual} max={results.topeFVP} color="gold" />
             <div className="flex gap-4 mt-2 text-xs text-muted-foreground">
-              <span>Empresa: ${formatCOP(formData.pacEmpresa)}</span>
-              <span>Propios: ${formatCOP(formData.pacPropio)}</span>
+              <span>Empresa: ${formatCOP(formData.pacEmpresa * 12)}/año</span>
+              <span>Propios: ${formatCOP(formData.pacPropio * 12)}/año</span>
             </div>
           </div>
         )}
