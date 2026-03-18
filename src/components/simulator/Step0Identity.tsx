@@ -60,7 +60,7 @@ const Step0Identity = ({ formData, setFormData, onNext }: Step0Props) => {
 
   return (
     <motion.div key="step0" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
-      <SamiBubble text="Antes de comenzar, necesitamos validar tus datos para empezar tu simulación tributaria" />
+      <SamiBubble text="Antes de comenzar, necesitamos validar tus datos para empezar tu simulación tributaria." />
 
       <Card className="skandia-card space-y-8 mb-6">
         <div className="space-y-2">
