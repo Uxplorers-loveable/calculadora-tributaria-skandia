@@ -56,7 +56,7 @@ const Step4Results = ({ formData, results, onNext, onBack }: Step4Props) => {
   const aporteMensual = results.topup > 0 ? results.topup / mesesRestantes : 0;
 
   const samiMsg = results.topup > 0
-    ? `Aquí está tu panorama. Tu impuesto estimado sin optimizar es $${formatCOP(results.impNormal)}. Tienes $${formatCOP(results.topup)} de cupo disponible en el FVP — si lo usas, tu impuesto quedaría en $${formatCOP(results.impTopup)}, un ahorro de $${formatCOP(results.ahorroTopup)}.${hasPACK ? ` El PACK, adicionalmente, representa un ahorro de $${formatCOP(results.ahorroPAC)}.` : ''}${hasFE ? ` Y con tus compras con factura electrónica puedes descontar hasta $${formatCOP(results.dedFE1)} más — por fuera del tope global.` : ''}`
+    ? `Aquí está tu panorama. Tu impuesto estimado sin optimizar es $${formatCOP(results.impNormal)}. Tienes $${formatCOP(results.topup)} de cupo disponible en el FVP — si lo usas, tu impuesto quedaría en $${formatCOP(results.impTopup)}, un ahorro de $${formatCOP(results.ahorroTopup)}.${hasPACK ? ` El PAC, adicionalmente, representa un ahorro de $${formatCOP(results.ahorroPAC)}.` : ''}${hasFE ? ` Y con tus compras con factura electrónica puedes descontar hasta $${formatCOP(results.dedFE1)} más — por fuera del tope global.` : ''}`
     : 'Ya estás aprovechando prácticamente todo el cupo tributario disponible para 2026. Tu impuesto estimado es $' + formatCOP(results.impTopup) + '. Si quieres explorar otras oportunidades, tu Financial Planner puede acompañarte.';
 
   // Build benefits table
