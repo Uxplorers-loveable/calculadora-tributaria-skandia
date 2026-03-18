@@ -111,12 +111,8 @@ const Step0Identity = ({ formData, setFormData, onNext }: Step0Props) => {
         </div>
       </Card>
 
-      <div className="skandia-hero-dark p-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <div>
-          <p className="text-sm text-grey-400">Inicio del recorrido</p>
-          <p className="text-lg font-bold font-display">Activa tu simulación tributaria</p>
-        </div>
-        <Button onClick={handleContinue} className="bg-primary hover:bg-primary/90 text-primary-foreground h-12 px-8 rounded-full">
+      <div className="flex justify-end">
+        <Button onClick={handleContinue} className="h-12 rounded-full bg-primary px-8 text-primary-foreground hover:bg-primary/90">
           Empezar <ChevronRight className="ml-2 w-4 h-4" />
         </Button>
       </div>
