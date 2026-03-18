@@ -63,25 +63,17 @@ const Step3FVP = ({ formData, setFormData, onNext, onBack }: Step3Props) => {
             <SkandiaTooltip color="green" content="¿Cómo funciona el beneficio tributario del PAC? Los aportes de tu empresa son deducibles para ella (hasta 3.800 UVT por empleado). Los tuyos cuentan como renta exenta para ti — igual que el FVP. Ambos comparten el cupo de 30% del ingreso / 3.800 UVT." />
           </motion.div>
         }
+
+        {formData.hasBono && (
+          <div className="space-y-4 pt-4 border-t border-border">
+            <div className="flex items-center justify-between gap-4">
+              <p className="font-medium text-foreground">¿Quieres evaluar el impacto del PAC con tu bono?</p>
+              <Switch checked={formData.usePACK} onCheckedChange={(v) => update({ usePACK: v })} />
+            </div>
+            <SkandiaTooltip color="blue" content="El simulador te muestra los dos escenarios — con PAC y sin PAC — para que evalúes con números reales y tomes la decisión que más te convenga." />
+          </div>
+        )}
       </Card>
-
-      {/* Card 8: PAC */}
-      {formData.hasBono &&
-      <Card className="mb-6 p-8 rounded-lg border-t-4 space-y-6" style={{ borderTopColor: 'hsl(var(--skandia-gold))', borderColor: 'hsl(var(--border))' }}>
-          <div className="flex items-center gap-3 flex-wrap">
-            <h3 className="text-lg font-bold font-display text-foreground">PAC — enviar el bono al PAC antes de recibirlo</h3>
-            <Badge className="bg-skandia-gold-light text-foreground border-skandia-gold-border text-xs">Mayor impacto posible</Badge>
-          </div>
-
-          <SkandiaTooltip color="amber" content="¿Cómo funciona el PAC? Cuando envías tu bono al Fondo Voluntario de Pensión antes de recibirlo, ese valor no aparece en tu certificado de ingresos y retenciones. No paga impuesto de renta ni retención en la fuente en el año en que se recibe. Es la estrategia con mayor impacto para reducir tu declaración." />
-
-          <div className="flex items-center justify-between">
-            <p className="font-medium text-foreground">¿Quieres evaluar el impacto del PAC con tu bono?</p>
-            <Switch checked={formData.usePACK} onCheckedChange={(v) => update({ usePACK: v })} />
-          </div>
-          <SkandiaTooltip color="blue" content="El simulador te muestra los dos escenarios — con PAC y sin PAC — para que evalúes con números reales y tomes la decisión que más te convenga." />
-        </Card>
-      }
 
       {/* Card 9: FVP individual / AFC */}
       <Card className="skandia-card space-y-6 mb-6">
