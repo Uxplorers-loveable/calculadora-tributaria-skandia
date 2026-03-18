@@ -65,7 +65,7 @@ const Step3FVP = ({ formData, setFormData, onNext, onBack }: Step3Props) => {
         }
       </Card>
 
-      {/* Card 8: PACK */}
+      {/* Card 8: PAC */}
       {formData.hasBono &&
       <Card className="mb-6 p-8 rounded-lg border-t-4 space-y-6" style={{ borderTopColor: 'hsl(var(--skandia-gold))', borderColor: 'hsl(var(--border))' }}>
           <div className="flex items-center gap-3 flex-wrap">
@@ -73,13 +73,13 @@ const Step3FVP = ({ formData, setFormData, onNext, onBack }: Step3Props) => {
             <Badge className="bg-skandia-gold-light text-foreground border-skandia-gold-border text-xs">Mayor impacto posible</Badge>
           </div>
 
-          <SkandiaTooltip color="amber" content="¿Cómo funciona el PACK? Cuando envías tu bono al Fondo Voluntario de Pensión antes de recibirlo, ese valor no aparece en tu certificado de ingresos y retenciones. No paga impuesto de renta ni retención en la fuente en el año en que se recibe. Es la estrategia con mayor impacto para reducir tu declaración." />
+          <SkandiaTooltip color="amber" content="¿Cómo funciona el PAC? Cuando envías tu bono al Fondo Voluntario de Pensión antes de recibirlo, ese valor no aparece en tu certificado de ingresos y retenciones. No paga impuesto de renta ni retención en la fuente en el año en que se recibe. Es la estrategia con mayor impacto para reducir tu declaración." />
 
           <div className="flex items-center justify-between">
             <p className="font-medium text-foreground">¿Quieres evaluar el impacto del PAC con tu bono?</p>
             <Switch checked={formData.usePACK} onCheckedChange={(v) => update({ usePACK: v })} />
           </div>
-          <SkandiaTooltip color="blue" content="El simulador te muestra los dos escenarios — con PACK y sin PACK — para que evalúes con números reales y tomes la decisión que más te convenga." />
+          <SkandiaTooltip color="blue" content="El simulador te muestra los dos escenarios — con PAC y sin PAC — para que evalúes con números reales y tomes la decisión que más te convenga." />
         </Card>
       }
 
