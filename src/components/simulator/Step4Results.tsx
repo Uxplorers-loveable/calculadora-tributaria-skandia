@@ -119,7 +119,7 @@ const Step4Results = ({ formData, results, onNext, onBack }: Step4Props) => {
 
         {hasPACK && (
           <Card className="p-6 border-skandia-gold-border bg-skandia-gold-light">
-            <p className="text-sm font-medium mb-1" style={{ color: 'hsl(var(--info-amber-text))' }}>Con PACK</p>
+            <p className="text-sm font-medium mb-1" style={{ color: 'hsl(var(--info-amber-text))' }}>Con PAC</p>
             <p className="text-2xl font-bold font-display text-foreground">${formatCOP(results.impPAC)}</p>
             <p className="text-[10px] uppercase tracking-wider mt-2" style={{ color: 'hsl(var(--info-amber-text))' }}>Ahorro: ${formatCOP(results.ahorroPAC)}</p>
           </Card>
