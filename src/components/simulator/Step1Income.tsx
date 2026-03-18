@@ -52,7 +52,7 @@ const Step1Income = ({ formData, setFormData, totalIngresos, onNext }: Step1Prop
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="Ordinario">Ordinario – recibo prima y cesantías</SelectItem>
-                <SelectItem value="Integral">Integral – no recibo prima ni cesantías, están incluidas en el salario</SelectItem>
+                <SelectItem value="Integral">Integral– no recibo prima ni cesantías, están incluidas en el salario</SelectItem>
               </SelectContent>
             </Select>
             <p className="text-xs text-muted-foreground">Esto cambia cómo calculamos tu ingreso anual y tu base de seguridad social.</p>
