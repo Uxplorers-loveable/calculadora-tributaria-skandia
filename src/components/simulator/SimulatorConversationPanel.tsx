@@ -2,7 +2,6 @@ import { motion } from 'framer-motion';
 import { BadgeDollarSign, CheckCircle2, Compass, Landmark, Sparkles, TrendingUp } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { FormData } from '@/lib/simulator-types';
 import { SimulatorResults, formatCOP } from '@/lib/tax-engine';
 
@@ -114,7 +113,7 @@ const SimulatorConversationPanel = ({ currentStep, formData, results }: Simulato
   ].filter(Boolean) as Array<{ icon: typeof Landmark; label: string; value: string }>;
 
   return (
-    <aside className="lg:sticky lg:top-24 self-start">
+    <aside className="self-start lg:sticky lg:top-24">
       <Card className="sami-panel overflow-hidden">
         <div className="sami-panel-hero p-6">
           <div className="flex items-start justify-between gap-4">
@@ -136,7 +135,7 @@ const SimulatorConversationPanel = ({ currentStep, formData, results }: Simulato
           </p>
         </div>
 
-        <ScrollArea className="max-h-[calc(100vh-12rem)]">
+        <div className="max-h-[calc(100vh-12rem)] overflow-y-auto">
           <div className="space-y-6 p-6">
             <section className="space-y-4">
               <div className="flex items-center gap-2 text-primary">
@@ -159,7 +158,7 @@ const SimulatorConversationPanel = ({ currentStep, formData, results }: Simulato
             <section className="space-y-3">
               <div className="flex items-center gap-2 text-foreground">
                 <Compass className="h-4 w-4 text-primary" />
-                <p className="text-sm font-bold font-display">Cómo avanzar en este paso</p>
+                <p className="font-display text-sm font-bold">Cómo avanzar en este paso</p>
               </div>
               <div className="space-y-2">
                 {conversation.checklist.map((item) => (
@@ -173,7 +172,7 @@ const SimulatorConversationPanel = ({ currentStep, formData, results }: Simulato
 
             {highlights.length > 0 && (
               <section className="space-y-3">
-                <p className="text-sm font-bold font-display text-foreground">Lo que ya descubrimos</p>
+                <p className="font-display text-sm font-bold text-foreground">Lo que ya descubrimos</p>
                 <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
                   {highlights.map(({ icon: Icon, label, value }) => (
                     <div key={label} className="rounded-2xl border border-border bg-card px-4 py-4 shadow-sm">
@@ -187,7 +186,7 @@ const SimulatorConversationPanel = ({ currentStep, formData, results }: Simulato
             )}
 
             <section className="space-y-3">
-              <p className="text-sm font-bold font-display text-foreground">Recorrido del simulador</p>
+              <p className="font-display text-sm font-bold text-foreground">Recorrido del simulador</p>
               <div className="space-y-3">
                 {STEP_LABELS.map((label, index) => {
                   const isActive = index === currentStep;
@@ -217,11 +216,11 @@ const SimulatorConversationPanel = ({ currentStep, formData, results }: Simulato
             </section>
 
             <section className="rounded-2xl border border-border bg-secondary px-4 py-4">
-              <p className="text-sm font-bold font-display text-foreground">Lectura de SAMI</p>
+              <p className="font-display text-sm font-bold text-foreground">Lectura de SAMI</p>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{conversation.note}</p>
             </section>
           </div>
-        </ScrollArea>
+        </div>
       </Card>
     </aside>
   );
