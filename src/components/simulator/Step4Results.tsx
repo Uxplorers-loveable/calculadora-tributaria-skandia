@@ -54,6 +54,7 @@ const Step4Results = ({ formData, results, onNext, onBack }: Step4Props) => {
 
   const mesesRestantes = Math.max(1, 12 - new Date().getMonth());
   const aporteMensual = results.topup > 0 ? results.topup / mesesRestantes : 0;
+  const pacAnual = (formData.pacEmpresa + formData.pacPropio) * 12;
 
   const samiMsg = results.topup > 0
     ? `Aquí está tu panorama. Tu impuesto estimado sin optimizar es $${formatCOP(results.impNormal)}. Tienes $${formatCOP(results.topup)} de cupo disponible en el FVP — si lo usas, tu impuesto quedaría en $${formatCOP(results.impTopup)}, un ahorro de $${formatCOP(results.ahorroTopup)}.${hasPACK ? ` El PAC, adicionalmente, representa un ahorro de $${formatCOP(results.ahorroPAC)}.` : ''}${hasFE ? ` Y con tus compras con factura electrónica puedes descontar hasta $${formatCOP(results.dedFE1)} más — por fuera del tope global.` : ''}`
