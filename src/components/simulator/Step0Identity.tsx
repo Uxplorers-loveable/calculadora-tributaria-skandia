@@ -86,10 +86,15 @@ const Step0Identity = ({ formData, setFormData, onNext }: Step0Props) => {
           </div>
 
           <div className="space-y-2">
-            <Label className="text-sm font-semibold text-grey-600 font-display">Número de documento</Label>
+            <Label className="text-sm font-semibold text-grey-600 font-display">
+              Número de documento <span className="text-destructive">*</span>
+            </Label>
             <Input
               type="text"
               inputMode="numeric"
+              required
+              aria-required="true"
+              aria-invalid={errors.documentNumber ? 'true' : 'false'}
               className="h-12 text-base font-medium"
               placeholder="Ingresa tu número"
               value={formData.documentNumber}
