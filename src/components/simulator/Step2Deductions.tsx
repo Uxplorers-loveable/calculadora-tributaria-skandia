@@ -6,7 +6,6 @@ import { Switch } from '@/components/ui/switch';
 import { Slider } from '@/components/ui/slider';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import SamiBubble from './SamiBubble';
 import SkandiaTooltip from './SkandiaTooltip';
 import CurrencyInput from './CurrencyInput';
 import { FormData } from '@/lib/simulator-types';
@@ -28,8 +27,6 @@ const Step2Deductions = ({ formData, setFormData, onNext, onBack }: Step2Props) 
 
   return (
     <motion.div key="step2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
-      <SamiBubble text="Ahora revisemos los beneficios que ya hacen parte de tu realidad. La idea es simple: entender cuánto espacio de optimización ya estás usando y cuánto capital adicional podrías poner a trabajar de manera más inteligente." />
-
       {/* Card 3: Dependientes */}
       <Card className="skandia-card space-y-6 mb-6">
         <h3 className="text-lg font-bold font-display text-foreground">Tu entorno familiar también cuenta</h3>
@@ -40,7 +37,7 @@ const Step2Deductions = ({ formData, setFormData, onNext, onBack }: Step2Props) 
             max={4}
             step={1}
             className="w-full" />
-          
+
           <div className="flex justify-between text-xs text-muted-foreground">
             <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span>
           </div>
@@ -63,7 +60,7 @@ const Step2Deductions = ({ formData, setFormData, onNext, onBack }: Step2Props) 
           hint="Usa un promedio mensual solo de intereses y nosotros calculamos la proyección anual."
           value={formData.interesesVivienda}
           onChange={(v) => update({ interesesVivienda: v })} />
-          
+
             <SkandiaTooltip color="blue" content="Art. 119 ET: los intereses de vivienda pueden ayudarte a reducir tu carga tributaria. Aquí los incorporamos para mostrarte el efecto completo dentro de tu panorama." />
           </motion.div>
         }
@@ -82,7 +79,7 @@ const Step2Deductions = ({ formData, setFormData, onNext, onBack }: Step2Props) 
             hint="Suma lo que pagas mensualmente por ti y tu familia. Nosotros lo proyectamos al año automáticamente."
             value={formData.pagosSalud}
             onChange={(v) => update({ pagosSalud: v })} />
-          
+
             <SkandiaTooltip color="blue" content="Art. 387 ET: este valor puede convertirse en una deducción útil para hacer más eficiente tu resultado tributario final." />
           </motion.div>
         }
@@ -99,7 +96,7 @@ const Step2Deductions = ({ formData, setFormData, onNext, onBack }: Step2Props) 
           hint="Incluye compras cotidianas hechas con factura electrónica a tu nombre. Nosotros calculamos la proyección anual para mostrarte su impacto."
           value={formData.comprasFE}
           onChange={(v) => update({ comprasFE: v })} />
-        
+
         {formData.comprasFE > 0 &&
         <div className="grid md:grid-cols-2 gap-4">
             <div className="p-4 rounded-lg bg-secondary border border-border">

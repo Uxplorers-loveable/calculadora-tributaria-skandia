@@ -1,6 +1,7 @@
 import { useState, useMemo, useCallback, useRef } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import SimulatorHeader from '@/components/simulator/SimulatorHeader';
+import SimulatorConversationPanel from '@/components/simulator/SimulatorConversationPanel';
 import Step0Identity from '@/components/simulator/Step0Identity';
 import Step1Income from '@/components/simulator/Step1Income';
 import Step2Deductions from '@/components/simulator/Step2Deductions';
@@ -48,47 +49,55 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-secondary font-body pb-20">
       <SimulatorHeader currentStep={step} />
-      <main ref={mainRef} className="max-w-4xl mx-auto px-4 sm:px-6 pt-8 sm:pt-12">
-        <AnimatePresence mode="wait">
-          {step === 0 && (
-            <Step0Identity
-              formData={formData}
-              setFormData={setFormData}
-              onNext={() => goTo(1)}
-            />
-          )}
-          {step === 1 && (
-            <Step1Income
-              formData={formData}
-              setFormData={setFormData}
-              totalIngresos={results.totalIngresos}
-              onNext={() => goTo(2)}
-            />
-          )}
-          {step === 2 && (
-            <Step2Deductions
-              formData={formData}
-              setFormData={setFormData}
-              onNext={() => goTo(3)}
-              onBack={() => goTo(1)}
-            />
-          )}
-          {step === 3 && (
-            <Step3FVP
-              formData={formData}
-              setFormData={setFormData}
-              onNext={() => goTo(4)}
-              onBack={() => goTo(2)}
-            />
-          )}
-          {step === 4 && (
-            <Step4Results
-              formData={formData}
-              results={results}
-              onBack={() => goTo(3)}
-            />
-          )}
-        </AnimatePresence>
+      <main ref={mainRef} className="mx-auto max-w-7xl px-4 pt-8 sm:px-6 sm:pt-12">
+        <div className="grid items-start gap-8 xl:grid-cols-[minmax(0,1fr)_360px]">
+          <section className="min-w-0 order-2 xl:order-1">
+            <AnimatePresence mode="wait">
+              {step === 0 && (
+                <Step0Identity
+                  formData={formData}
+                  setFormData={setFormData}
+                  onNext={() => goTo(1)}
+                />
+              )}
+              {step === 1 && (
+                <Step1Income
+                  formData={formData}
+                  setFormData={setFormData}
+                  totalIngresos={results.totalIngresos}
+                  onNext={() => goTo(2)}
+                />
+              )}
+              {step === 2 && (
+                <Step2Deductions
+                  formData={formData}
+                  setFormData={setFormData}
+                  onNext={() => goTo(3)}
+                  onBack={() => goTo(1)}
+                />
+              )}
+              {step === 3 && (
+                <Step3FVP
+                  formData={formData}
+                  setFormData={setFormData}
+                  onNext={() => goTo(4)}
+                  onBack={() => goTo(2)}
+                />
+              )}
+              {step === 4 && (
+                <Step4Results
+                  formData={formData}
+                  results={results}
+                  onBack={() => goTo(3)}
+                />
+              )}
+            </AnimatePresence>
+          </section>
+
+          <div className="order-1 xl:order-2">
+            <SimulatorConversationPanel currentStep={step} formData={formData} results={results} />
+          </div>
+        </div>
       </main>
     </div>
   );
