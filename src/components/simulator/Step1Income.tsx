@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ChevronRight } from 'lucide-react';
 import { Card } from '@/components/ui/card';
@@ -20,7 +21,25 @@ interface Step1Props {
 }
 
 const Step1Income = ({ formData, setFormData, totalIngresos, onNext }: Step1Props) => {
-  const update = (partial: Partial<FormData>) => setFormData(prev => ({ ...prev, ...partial }));
+  const [salaryError, setSalaryError] = useState<string | null>(null);
+
+  const update = (partial: Partial<FormData>) => {
+    setFormData(prev => ({ ...prev, ...partial }));
+
+    if ('salMensual' in partial && (partial.salMensual ?? 0) > 0) {
+      setSalaryError(null);
+    }
+  };
+
+  const handleNext = () => {
+    if (!formData.salMensual || formData.salMensual <= 0) {
+      setSalaryError('Completa tu salario básico mensual para continuar.');
+      return;
+    }
+
+    setSalaryError(null);
+    onNext();
+  };
 
   return (
     <motion.div key="step1" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
@@ -32,11 +51,12 @@ const Step1Income = ({ formData, setFormData, totalIngresos, onNext }: Step1Prop
         <div className="grid md:grid-cols-2 gap-8">
           <div>
             <CurrencyInput
-              label="Salario básico mensual"
+              label="Salario básico mensual *"
               hint="El valor base que aparece en tu desprendible, antes de cualquier descuento. No incluyas auxilios ni comisiones — esos los preguntamos por separado."
               value={formData.salMensual}
               onChange={(v) => update({ salMensual: v })}
             />
+            {salaryError && <p className="mt-2 text-xs text-destructive">{salaryError}</p>}
             {formData.tipo === 'Integral' && formData.salMensual > 0 && formData.salMensual < MINIMO_INT && (
               <Badge variant="outline" className="mt-2 bg-skandia-gold-light text-foreground border-skandia-gold-border">
                 El mínimo para salario integral es ${formatCOP(MINIMO_INT)}
@@ -195,7 +215,7 @@ const Step1Income = ({ formData, setFormData, totalIngresos, onNext }: Step1Prop
           <p className="text-2xl font-bold font-display">${formatCOP(totalIngresos)}</p>
           <p className="text-xs text-grey-400 mt-1">Salario {formData.tipo === 'Integral' ? '× 12' : '× 14.12'} meses + auxilios + variable + bono</p>
         </div>
-        <Button onClick={onNext} className="bg-primary hover:bg-skandia-green-dark text-primary-foreground h-12 px-8 rounded-full">
+        <Button onClick={handleNext} className="bg-primary hover:bg-skandia-green-dark text-primary-foreground h-12 px-8 rounded-full">
           Continuar <ChevronRight className="ml-2 w-4 h-4" />
         </Button>
       </div>
