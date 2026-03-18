@@ -186,7 +186,6 @@ const SamiAssistantPanel = ({ step, activeKey, formData, results }: SamiAssistan
             </div>
             <div>
               <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">SAMI te acompaña</p>
-              <h3 className="font-display text-lg font-bold text-foreground">Guía conversacional</h3>
             </div>
           </div>
         </div>

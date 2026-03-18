@@ -200,13 +200,8 @@ const Step1Income = ({ formData, setFormData, totalIngresos, onNext }: Step1Prop
         </div>
       </Card>
 
-      <div className="skandia-hero-dark sticky top-20 z-30 p-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <div>
-          <p className="text-grey-400 text-sm">Resumen consolidado</p>
-          <p className="text-2xl font-bold font-display">${formatCOP(totalIngresos)}</p>
-          <p className="text-xs text-grey-400 mt-1">Tu ingreso bruto anual estimado para 2026</p>
-        </div>
-        <Button onClick={handleNext} className="bg-primary hover:bg-primary/90 text-primary-foreground h-12 px-8 rounded-full">
+      <div className="flex justify-end">
+        <Button onClick={handleNext} className="h-12 rounded-full bg-primary px-8 text-primary-foreground hover:bg-primary/90">
           Continuar <ChevronRight className="ml-2 w-4 h-4" />
         </Button>
       </div>

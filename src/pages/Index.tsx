@@ -1,6 +1,7 @@
 import { useState, useMemo, useCallback, useRef } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import SimulatorHeader from '@/components/simulator/SimulatorHeader';
+import SimulatorSummaryBar from '@/components/simulator/SimulatorSummaryBar';
 import Step0Identity from '@/components/simulator/Step0Identity';
 import Step1Income from '@/components/simulator/Step1Income';
 import Step2Deductions from '@/components/simulator/Step2Deductions';
@@ -65,7 +66,8 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-secondary font-body pb-20">
       <SimulatorHeader currentStep={step} />
-      <main ref={mainRef} className="max-w-[1280px] mx-auto px-4 sm:px-6 pt-8 sm:pt-12 lg:grid lg:grid-cols-[minmax(0,1fr)_360px] lg:gap-8 lg:items-start">
+      <SimulatorSummaryBar step={step} formData={formData} results={results} />
+      <main ref={mainRef} className="max-w-[1280px] mx-auto px-4 sm:px-6 pt-6 sm:pt-8 lg:grid lg:grid-cols-[minmax(0,1fr)_360px] lg:gap-8 lg:items-start">
         <section onClickCapture={handleSamiContext} onFocusCapture={handleSamiContext}>
           <AnimatePresence mode="wait">
             {step === 0 && (
