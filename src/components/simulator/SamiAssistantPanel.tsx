@@ -36,7 +36,7 @@ const CONTENT: Record<string, SamiContent> = {
   step0_intro: {
     eyebrow: 'Bienvenida',
     title: 'Tu patrimonio también puede crecer con eficiencia tributaria',
-    body: 'En Skandia conectas tu capital con portafolios globales y conviertes tu planeación tributaria en una decisión estratégica. Empecemos con tus datos básicos para construir un panorama claro y relevante para ti.',
+    body: 'En Skandia conectas tu capital con portafolios globales y conviertes tu planeación tributaria en una decisión estratégica. ',
     note: 'Voy contigo durante todo el recorrido para explicarte cada dato en un lenguaje simple.',
   },
   documentType: {
