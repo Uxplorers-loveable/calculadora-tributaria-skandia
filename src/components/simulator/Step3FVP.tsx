@@ -1,9 +1,8 @@
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ChevronRight, ChevronLeft } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import SkandiaTooltip from './SkandiaTooltip';
 import CurrencyInput from './CurrencyInput';
 import { FormData } from '@/lib/simulator-types';
@@ -13,10 +12,16 @@ interface Step3Props {
   setFormData: React.Dispatch<React.SetStateAction<FormData>>;
   onNext: () => void;
   onBack: () => void;
+  registerNavigation: (navigation: { back?: () => void; next?: () => void; nextLabel?: string }) => void;
 }
 
-const Step3FVP = ({ formData, setFormData, onNext, onBack }: Step3Props) => {
+const Step3FVP = ({ formData, setFormData, onNext, onBack, registerNavigation }: Step3Props) => {
   const update = (partial: Partial<FormData>) => setFormData((prev) => ({ ...prev, ...partial }));
+
+  useEffect(() => {
+    registerNavigation({ back: onBack, next: onNext, nextLabel: 'Ver mi panorama' });
+    return () => registerNavigation({});
+  }, [onBack, onNext, registerNavigation]);
 
   return (
     <motion.div key="step3" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }} className="flex min-h-full flex-col">
@@ -104,17 +109,6 @@ const Step3FVP = ({ formData, setFormData, onNext, onBack }: Step3Props) => {
             </motion.div>
           )}
         </Card>
-      </div>
-
-      <div className="sticky bottom-0 z-10 -mx-4 mt-auto border-t border-border bg-background/95 px-4 py-4 backdrop-blur-sm sm:-mx-6 sm:px-6 lg:mx-0 lg:px-0">
-        <div className="flex justify-between gap-3">
-          <Button variant="ghost" onClick={onBack} className="h-11 text-muted-foreground">
-            <ChevronLeft className="mr-2 h-4 w-4" /> Atrás
-          </Button>
-          <Button onClick={onNext} className="h-11 rounded-full bg-primary px-7 text-primary-foreground hover:bg-primary/90">
-            Ver mi panorama <ChevronRight className="ml-2 h-4 w-4" />
-          </Button>
-        </div>
       </div>
     </motion.div>
   );

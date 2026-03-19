@@ -1,5 +1,5 @@
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { FormData } from '@/lib/simulator-types';
 import { SimulatorResults, formatCOP } from '@/lib/tax-engine';
@@ -9,9 +9,10 @@ interface Step4Props {
   formData: FormData;
   results: SimulatorResults;
   onBack: () => void;
+  registerNavigation: (navigation: { back?: () => void; next?: () => void; nextLabel?: string }) => void;
 }
 
-const Step4Results = ({ formData, results }: Step4Props) => {
+const Step4Results = ({ formData, results, onBack, registerNavigation }: Step4Props) => {
   const userName = getPersonalizedName(formData.documentNumber);
   const totalCapacity = Math.max(results.topeFVP, 0);
   const occupiedCapacity = Math.min(results.afc, totalCapacity);
@@ -19,8 +20,11 @@ const Step4Results = ({ formData, results }: Step4Props) => {
   const occupiedPct = totalCapacity > 0 ? Math.min((occupiedCapacity / totalCapacity) * 100, 100) : 0;
   const availablePct = totalCapacity > 0 ? Math.min((availableCapacity / totalCapacity) * 100, 100 - occupiedPct) : 0;
   const estimatedBenefit = results.ahorroTopup + (formData.comprasFE > 0 ? results.ahorroFE1 : 0);
-  const currentTax = results.impNormal;
-  const optimizedTax = results.impTopup;
+
+  useEffect(() => {
+    registerNavigation({ back: onBack });
+    return () => registerNavigation({});
+  }, [onBack, registerNavigation]);
 
   return (
     <motion.div

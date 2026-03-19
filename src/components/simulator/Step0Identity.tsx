@@ -1,11 +1,9 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { z } from 'zod';
-import { ChevronRight } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { FormData } from '@/lib/simulator-types';
 
@@ -13,6 +11,7 @@ interface Step0Props {
   formData: FormData;
   setFormData: React.Dispatch<React.SetStateAction<FormData>>;
   onNext: () => void;
+  registerNavigation: (navigation: { back?: () => void; next?: () => void; nextLabel?: string }) => void;
 }
 
 const documentSchema = z.object({
@@ -25,7 +24,7 @@ const documentSchema = z.object({
   regex(/^\d{5,20}$/, 'Ingresa un número de documento válido.')
 });
 
-const Step0Identity = ({ formData, setFormData, onNext }: Step0Props) => {
+const Step0Identity = ({ formData, setFormData, onNext, registerNavigation }: Step0Props) => {
   const [errors, setErrors] = useState<{ documentType?: string; documentNumber?: string }>({});
 
   const update = (partial: Partial<FormData>) => {
@@ -33,7 +32,7 @@ const Step0Identity = ({ formData, setFormData, onNext }: Step0Props) => {
     setErrors((prev) => ({ ...prev, ...Object.keys(partial).reduce((acc, key) => ({ ...acc, [key]: undefined }), {}) }));
   };
 
-  const handleContinue = () => {
+  const handleContinue = useCallback(() => {
     const result = documentSchema.safeParse({
       documentType: formData.documentType,
       documentNumber: formData.documentNumber
@@ -50,7 +49,12 @@ const Step0Identity = ({ formData, setFormData, onNext }: Step0Props) => {
 
     setErrors({});
     onNext();
-  };
+  }, [formData.documentNumber, formData.documentType, onNext]);
+
+  useEffect(() => {
+    registerNavigation({ next: handleContinue, nextLabel: 'Empezar' });
+    return () => registerNavigation({});
+  }, [handleContinue, registerNavigation]);
 
   return (
     <motion.div key="step0" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }} className="flex min-h-full flex-col">
@@ -108,14 +112,6 @@ const Step0Identity = ({ formData, setFormData, onNext }: Step0Props) => {
             </div>
           </div>
         </Card>
-      </div>
-
-      <div className="sticky bottom-0 z-10 -mx-4 mt-auto border-t border-border bg-background/95 px-4 py-4 backdrop-blur-sm sm:-mx-6 sm:px-6 lg:mx-0 lg:px-0">
-        <div className="flex justify-end">
-          <Button onClick={handleContinue} className="h-12 rounded-full bg-primary px-8 text-primary-foreground hover:bg-primary/90">
-            Empezar <ChevronRight className="ml-2 h-4 w-4" />
-          </Button>
-        </div>
       </div>
     </motion.div>
   );
