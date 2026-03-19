@@ -26,7 +26,7 @@ const getSummaryContent = (step: number, userName: string | null): SummaryConten
       return {
         stepLabel: 'Paso 1 de 4',
         title: userName ? `${userName}, así avanza tu proyección de ingresos` : 'Así avanza tu proyección de ingresos',
-        caption: 'Tu ingreso bruto anual estimado se actualiza a medida que completas el simulador.',
+        caption: 'Tu ingreso bruto anual estimado se actualiza mientras completas el simulador.',
       };
     case 2:
       return {
@@ -43,8 +43,8 @@ const getSummaryContent = (step: number, userName: string | null): SummaryConten
     case 4:
       return {
         stepLabel: 'Resultado final',
-        title: userName ? `${userName}, este es tu cierre de ingresos proyectados` : 'Este es tu cierre de ingresos proyectados',
-        caption: 'Con este dato como contexto, ya puedes leer con claridad tu resultado de optimización.',
+        title: userName ? `${userName}, ya tienes tu panorama consolidado` : 'Ya tienes tu panorama consolidado',
+        caption: 'Con este contexto de ingresos puedes interpretar mejor tu resultado de optimización.',
       };
     default:
       return {
@@ -60,19 +60,19 @@ const SimulatorSummaryBar = ({ step, formData, results }: SimulatorSummaryBarPro
   const summary = getSummaryContent(step, userName);
 
   return (
-    <div className="sticky top-16 sm:top-20 z-40 border-b border-border/20">
-      <div className="skandia-hero-green rounded-none">
-        <div className="mx-auto max-w-[1280px] px-4 py-4 sm:px-6">
-          <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
-            <div className="space-y-1.5">
+    <div className="sticky top-16 sm:top-20 z-40 border-b border-border/20 bg-background/95 backdrop-blur-sm">
+      <div className="mx-auto max-w-[1280px] px-4 py-3 sm:px-6 sm:py-4">
+        <div className="skandia-hero-green rounded-[28px] border border-primary/15 px-5 py-5 sm:px-6 sm:py-6">
+          <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-end">
+            <div className="space-y-2">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary-foreground/80">{summary.stepLabel}</p>
-              <p className="text-sm text-primary-foreground/80">{summary.title}</p>
-              <p className="text-xs text-primary-foreground/75 sm:text-sm">{summary.caption}</p>
+              <h2 className="font-display text-2xl font-bold leading-tight text-primary-foreground sm:text-3xl">{summary.title}</h2>
+              <p className="max-w-2xl text-sm leading-6 text-primary-foreground/80">{summary.caption}</p>
             </div>
 
-            <div className="rounded-[20px] border border-primary-foreground/20 bg-primary-foreground/10 px-4 py-3 backdrop-blur-sm lg:min-w-[320px]">
+            <div className="rounded-2xl border border-primary-foreground/20 bg-primary-foreground/10 px-4 py-4 backdrop-blur-sm sm:px-5">
               <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary-foreground/75">Ingreso bruto anual estimado</p>
-              <p className="mt-1 font-display text-2xl font-bold text-primary-foreground sm:text-3xl">$${formatCOP(results.totalIngresos)}</p>
+              <p className="mt-2 font-display text-3xl font-bold leading-none text-primary-foreground sm:text-4xl">$${formatCOP(results.totalIngresos)}</p>
             </div>
           </div>
         </div>

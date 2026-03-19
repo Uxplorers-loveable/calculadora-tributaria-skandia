@@ -155,28 +155,28 @@ const SamiAssistantPanel = ({ step, activeKey, formData }: SamiAssistantPanelPro
       className="lg:sticky lg:top-6 lg:h-full"
     >
       <Card className="skandia-card overflow-hidden p-0 lg:flex lg:max-h-[calc(100vh-12rem)] lg:flex-col">
-        <div className="border-b border-border px-6 py-5">
+        <div className="border-b border-border bg-secondary/60 px-6 py-5">
           <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-full bg-secondary text-primary">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-primary/10 bg-primary/5 text-primary">
               <MessageCircle className="h-5 w-5" />
             </div>
             <div>
-              <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">SAMI te acompaña</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">SAMI te acompaña</p>
               {userName && <p className="mt-1 text-sm font-medium text-foreground">Hola {userName}</p>}
             </div>
           </div>
         </div>
 
-        <div className="space-y-5 px-6 py-6 lg:flex-1 lg:overflow-y-auto">
-          <Badge className="w-fit border-border bg-secondary text-secondary-foreground">{content.eyebrow}</Badge>
-          <div className="space-y-3">
-            <h4 className="font-display text-xl font-bold leading-tight text-foreground">{content.title}</h4>
+        <div className="space-y-6 px-6 py-6 lg:flex-1 lg:overflow-y-auto">
+          <Badge className="w-fit rounded-full border border-primary/10 bg-primary/5 px-3 py-1 text-primary">{content.eyebrow}</Badge>
+          <div className="space-y-4">
+            <h4 className="font-display text-2xl font-bold leading-tight text-foreground">{content.title}</h4>
             <p className="text-sm leading-7 text-muted-foreground">{content.body}</p>
-            {content.note && <p className="text-sm leading-7 text-foreground">{content.note}</p>}
+            {content.note && <p className="border-l-2 border-primary/20 pl-4 text-sm leading-7 text-foreground">{content.note}</p>}
           </div>
 
-          <div className="rounded-2xl border border-border bg-card p-4">
-            <div className="mb-2 flex items-center gap-2 text-primary">
+          <div className="rounded-2xl border border-border bg-secondary/60 p-5">
+            <div className="mb-3 flex items-center gap-2 text-primary">
               <TrendingUp className="h-4 w-4" />
               <p className="text-xs font-semibold uppercase tracking-[0.18em]">Qué estás construyendo</p>
             </div>

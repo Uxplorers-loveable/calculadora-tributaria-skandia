@@ -101,8 +101,8 @@
 
 @layer components {
   .skandia-card {
-    @apply bg-card rounded-lg border border-border p-8;
-    box-shadow: 0 1px 3px 0 hsl(var(--grey-900) / 0.04), 0 1px 2px -1px hsl(var(--grey-900) / 0.04);
+    @apply bg-card rounded-2xl border border-border p-8;
+    box-shadow: 0 4px 8px -4px hsl(var(--grey-900) / 0.06);
   }
 
   .skandia-tooltip-blue {
@@ -127,37 +127,41 @@
   }
 
   .skandia-hero-dark {
-    @apply rounded-2xl text-primary-foreground;
+    @apply rounded-3xl text-primary-foreground;
     background: linear-gradient(135deg, hsl(var(--skandia-navy)), hsl(var(--skandia-navy-light)));
   }
 
   .skandia-hero-green {
-    @apply rounded-2xl text-primary-foreground;
-    background: linear-gradient(135deg, hsl(var(--skandia-green-dark)), hsl(var(--primary)), hsl(var(--skandia-green-light)));
+    @apply rounded-3xl text-primary-foreground;
+    background:
+      radial-gradient(circle at 80% 50%, hsl(var(--skandia-green-light) / 0.28), transparent 24%),
+      linear-gradient(135deg, hsl(var(--skandia-green-dark)), hsl(var(--primary)) 58%, hsl(var(--primary)));
   }
 
   .skandia-gold-card {
-    @apply rounded-lg border p-8;
+    @apply rounded-2xl border p-8;
     background: hsl(var(--skandia-gold-light));
     border-color: hsl(var(--skandia-gold-border));
   }
 
   .skandia-green-card {
-    @apply rounded-lg border p-8;
+    @apply rounded-2xl border p-8;
     background: hsl(var(--success-green-light));
     border-color: hsl(var(--success-green-border));
   }
 
   .sami-bubble {
-    @apply p-5 rounded-2xl rounded-tl-none border shadow-sm max-w-2xl;
+    @apply p-5 rounded-2xl rounded-tl-none border max-w-2xl;
     background: hsl(var(--card));
     border-color: hsl(var(--border));
+    box-shadow: 0 4px 8px -4px hsl(var(--grey-900) / 0.06);
   }
 
   .sami-bubble-gold {
-    @apply p-5 rounded-2xl rounded-tl-none border shadow-sm max-w-2xl;
+    @apply p-5 rounded-2xl rounded-tl-none border max-w-2xl;
     background: hsl(var(--skandia-gold-light));
     border-color: hsl(var(--skandia-gold-border));
+    box-shadow: 0 4px 8px -4px hsl(var(--grey-900) / 0.06);
   }
 
   .benefit-mountain {
