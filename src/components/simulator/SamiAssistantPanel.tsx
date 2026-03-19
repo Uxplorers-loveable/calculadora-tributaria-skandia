@@ -204,16 +204,16 @@ const SamiAssistantPanel = ({ step, activeKey, formData, results, onBack, onNext
           </div>
 
           {hasNavigation && (
-            <div className="hidden border-t border-border bg-background/95 px-5 py-4 backdrop-blur-sm lg:block">
-              <div className={`flex gap-3 ${navAlignment}`}>
-                {onBack && (
-                  <Button variant="ghost" onClick={onBack} className="h-11 text-muted-foreground">
-                    <ChevronLeft className="mr-2 h-4 w-4" /> Atrás
+             <div className="hidden border-t border-border bg-background/95 px-5 py-4 backdrop-blur-sm lg:block">
+              <div className="flex flex-col gap-3">
+                {onNext && (
+                  <Button onClick={onNext} className="h-11 w-full rounded-full bg-primary text-primary-foreground hover:bg-primary/90">
+                    {nextLabel ?? 'Siguiente'} <ChevronRight className="ml-2 h-4 w-4" />
                   </Button>
                 )}
-                {onNext && (
-                  <Button onClick={onNext} className="h-11 rounded-full bg-primary px-7 text-primary-foreground hover:bg-primary/90">
-                    {nextLabel ?? 'Siguiente'} <ChevronRight className="ml-2 h-4 w-4" />
+                {onBack && (
+                  <Button variant="ghost" onClick={onBack} className="h-11 w-full text-muted-foreground">
+                    <ChevronLeft className="mr-2 h-4 w-4" /> Atrás
                   </Button>
                 )}
               </div>
