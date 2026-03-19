@@ -51,7 +51,7 @@ const Step4Results = ({ formData, results, onBack, registerNavigation }: Step4Pr
 
               <div className="rounded-xl border border-primary/10 bg-card px-4 py-4">
                 <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Beneficio estimado</p>
-                <p className="mt-1.5 font-display text-3xl font-bold leading-none text-primary sm:text-4xl">$${formatCOP(estimatedBenefit)}</p>
+                <p className="mt-1.5 font-display text-3xl font-bold leading-none text-primary sm:text-4xl">${formatCOP(estimatedBenefit)}</p>
                 <p className="mt-2 text-xs leading-5 text-muted-foreground">
                   Valor que podrías activar.
                 </p>
@@ -64,7 +64,7 @@ const Step4Results = ({ formData, results, onBack, registerNavigation }: Step4Pr
               <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
                 <div>
                   <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Capacidad total</p>
-                  <p className="mt-1.5 font-display text-2xl font-bold leading-none text-foreground sm:text-3xl">$${formatCOP(totalCapacity)}</p>
+                  <p className="mt-1.5 font-display text-2xl font-bold leading-none text-foreground sm:text-3xl">${formatCOP(totalCapacity)}</p>
                 </div>
                 <p className="text-xs text-muted-foreground">{Math.round(occupiedPct)}% usado</p>
               </div>
@@ -89,15 +89,15 @@ const Step4Results = ({ formData, results, onBack, registerNavigation }: Step4Pr
               <div className="mt-4 grid gap-3 sm:grid-cols-3">
                 <div className="rounded-xl border border-border bg-secondary/50 p-3">
                   <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Total</p>
-                  <p className="mt-2 font-display text-xl font-bold leading-none text-foreground">$${formatCOP(totalCapacity)}</p>
+                  <p className="mt-2 font-display text-xl font-bold leading-none text-foreground">${formatCOP(totalCapacity)}</p>
                 </div>
                 <div className="rounded-xl border border-primary/10 bg-primary/5 p-3">
                   <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Activo</p>
-                  <p className="mt-2 font-display text-xl font-bold leading-none text-primary">$${formatCOP(occupiedCapacity)}</p>
+                  <p className="mt-2 font-display text-xl font-bold leading-none text-primary">${formatCOP(occupiedCapacity)}</p>
                 </div>
                 <div className="rounded-xl border border-skandia-gold-border bg-skandia-gold-light p-3">
                   <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Disponible</p>
-                  <p className="mt-2 font-display text-xl font-bold leading-none text-foreground">$${formatCOP(availableCapacity)}</p>
+                  <p className="mt-2 font-display text-xl font-bold leading-none text-foreground">${formatCOP(availableCapacity)}</p>
                 </div>
               </div>
             </div>
@@ -108,7 +108,7 @@ const Step4Results = ({ formData, results, onBack, registerNavigation }: Step4Pr
                 Si te quedan 10 meses para optimizar tu planeación tributaria
               </h3>
               <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                Si empezaras hoy podrías hacer un aporte mensual de <span className="font-semibold text-foreground">$${formatCOP(availableCapacity / 10)}</span> a uno de tus contratos de inversión.
+                Si empezaras hoy podrías hacer un aporte mensual de <span className="font-semibold text-foreground">${formatCOP(availableCapacity / 10)}</span> a uno de tus contratos de inversión.
               </p>
             </div>
           </div>
