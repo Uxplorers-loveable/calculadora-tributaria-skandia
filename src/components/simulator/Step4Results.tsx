@@ -29,44 +29,44 @@ const Step4Results = ({ formData, results }: Step4Props) => {
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -20 }}
       transition={{ duration: 0.3 }}
-      className="space-y-6"
+      className="space-y-4"
     >
-      <section data-sami-key="results_mountain" className="space-y-4">
+      <section data-sami-key="results_mountain" className="space-y-3">
         <Card className="skandia-card overflow-hidden p-0">
-          <div className="border-b border-border bg-secondary/60 px-6 py-6 sm:px-8 sm:py-7">
-            <div className="grid gap-5 lg:grid-cols-[minmax(0,1.15fr)_300px] lg:items-end">
+          <div className="border-b border-border bg-secondary/60 px-5 py-4 sm:px-6 sm:py-5">
+            <div className="grid gap-4 lg:grid-cols-[minmax(0,1.1fr)_260px] lg:items-end">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">Resultado de optimización</p>
-                <h2 className="mt-3 font-display text-3xl font-bold leading-tight text-foreground sm:text-4xl">
-                  {userName ? `${userName}, este es tu potencial de beneficio tributario.` : 'Este es tu potencial de beneficio tributario.'}
+                <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary">Resultado</p>
+                <h2 className="mt-2 font-display text-2xl font-bold leading-tight text-foreground sm:text-3xl">
+                  {userName ? `${userName}, este es tu beneficio estimado.` : 'Este es tu beneficio estimado.'}
                 </h2>
-                <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">
-                  Aquí ves de forma clara el valor total que podrías alcanzar, cuánto ya estás ocupando y cuánto te falta activar para completar tu capacidad estimada.
+                <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">
+                  Revisa tu total estimado, lo que ya usas y lo que aún puedes activar.
                 </p>
               </div>
 
-              <div className="rounded-2xl border border-primary/10 bg-card px-5 py-5">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Beneficio tributario estimado</p>
-                <p className="mt-2 font-display text-4xl font-bold leading-none text-primary sm:text-5xl">$${formatCOP(estimatedBenefit)}</p>
-                <p className="mt-3 text-sm leading-6 text-muted-foreground">
-                  Valor estimado que podrías materializar al activar tu capacidad disponible.
+              <div className="rounded-xl border border-primary/10 bg-card px-4 py-4">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Beneficio estimado</p>
+                <p className="mt-1.5 font-display text-3xl font-bold leading-none text-primary sm:text-4xl">$${formatCOP(estimatedBenefit)}</p>
+                <p className="mt-2 text-xs leading-5 text-muted-foreground">
+                  Valor que podrías activar.
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="space-y-5 px-6 py-6 sm:px-8 sm:py-7">
-            <div className="rounded-2xl border border-border bg-card p-5 sm:p-6">
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+          <div className="space-y-4 px-5 py-4 sm:px-6 sm:py-5">
+            <div className="rounded-xl border border-border bg-card p-4">
+              <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">Capacidad de beneficio tributario</p>
-                  <p className="mt-2 font-display text-3xl font-bold leading-none text-foreground sm:text-4xl">$${formatCOP(totalCapacity)}</p>
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Capacidad total</p>
+                  <p className="mt-1.5 font-display text-2xl font-bold leading-none text-foreground sm:text-3xl">$${formatCOP(totalCapacity)}</p>
                 </div>
-                <p className="text-sm text-muted-foreground">{Math.round(occupiedPct)}% de tu capacidad ya está ocupada</p>
+                <p className="text-xs text-muted-foreground">{Math.round(occupiedPct)}% usado</p>
               </div>
 
-              <div className="mt-5 overflow-hidden rounded-full border border-border bg-secondary">
-                <div className="flex h-4 w-full">
+              <div className="mt-4 overflow-hidden rounded-full border border-border bg-secondary">
+                <div className="flex h-3 w-full">
                   <motion.div
                     initial={{ width: 0 }}
                     animate={{ width: `${occupiedPct}%` }}
@@ -82,52 +82,49 @@ const Step4Results = ({ formData, results }: Step4Props) => {
                 </div>
               </div>
 
-              <div className="mt-5 grid gap-4 md:grid-cols-3">
-                <div className="rounded-2xl border border-border bg-secondary/50 p-4">
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Total posible</p>
-                  <p className="mt-3 font-display text-2xl font-bold leading-none text-foreground">$${formatCOP(totalCapacity)}</p>
-                  <p className="mt-2 text-sm leading-6 text-muted-foreground">Es la capacidad máxima estimada que podrías utilizar.</p>
+              <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                <div className="rounded-xl border border-border bg-secondary/50 p-3">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Total</p>
+                  <p className="mt-2 font-display text-xl font-bold leading-none text-foreground">$${formatCOP(totalCapacity)}</p>
                 </div>
-                <div className="rounded-2xl border border-primary/10 bg-primary/5 p-4">
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Hoy estás ocupando</p>
-                  <p className="mt-3 font-display text-2xl font-bold leading-none text-primary">$${formatCOP(occupiedCapacity)}</p>
-                  <p className="mt-2 text-sm leading-6 text-muted-foreground">Corresponde al beneficio que ya tienes activo actualmente.</p>
+                <div className="rounded-xl border border-primary/10 bg-primary/5 p-3">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Activo</p>
+                  <p className="mt-2 font-display text-xl font-bold leading-none text-primary">$${formatCOP(occupiedCapacity)}</p>
                 </div>
-                <div className="rounded-2xl border border-skandia-gold-border bg-skandia-gold-light p-4">
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Te falta activar</p>
-                  <p className="mt-3 font-display text-2xl font-bold leading-none text-foreground">$${formatCOP(availableCapacity)}</p>
-                  <p className="mt-2 text-sm leading-6 text-muted-foreground">Es el valor que aún podrías convertir en optimización tributaria.</p>
+                <div className="rounded-xl border border-skandia-gold-border bg-skandia-gold-light p-3">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Disponible</p>
+                  <p className="mt-2 font-display text-xl font-bold leading-none text-foreground">$${formatCOP(availableCapacity)}</p>
                 </div>
               </div>
             </div>
 
-            <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-stretch">
-              <div className="rounded-2xl border border-border bg-secondary/50 p-5 sm:p-6">
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">Comparativo de impuesto</p>
-                <div className="mt-5 grid grid-cols-2 gap-4">
-                  <div className="rounded-2xl border border-border bg-card p-4">
-                    <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Escenario actual</p>
-                    <p className="mt-3 font-display text-2xl font-bold leading-none text-foreground">$${formatCOP(currentTax)}</p>
+            <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_280px] lg:items-stretch">
+              <div className="rounded-xl border border-border bg-secondary/50 p-4">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Impuesto</p>
+                <div className="mt-3 grid grid-cols-2 gap-3">
+                  <div className="rounded-xl border border-border bg-card p-3">
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Actual</p>
+                    <p className="mt-2 font-display text-xl font-bold leading-none text-foreground">$${formatCOP(currentTax)}</p>
                   </div>
-                  <div className="rounded-2xl border border-primary/10 bg-card p-4">
-                    <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Escenario optimizado</p>
-                    <p className="mt-3 font-display text-2xl font-bold leading-none text-primary">$${formatCOP(optimizedTax)}</p>
+                  <div className="rounded-xl border border-primary/10 bg-card p-3">
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Optimizado</p>
+                    <p className="mt-2 font-display text-xl font-bold leading-none text-primary">$${formatCOP(optimizedTax)}</p>
                   </div>
                 </div>
               </div>
 
-              <div className="rounded-2xl border border-primary/10 bg-secondary/60 p-6">
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">Cómo empezar a invertir para cumplir ese beneficio tributario</p>
-                <h3 className="mt-2 font-display text-2xl font-bold leading-tight text-foreground">Convierte tu capacidad disponible en una estrategia accionable.</h3>
-                <p className="mt-3 text-sm leading-7 text-muted-foreground">
-                  Un asesor financiero puede ayudarte a definir el instrumento, el ritmo de aporte y la mejor forma de activar el valor que aún tienes disponible dentro de tu capacidad tributaria estimada.
+              <div className="rounded-xl border border-primary/10 bg-secondary/60 p-4">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary">Siguiente paso</p>
+                <h3 className="mt-2 font-display text-xl font-bold leading-tight text-foreground">Activa tu valor disponible.</h3>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                  Un asesor puede ayudarte a definir cómo hacerlo.
                 </p>
 
                 <Button
                   onClick={() => window.open('https://inversiones.skandia.com.co/asesoria', '_blank', 'noopener,noreferrer')}
-                  className="mt-5 h-12 rounded-full bg-primary px-6 text-primary-foreground hover:bg-primary/90"
+                  className="mt-4 h-10 rounded-full bg-primary px-5 text-sm text-primary-foreground hover:bg-primary/90"
                 >
-                  Agenda una sesión con tu Asesor financiero
+                  Hablar con un asesor
                 </Button>
               </div>
             </div>
