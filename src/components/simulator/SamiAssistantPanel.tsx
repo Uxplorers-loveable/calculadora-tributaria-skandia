@@ -1,9 +1,10 @@
 import { motion } from 'framer-motion';
-import { MessageCircle, Sparkles, TrendingUp } from 'lucide-react';
+import { MessageCircle, TrendingUp } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { FormData } from '@/lib/simulator-types';
-import { SimulatorResults, formatCOP } from '@/lib/tax-engine';
+import { SimulatorResults } from '@/lib/tax-engine';
+import { getPersonalizedName } from '@/lib/personalization';
 
 interface SamiAssistantPanelProps {
   step: number;
@@ -120,9 +121,10 @@ const CONTENT: Record<string, SamiContent> = {
     body: 'Estos instrumentos pueden ayudarte a construir patrimonio con mayor eficiencia. El simulador te muestra cuánto beneficio ya usas y cuánto te falta por activar.',
   },
   results_mountain: {
-    eyebrow: 'Tu panorama',
-    title: 'Aquí entiendes tu resultado de optimización de forma simple y visual',
-    body: 'En esta sección final ves el beneficio total estimado, cuánto ya estás aprovechando hoy y cuánto te falta por activar para acercarte a tu máximo potencial.',
+    eyebrow: 'Resultado final',
+    title: 'Aquí ves tu capacidad total, lo que ya ocupas y lo que aún tienes disponible',
+    body: 'La lectura final está diseñada para que entiendas de forma inmediata tu capacidad de beneficio tributario, cuánto ya estás usando y cuánto te falta activar para completar tu optimización.',
+    note: 'Tu asesor puede ayudarte a convertir ese valor disponible en una estrategia concreta de inversión.',
   },
   results_benefits: {
     eyebrow: 'Detalle',
@@ -131,45 +133,19 @@ const CONTENT: Record<string, SamiContent> = {
   },
 };
 
-const getStepSummary = (step: number, formData: FormData, results: SimulatorResults) => {
-  switch (step) {
-    case 0:
-      return {
-        label: 'Inicio del journey',
-        value: formData.documentType || 'Aún sin documento seleccionado',
-      };
-    case 1:
-      return {
-        label: 'Ingreso estimado',
-        value: formData.salMensual > 0 ? `$${formatCOP(results.totalIngresos)}` : 'Completa tu ingreso base',
-      };
-    case 2:
-      return {
-        label: 'Beneficio global en uso',
-        value: `$${formatCOP(results.dedAdmis)}`,
-      };
-    case 3:
-      return {
-        label: 'Cupo FVP disponible',
-        value: `$${formatCOP(results.topup)}`,
-      };
-    case 4:
-      return {
-        label: 'Ahorro potencial estimado',
-        value: `$${formatCOP(results.ahorroTopup)}`,
-      };
-    default:
-      return {
-        label: 'Resumen',
-        value: 'Sigue avanzando en el simulador',
-      };
-  }
-};
-
-const SamiAssistantPanel = ({ step, activeKey, formData, results }: SamiAssistantPanelProps) => {
+const SamiAssistantPanel = ({ step, activeKey, formData }: SamiAssistantPanelProps) => {
   const selectedKey = activeKey && CONTENT[activeKey] ? activeKey : STEP_DEFAULT_KEYS[step] ?? 'step0_intro';
-  const content = CONTENT[selectedKey];
-  const summary = getStepSummary(step, formData, results);
+  const baseContent = CONTENT[selectedKey];
+  const userName = getPersonalizedName(formData.documentNumber);
+  const content = userName
+    ? {
+        ...baseContent,
+        title:
+          selectedKey === 'step0_intro'
+            ? `Hola ${userName}, empecemos a construir tu panorama tributario`
+            : baseContent.title,
+      }
+    : baseContent;
 
   return (
     <motion.aside
@@ -186,6 +162,7 @@ const SamiAssistantPanel = ({ step, activeKey, formData, results }: SamiAssistan
             </div>
             <div>
               <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">SAMI te acompaña</p>
+              {userName && <p className="mt-1 text-sm font-medium text-foreground">Hola {userName}</p>}
             </div>
           </div>
         </div>
@@ -198,22 +175,15 @@ const SamiAssistantPanel = ({ step, activeKey, formData, results }: SamiAssistan
             {content.note && <p className="text-sm leading-7 text-foreground">{content.note}</p>}
           </div>
 
-          <div className="rounded-2xl border border-border bg-secondary p-4">
-            <div className="mb-2 flex items-center gap-2 text-primary">
-              <Sparkles className="h-4 w-4" />
-              <p className="text-xs font-semibold uppercase tracking-[0.18em]">Lectura rápida</p>
-            </div>
-            <p className="text-xs text-muted-foreground">{summary.label}</p>
-            <p className="mt-1 font-display text-lg font-bold text-foreground">{summary.value}</p>
-          </div>
-
           <div className="rounded-2xl border border-border bg-card p-4">
             <div className="mb-2 flex items-center gap-2 text-primary">
               <TrendingUp className="h-4 w-4" />
               <p className="text-xs font-semibold uppercase tracking-[0.18em]">Qué estás construyendo</p>
             </div>
             <p className="text-sm leading-7 text-muted-foreground">
-              Un panorama simple para decidir mejor cómo alinear ingresos, beneficios tributarios y estrategia patrimonial.
+              {userName
+                ? `${userName}, estás construyendo un panorama simple para decidir mejor cómo alinear ingresos, beneficio tributario y estrategia patrimonial.`
+                : 'Un panorama simple para decidir mejor cómo alinear ingresos, beneficio tributario y estrategia patrimonial.'}
             </p>
           </div>
         </div>
