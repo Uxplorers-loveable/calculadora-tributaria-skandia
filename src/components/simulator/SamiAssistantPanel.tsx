@@ -2,8 +2,9 @@ import { motion } from 'framer-motion';
 import { MessageCircle } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { FormData } from '@/lib/simulator-types';
-import { SimulatorResults } from '@/lib/tax-engine';
+import { SimulatorResults, formatCOP } from '@/lib/tax-engine';
 import { getPersonalizedName } from '@/lib/personalization';
 
 interface SamiAssistantPanelProps {
@@ -133,10 +134,11 @@ const CONTENT: Record<string, SamiContent> = {
   },
 };
 
-const SamiAssistantPanel = ({ step, activeKey, formData }: SamiAssistantPanelProps) => {
+const SamiAssistantPanel = ({ step, activeKey, formData, results }: SamiAssistantPanelProps) => {
   const selectedKey = activeKey && CONTENT[activeKey] ? activeKey : STEP_DEFAULT_KEYS[step] ?? 'step0_intro';
   const baseContent = CONTENT[selectedKey];
   const userName = getPersonalizedName(formData.documentNumber);
+  const suggestedMonthlyContribution = Math.max(results.topup, 0) / 10;
   const content = userName
     ? {
         ...baseContent,
@@ -174,6 +176,25 @@ const SamiAssistantPanel = ({ step, activeKey, formData }: SamiAssistantPanelPro
             <p className="text-sm leading-6 text-muted-foreground">{content.body}</p>
             {content.note && <p className="border-l-2 border-primary/20 pl-3 text-sm leading-6 text-foreground">{content.note}</p>}
           </div>
+
+          {step === 4 && (
+            <div className="rounded-xl border border-primary/10 bg-secondary/60 p-4">
+              <h3 className="font-display text-xl font-bold leading-tight text-foreground">Aún estas a tiempo</h3>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                Tu asesor financiero puede ayudarte a cosntruir la mejor estrategia tributaria.
+              </p>
+              <p className="mt-3 text-sm leading-6 text-foreground">
+                Si empiezas hoy, podrías aportar <span className="font-semibold">$${formatCOP(suggestedMonthlyContribution)}</span> al mes.
+              </p>
+
+              <Button
+                onClick={() => window.open('https://inversiones.skandia.com.co/asesoria', '_blank', 'noopener,noreferrer')}
+                className="mt-4 h-10 rounded-full bg-primary px-5 text-sm text-primary-foreground hover:bg-primary/90"
+              >
+                Agendar una cita con mi asesor
+              </Button>
+            </div>
+          )}
         </div>
       </Card>
     </motion.aside>
