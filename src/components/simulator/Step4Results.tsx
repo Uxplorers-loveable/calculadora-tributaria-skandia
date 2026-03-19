@@ -99,30 +99,13 @@ const Step4Results = ({ formData, results }: Step4Props) => {
             </div>
 
             <div className="rounded-xl border border-primary/10 bg-secondary/60 p-4">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary">Impuesto y siguiente paso</p>
-              <div className="mt-3 grid gap-3 sm:grid-cols-2">
-                <div className="rounded-xl border border-border bg-card p-3">
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Actual</p>
-                  <p className="mt-2 font-display text-xl font-bold leading-none text-foreground">$${formatCOP(currentTax)}</p>
-                </div>
-                <div className="rounded-xl border border-primary/10 bg-card p-3">
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Optimizado</p>
-                  <p className="mt-2 font-display text-xl font-bold leading-none text-primary">$${formatCOP(optimizedTax)}</p>
-                </div>
-              </div>
-              <div className="mt-4 border-t border-border pt-4">
-                <h3 className="font-display text-xl font-bold leading-tight text-foreground">Aún estas a tiempo</h3>
-                <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                  Tu asesor financiero puede ayudarte a cosntruir la mejor estrategia tributaria.
-                </p>
-
-                <Button
-                  onClick={() => window.open('https://inversiones.skandia.com.co/asesoria', '_blank', 'noopener,noreferrer')}
-                  className="mt-4 h-10 rounded-full bg-primary px-5 text-sm text-primary-foreground hover:bg-primary/90"
-                >
-                  Agendar una cita con mi asesor
-                </Button>
-              </div>
+              <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary">Aporte sugerido</p>
+              <h3 className="mt-2 font-display text-xl font-bold leading-tight text-foreground">
+                Si te quedan 10 meses para optimizar tu planeación tributaria
+              </h3>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                Si empezaras hoy podrías hacer un aporte mensual de <span className="font-semibold text-foreground">$${formatCOP(availableCapacity / 10)}</span> a uno de tus contratos de inversión.
+              </p>
             </div>
           </div>
         </Card>
