@@ -75,14 +75,14 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-secondary font-body lg:h-screen lg:overflow-hidden">
+    <div className="min-h-screen bg-secondary font-body">
       <SimulatorHeader currentStep={step} />
       {step > 0 && <SimulatorSummaryBar step={step} formData={formData} results={results} />}
       <main
         ref={mainRef}
-        className="mx-auto max-w-[1200px] px-4 pt-4 sm:px-6 sm:pt-6 lg:grid lg:h-[calc(100vh-9.75rem)] lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start lg:gap-6 lg:overflow-hidden"
+        className="mx-auto max-w-[1200px] px-4 pt-4 sm:px-6 sm:pt-6 lg:grid lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start lg:gap-6"
       >
-        <section onClickCapture={handleSamiContext} onFocusCapture={handleSamiContext} className="pb-28 lg:h-full lg:overflow-y-auto lg:pr-2 lg:pb-8">
+        <section onClickCapture={handleSamiContext} onFocusCapture={handleSamiContext} className="pb-28 lg:pb-8 lg:pr-2">
           <AnimatePresence mode="wait">
             {step === 0 && (
               <Step0Identity
@@ -130,7 +130,7 @@ const Index = () => {
           </AnimatePresence>
         </section>
 
-        <div className="mt-6 pb-28 lg:mt-0 lg:h-full lg:overflow-hidden lg:pb-0">
+        <div className="mt-6 pb-28 lg:sticky lg:top-24 lg:mt-0 lg:self-start lg:pb-0">
           <SamiAssistantPanel
             step={step}
             activeKey={activeSamiKey}
