@@ -5,7 +5,7 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
-import BenefitOpportunityMountain from './BenefitOpportunityMountain';
+import BenefitOpportunityOverview from './BenefitOpportunityOverview';
 import { FormData } from '@/lib/simulator-types';
 import { SimulatorResults, formatCOP, UVT, TOPE_FE } from '@/lib/tax-engine';
 
@@ -132,7 +132,7 @@ const Step4Results = ({ formData, results, onBack }: Step4Props) => {
       className="space-y-8"
     >
       <div data-sami-key="results_mountain">
-        <BenefitOpportunityMountain
+        <BenefitOpportunityOverview
           totalBenefit={totalBenefit}
           usedBenefit={usedBenefit}
           remainingBenefit={remainingBenefit}

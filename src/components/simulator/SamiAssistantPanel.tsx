@@ -121,8 +121,8 @@ const CONTENT: Record<string, SamiContent> = {
   },
   results_mountain: {
     eyebrow: 'Tu panorama',
-    title: 'Esta montaña te muestra qué tan cerca estás de aprovechar tu beneficio',
-    body: 'La meta es llegar a la cima del cupo tributario disponible. Verás cuánto ya está activo, cuánto te falta y cuál podría ser tu siguiente paso.',
+    title: 'Aquí ves el beneficio total estimado, lo que ya usas y lo que aún puedes activar',
+    body: 'La gráfica final resume de forma simple tu oportunidad: el valor total disponible, cuánto ya está participando en tu estrategia y cuánto te falta para acercarte al máximo estimado.',
   },
   results_benefits: {
     eyebrow: 'Detalle',
