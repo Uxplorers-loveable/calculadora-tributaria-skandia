@@ -152,9 +152,9 @@ const SamiAssistantPanel = ({ step, activeKey, formData }: SamiAssistantPanelPro
       initial={{ opacity: 0, x: 16 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.35 }}
-      className="lg:sticky lg:top-24"
+      className="lg:sticky lg:top-6 lg:h-full"
     >
-      <Card className="skandia-card overflow-hidden p-0">
+      <Card className="skandia-card overflow-hidden p-0 lg:flex lg:max-h-[calc(100vh-12rem)] lg:flex-col">
         <div className="border-b border-border px-6 py-5">
           <div className="flex items-center gap-3">
             <div className="flex h-11 w-11 items-center justify-center rounded-full bg-secondary text-primary">
@@ -167,8 +167,8 @@ const SamiAssistantPanel = ({ step, activeKey, formData }: SamiAssistantPanelPro
           </div>
         </div>
 
-        <div className="space-y-5 px-6 py-6">
-          <Badge className="w-fit bg-secondary text-secondary-foreground border-border">{content.eyebrow}</Badge>
+        <div className="space-y-5 px-6 py-6 lg:flex-1 lg:overflow-y-auto">
+          <Badge className="w-fit border-border bg-secondary text-secondary-foreground">{content.eyebrow}</Badge>
           <div className="space-y-3">
             <h4 className="font-display text-xl font-bold leading-tight text-foreground">{content.title}</h4>
             <p className="text-sm leading-7 text-muted-foreground">{content.body}</p>
