@@ -79,7 +79,7 @@ const BenefitOpportunityMountain = ({
           </div>
           <p className="text-sm leading-7 text-foreground">
             {remainingBenefit > 0
-              ? `Hoy estás aprovechando ${Math.round(benefitPct)}% de tu cupo. Si activas el valor que aún te falta, tu ahorro tributario estimado podría llegar a $${formatCOP(ahorroTotalEstimado)}.`
+              ? `Hoy estás aprovechando ${Math.round(benefitPct)}% de tu cupo. Si activas el valor que aún te falta, tu ahorro tributario estimado podría llegar a ${formatCOP(ahorroTotalEstimado)}.`
               : 'Ya estás muy cerca de la cima. Tu estructura actual está aprovechando prácticamente todo el cupo disponible.'}
           </p>
           {remainingBenefit > 0 && (
@@ -94,7 +94,7 @@ const BenefitOpportunityMountain = ({
           )}
           {hasFE && (
             <p className="mt-3 text-sm leading-7 text-muted-foreground">
-              Además, tus compras con factura electrónica podrían sumar hasta $${formatCOP(dedFE1)} de beneficio adicional.
+              Además, tus compras con factura electrónica podrían sumar hasta ${formatCOP(dedFE1)} de beneficio adicional.
             </p>
           )}
         </div>

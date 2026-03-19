@@ -190,7 +190,7 @@ const SamiAssistantPanel = ({ step, activeKey, formData, results, onBack, onNext
                   Tu asesor financiero puede ayudarte a cosntruir la mejor estrategia tributaria.
                 </p>
                 <p className="mt-3 text-sm leading-6 text-foreground">
-                  Si empiezas hoy, podrías aportar <span className="font-semibold">$${formatCOP(suggestedMonthlyContribution)}</span> al mes.
+                  Si empiezas hoy, podrías aportar <span className="font-semibold">${formatCOP(suggestedMonthlyContribution)}</span> al mes.
                 </p>
 
                 <Button

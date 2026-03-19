@@ -72,7 +72,7 @@ const SimulatorSummaryBar = ({ step, formData, results }: SimulatorSummaryBarPro
 
             <div className="rounded-xl border border-primary-foreground/20 bg-primary-foreground/10 px-4 py-3 backdrop-blur-sm">
               <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary-foreground/75">Ingreso bruto anual estimado</p>
-              <p className="mt-1.5 font-display text-2xl font-bold leading-none text-primary-foreground sm:text-3xl">$${formatCOP(results.totalIngresos)}</p>
+              <p className="mt-1.5 font-display text-2xl font-bold leading-none text-primary-foreground sm:text-3xl">${formatCOP(results.totalIngresos)}</p>
             </div>
           </div>
         </div>
