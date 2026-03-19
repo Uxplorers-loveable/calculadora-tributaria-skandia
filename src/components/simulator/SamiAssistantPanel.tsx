@@ -212,7 +212,7 @@ const SamiAssistantPanel = ({ step, activeKey, formData, results, onBack, onNext
                   </Button>
                 )}
                 {onNext && (
-                  <Button onClick={onNext} className="h-11 rounded-full bg-primary px-7 text-primary-foreground hover:bg-primary/90">
+                  <Button onClick={onNext} className="h-11 w-auto shrink-0 whitespace-nowrap rounded-full bg-primary px-7 text-primary-foreground hover:bg-primary/90">
                     {nextLabel ?? 'Siguiente'} <ChevronRight className="ml-2 h-4 w-4" />
                   </Button>
                 )}
