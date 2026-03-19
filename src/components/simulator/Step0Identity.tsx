@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { FormData } from '@/lib/simulator-types';
+import { getPersonalizedName } from '@/lib/personalization';
 
 interface Step0Props {
   formData: FormData;
@@ -27,6 +28,7 @@ const documentSchema = z.object({
 
 const Step0Identity = ({ formData, setFormData, onNext }: Step0Props) => {
   const [errors, setErrors] = useState<{ documentType?: string; documentNumber?: string }>({});
+  const userName = getPersonalizedName(formData.documentNumber);
 
   const update = (partial: Partial<FormData>) => {
     setFormData((prev) => ({ ...prev, ...partial }));
@@ -58,7 +60,9 @@ const Step0Identity = ({ formData, setFormData, onNext }: Step0Props) => {
         <div className="space-y-3">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Bienvenido</p>
           <h1 className="text-3xl sm:text-4xl font-bold font-display text-foreground max-w-3xl">
-            Haz que tu estrategia patrimonial avance con una lectura simple de tu beneficio tributario.
+            {userName
+              ? `Hola ${userName}, hagamos que tu estrategia patrimonial avance con una lectura simple de tu beneficio tributario.`
+              : 'Haz que tu estrategia patrimonial avance con una lectura simple de tu beneficio tributario.'}
           </h1>
           <p className="text-base leading-8 text-muted-foreground max-w-3xl">
             En Skandia conectas tu capital con oportunidades globales y conviertes tu Fondo de Pensiones Voluntarias en una herramienta para crecer con mayor eficiencia. Este simulador te muestra ese panorama de forma clara y cercana.
@@ -71,7 +75,9 @@ const Step0Identity = ({ formData, setFormData, onNext }: Step0Props) => {
 
       <Card className="skandia-card space-y-8 mb-6">
         <div className="space-y-2">
-          <h2 className="text-lg font-bold font-display text-foreground">Comencemos con tus datos básicos</h2>
+          <h2 className="text-lg font-bold font-display text-foreground">
+            {userName ? `Hola ${userName}, comencemos con tus datos básicos` : 'Comencemos con tus datos básicos'}
+          </h2>
           <p className="text-sm text-muted-foreground">Solo te tomará un momento. Así iniciamos tu simulación con un contexto más preciso.</p>
         </div>
 
