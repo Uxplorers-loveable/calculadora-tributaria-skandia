@@ -111,16 +111,16 @@ const Step4Results = ({ formData, results }: Step4Props) => {
                 </div>
               </div>
               <div className="mt-4 border-t border-border pt-4">
-                <h3 className="font-display text-xl font-bold leading-tight text-foreground">Activa tu valor disponible.</h3>
+                <h3 className="font-display text-xl font-bold leading-tight text-foreground">Aún estas a tiempo</h3>
                 <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                  Un asesor puede ayudarte a definir cómo hacerlo.
+                  Tu asesor financiero puede ayudarte a cosntruir la mejor estrategia tributaria.
                 </p>
 
                 <Button
                   onClick={() => window.open('https://inversiones.skandia.com.co/asesoria', '_blank', 'noopener,noreferrer')}
                   className="mt-4 h-10 rounded-full bg-primary px-5 text-sm text-primary-foreground hover:bg-primary/90"
                 >
-                  Hablar con un asesor
+                  Agendar una cita con mi asesor
                 </Button>
               </div>
             </div>
