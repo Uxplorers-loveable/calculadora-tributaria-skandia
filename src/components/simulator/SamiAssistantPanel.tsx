@@ -121,8 +121,8 @@ const CONTENT: Record<string, SamiContent> = {
   },
   results_mountain: {
     eyebrow: 'Tu panorama',
-    title: 'Aquí ves el beneficio total estimado, lo que ya usas y lo que aún puedes activar',
-    body: 'La gráfica final resume de forma simple tu oportunidad: el valor total disponible, cuánto ya está participando en tu estrategia y cuánto te falta para acercarte al máximo estimado.',
+    title: 'Aquí entiendes tu resultado de optimización de forma simple y visual',
+    body: 'En esta sección final ves el beneficio total estimado, cuánto ya estás aprovechando hoy y cuánto te falta por activar para acercarte a tu máximo potencial.',
   },
   results_benefits: {
     eyebrow: 'Detalle',
