@@ -104,13 +104,15 @@ const Step3FVP = ({ formData, setFormData, onNext, onBack }: Step3Props) => {
         )}
       </Card>
 
-      <div className="flex justify-between mt-8">
-        <Button variant="ghost" onClick={onBack} className="h-12 text-muted-foreground">
-          <ChevronLeft className="mr-2 w-4 h-4" /> Atrás
-        </Button>
-        <Button onClick={onNext} className="bg-primary hover:bg-primary/90 text-primary-foreground h-12 px-8 rounded-full">
-          Ver mi panorama <ChevronRight className="ml-2 w-4 h-4" />
-        </Button>
+      <div className="sticky bottom-0 z-10 -mx-4 mt-6 border-t border-border bg-background/95 px-4 py-4 backdrop-blur-sm sm:-mx-6 sm:px-6 lg:mx-0 lg:px-0">
+        <div className="flex justify-between gap-3">
+          <Button variant="ghost" onClick={onBack} className="h-11 text-muted-foreground">
+            <ChevronLeft className="mr-2 h-4 w-4" /> Atrás
+          </Button>
+          <Button onClick={onNext} className="h-11 rounded-full bg-primary px-7 text-primary-foreground hover:bg-primary/90">
+            Ver mi panorama <ChevronRight className="ml-2 h-4 w-4" />
+          </Button>
+        </div>
       </div>
     </motion.div>
   );
