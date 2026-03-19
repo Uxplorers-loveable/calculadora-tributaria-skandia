@@ -11,6 +11,12 @@ import SamiAssistantPanel from '@/components/simulator/SamiAssistantPanel';
 import { defaultFormData, FormData } from '@/lib/simulator-types';
 import { ejecutarSimulador, SimulatorInputs } from '@/lib/tax-engine';
 
+type StepNavigation = {
+  back?: () => void;
+  next?: () => void;
+  nextLabel?: string;
+};
+
 const DEFAULT_SAMI_KEY_BY_STEP: Record<number, string> = {
   0: 'step0_intro',
   1: 'income_salary',
@@ -23,6 +29,7 @@ const Index = () => {
   const [step, setStep] = useState(0);
   const [formData, setFormData] = useState<FormData>(defaultFormData);
   const [activeSamiKey, setActiveSamiKey] = useState(DEFAULT_SAMI_KEY_BY_STEP[0]);
+  const [stepNavigation, setStepNavigation] = useState<StepNavigation>({});
   const mainRef = useRef<HTMLDivElement>(null);
 
   const goTo = useCallback((s: number) => {
@@ -31,6 +38,10 @@ const Index = () => {
     setTimeout(() => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }, 50);
+  }, []);
+
+  const registerStepNavigation = useCallback((navigation: StepNavigation) => {
+    setStepNavigation(navigation);
   }, []);
 
   const afcTotal = useMemo(() => {
@@ -69,15 +80,16 @@ const Index = () => {
       {step > 0 && <SimulatorSummaryBar step={step} formData={formData} results={results} />}
       <main
         ref={mainRef}
-        className="mx-auto max-w-[1200px] px-4 pt-4 sm:px-6 sm:pt-6 lg:grid lg:h-[calc(100vh-9.75rem)] lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-6 lg:items-start lg:overflow-hidden"
+        className="mx-auto max-w-[1200px] px-4 pt-4 sm:px-6 sm:pt-6 lg:grid lg:h-[calc(100vh-9.75rem)] lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start lg:gap-6 lg:overflow-hidden"
       >
-        <section onClickCapture={handleSamiContext} onFocusCapture={handleSamiContext} className="pb-16 lg:h-full lg:overflow-y-auto lg:pr-2 lg:pb-8">
+        <section onClickCapture={handleSamiContext} onFocusCapture={handleSamiContext} className="pb-28 lg:h-full lg:overflow-y-auto lg:pr-2 lg:pb-8">
           <AnimatePresence mode="wait">
             {step === 0 && (
               <Step0Identity
                 formData={formData}
                 setFormData={setFormData}
                 onNext={() => goTo(1)}
+                registerNavigation={registerStepNavigation}
               />
             )}
             {step === 1 && (
@@ -86,6 +98,7 @@ const Index = () => {
                 setFormData={setFormData}
                 totalIngresos={results.totalIngresos}
                 onNext={() => goTo(2)}
+                registerNavigation={registerStepNavigation}
               />
             )}
             {step === 2 && (
@@ -94,6 +107,7 @@ const Index = () => {
                 setFormData={setFormData}
                 onNext={() => goTo(3)}
                 onBack={() => goTo(1)}
+                registerNavigation={registerStepNavigation}
               />
             )}
             {step === 3 && (
@@ -102,6 +116,7 @@ const Index = () => {
                 setFormData={setFormData}
                 onNext={() => goTo(4)}
                 onBack={() => goTo(2)}
+                registerNavigation={registerStepNavigation}
               />
             )}
             {step === 4 && (
@@ -109,13 +124,22 @@ const Index = () => {
                 formData={formData}
                 results={results}
                 onBack={() => goTo(3)}
+                registerNavigation={registerStepNavigation}
               />
             )}
           </AnimatePresence>
         </section>
 
-        <div className="mt-6 lg:mt-0 lg:h-full lg:overflow-hidden">
-          <SamiAssistantPanel step={step} activeKey={activeSamiKey} formData={formData} results={results} />
+        <div className="mt-6 pb-28 lg:mt-0 lg:h-full lg:overflow-hidden lg:pb-0">
+          <SamiAssistantPanel
+            step={step}
+            activeKey={activeSamiKey}
+            formData={formData}
+            results={results}
+            onBack={stepNavigation.back}
+            onNext={stepNavigation.next}
+            nextLabel={stepNavigation.nextLabel}
+          />
         </div>
       </main>
     </div>

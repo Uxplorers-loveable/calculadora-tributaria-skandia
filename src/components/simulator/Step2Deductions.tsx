@@ -1,10 +1,9 @@
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ChevronRight, ChevronLeft } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
 import { Slider } from '@/components/ui/slider';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import SkandiaTooltip from './SkandiaTooltip';
 import CurrencyInput from './CurrencyInput';
 import { FormData } from '@/lib/simulator-types';
@@ -15,14 +14,20 @@ interface Step2Props {
   setFormData: React.Dispatch<React.SetStateAction<FormData>>;
   onNext: () => void;
   onBack: () => void;
+  registerNavigation: (navigation: { back?: () => void; next?: () => void; nextLabel?: string }) => void;
 }
 
-const Step2Deductions = ({ formData, setFormData, onNext, onBack }: Step2Props) => {
+const Step2Deductions = ({ formData, setFormData, onNext, onBack, registerNavigation }: Step2Props) => {
   const update = (partial: Partial<FormData>) => setFormData((prev) => ({ ...prev, ...partial }));
 
   const comprasFEAnuales = formData.comprasFE * 12;
   const dedFE1 = Math.min(comprasFEAnuales * 0.01, TOPE_FE);
   const dedFE5 = Math.min(comprasFEAnuales * 0.05, TOPE_FE);
+
+  useEffect(() => {
+    registerNavigation({ back: onBack, next: onNext, nextLabel: 'Continuar' });
+    return () => registerNavigation({});
+  }, [onBack, onNext, registerNavigation]);
 
   return (
     <motion.div key="step2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }} className="flex min-h-full flex-col">
@@ -115,17 +120,6 @@ const Step2Deductions = ({ formData, setFormData, onNext, onBack }: Step2Props) 
           )}
           <SkandiaTooltip color="green" content="La factura electrónica puede darte un beneficio adicional y no le quita espacio a otras deducciones." />
         </Card>
-      </div>
-
-      <div className="sticky bottom-0 z-10 -mx-4 mt-auto border-t border-border bg-background/95 px-4 py-4 backdrop-blur-sm sm:-mx-6 sm:px-6 lg:mx-0 lg:px-0">
-        <div className="flex justify-between gap-3">
-          <Button variant="ghost" onClick={onBack} className="h-11 text-muted-foreground">
-            <ChevronLeft className="mr-2 h-4 w-4" /> Atrás
-          </Button>
-          <Button onClick={onNext} className="h-11 rounded-full bg-primary px-7 text-primary-foreground hover:bg-primary/90">
-            Continuar <ChevronRight className="ml-2 h-4 w-4" />
-          </Button>
-        </div>
       </div>
     </motion.div>
   );

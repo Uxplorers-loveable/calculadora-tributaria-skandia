@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { MessageCircle } from 'lucide-react';
+import { ChevronLeft, ChevronRight, MessageCircle } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -12,6 +12,9 @@ interface SamiAssistantPanelProps {
   activeKey?: string;
   formData: FormData;
   results: SimulatorResults;
+  onBack?: () => void;
+  onNext?: () => void;
+  nextLabel?: string;
 }
 
 type SamiContent = {
@@ -134,7 +137,7 @@ const CONTENT: Record<string, SamiContent> = {
   },
 };
 
-const SamiAssistantPanel = ({ step, activeKey, formData, results }: SamiAssistantPanelProps) => {
+const SamiAssistantPanel = ({ step, activeKey, formData, results, onBack, onNext, nextLabel }: SamiAssistantPanelProps) => {
   const selectedKey = activeKey && CONTENT[activeKey] ? activeKey : STEP_DEFAULT_KEYS[step] ?? 'step0_intro';
   const baseContent = CONTENT[selectedKey];
   const userName = getPersonalizedName(formData.documentNumber);
@@ -149,56 +152,94 @@ const SamiAssistantPanel = ({ step, activeKey, formData, results }: SamiAssistan
             : baseContent.title,
       }
     : baseContent;
+  const hasNavigation = Boolean(onBack || onNext);
+  const navAlignment = onBack && onNext ? 'justify-between' : onNext ? 'justify-end' : 'justify-start';
 
   return (
-    <motion.aside
-      initial={{ opacity: 0, x: 16 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.35 }}
-      className="lg:sticky lg:top-4 lg:h-full"
-    >
-      <Card className="skandia-card overflow-hidden p-0 lg:flex lg:max-h-[calc(100vh-11rem)] lg:flex-col">
-        <div className="border-b border-border bg-secondary/60 px-5 py-4">
-          <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-primary/10 bg-primary/5 text-primary">
-              <MessageCircle className="h-4 w-4" />
-            </div>
-            <div>
-              <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">SAMI te acompaña</p>
-              {shouldShowUserName && <p className="mt-1 text-xs font-medium text-foreground">Hola {userName}</p>}
+    <>
+      <motion.aside
+        initial={{ opacity: 0, x: 16 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.35 }}
+        className="lg:sticky lg:top-4 lg:h-full"
+      >
+        <Card className="skandia-card overflow-hidden p-0 lg:flex lg:max-h-[calc(100vh-11rem)] lg:flex-col">
+          <div className="border-b border-border bg-secondary/60 px-5 py-4">
+            <div className="flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-primary/10 bg-primary/5 text-primary">
+                <MessageCircle className="h-4 w-4" />
+              </div>
+              <div>
+                <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">SAMI te acompaña</p>
+                {shouldShowUserName && <p className="mt-1 text-xs font-medium text-foreground">Hola {userName}</p>}
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="space-y-4 px-5 py-5 lg:flex-1 lg:overflow-y-auto">
-          <Badge className="w-fit rounded-full border border-primary/10 bg-primary/5 px-3 py-1 text-xs text-primary">{content.eyebrow}</Badge>
-          <div className="space-y-3">
-            <h4 className="font-display text-xl font-bold leading-tight text-foreground">{content.title}</h4>
-            <p className="text-sm leading-6 text-muted-foreground">{content.body}</p>
-            {content.note && <p className="border-l-2 border-primary/20 pl-3 text-sm leading-6 text-foreground">{content.note}</p>}
+          <div className="space-y-4 px-5 py-5 lg:flex-1 lg:overflow-y-auto">
+            <Badge className="w-fit rounded-full border border-primary/10 bg-primary/5 px-3 py-1 text-xs text-primary">{content.eyebrow}</Badge>
+            <div className="space-y-3">
+              <h4 className="font-display text-xl font-bold leading-tight text-foreground">{content.title}</h4>
+              <p className="text-sm leading-6 text-muted-foreground">{content.body}</p>
+              {content.note && <p className="border-l-2 border-primary/20 pl-3 text-sm leading-6 text-foreground">{content.note}</p>}
+            </div>
+
+            {step === 4 && (
+              <div className="rounded-xl border border-primary/10 bg-secondary/60 p-4">
+                <h3 className="font-display text-xl font-bold leading-tight text-foreground">Aún estas a tiempo</h3>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                  Tu asesor financiero puede ayudarte a cosntruir la mejor estrategia tributaria.
+                </p>
+                <p className="mt-3 text-sm leading-6 text-foreground">
+                  Si empiezas hoy, podrías aportar <span className="font-semibold">$${formatCOP(suggestedMonthlyContribution)}</span> al mes.
+                </p>
+
+                <Button
+                  onClick={() => window.open('https://inversiones.skandia.com.co/asesoria', '_blank', 'noopener,noreferrer')}
+                  className="mt-4 h-10 rounded-full bg-primary px-5 text-sm text-primary-foreground hover:bg-primary/90"
+                >
+                  Agendar una cita con mi asesor
+                </Button>
+              </div>
+            )}
           </div>
 
-          {step === 4 && (
-            <div className="rounded-xl border border-primary/10 bg-secondary/60 p-4">
-              <h3 className="font-display text-xl font-bold leading-tight text-foreground">Aún estas a tiempo</h3>
-              <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                Tu asesor financiero puede ayudarte a cosntruir la mejor estrategia tributaria.
-              </p>
-              <p className="mt-3 text-sm leading-6 text-foreground">
-                Si empiezas hoy, podrías aportar <span className="font-semibold">$${formatCOP(suggestedMonthlyContribution)}</span> al mes.
-              </p>
-
-              <Button
-                onClick={() => window.open('https://inversiones.skandia.com.co/asesoria', '_blank', 'noopener,noreferrer')}
-                className="mt-4 h-10 rounded-full bg-primary px-5 text-sm text-primary-foreground hover:bg-primary/90"
-              >
-                Agendar una cita con mi asesor
-              </Button>
+          {hasNavigation && (
+            <div className="hidden border-t border-border bg-background/95 px-5 py-4 backdrop-blur-sm lg:block">
+              <div className={`flex gap-3 ${navAlignment}`}>
+                {onBack && (
+                  <Button variant="ghost" onClick={onBack} className="h-11 text-muted-foreground">
+                    <ChevronLeft className="mr-2 h-4 w-4" /> Atrás
+                  </Button>
+                )}
+                {onNext && (
+                  <Button onClick={onNext} className="h-11 rounded-full bg-primary px-7 text-primary-foreground hover:bg-primary/90">
+                    {nextLabel ?? 'Siguiente'} <ChevronRight className="ml-2 h-4 w-4" />
+                  </Button>
+                )}
+              </div>
             </div>
           )}
+        </Card>
+      </motion.aside>
+
+      {hasNavigation && (
+        <div className="fixed inset-x-0 bottom-0 z-50 border-t border-border bg-background/95 px-4 py-4 backdrop-blur-sm lg:hidden">
+          <div className={`mx-auto flex max-w-[1200px] gap-3 ${navAlignment}`}>
+            {onBack && (
+              <Button variant="ghost" onClick={onBack} className="h-11 text-muted-foreground">
+                <ChevronLeft className="mr-2 h-4 w-4" /> Atrás
+              </Button>
+            )}
+            {onNext && (
+              <Button onClick={onNext} className="h-11 rounded-full bg-primary px-7 text-primary-foreground hover:bg-primary/90">
+                {nextLabel ?? 'Siguiente'} <ChevronRight className="ml-2 h-4 w-4" />
+              </Button>
+            )}
+          </div>
         </div>
-      </Card>
-    </motion.aside>
+      )}
+    </>
   );
 };
 
