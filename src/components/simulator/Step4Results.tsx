@@ -9,7 +9,7 @@ interface Step4Props {
   formData: FormData;
   results: SimulatorResults;
   onBack: () => void;
-  registerNavigation: (navigation: { back?: () => void; next?: () => void; nextLabel?: string }) => void;
+  registerNavigation: (navigation: {back?: () => void;next?: () => void;nextLabel?: string;}) => void;
 }
 
 const Step4Results = ({ formData, results, onBack, registerNavigation }: Step4Props) => {
@@ -17,8 +17,8 @@ const Step4Results = ({ formData, results, onBack, registerNavigation }: Step4Pr
   const totalCapacity = Math.max(results.topeFVP, 0);
   const occupiedCapacity = Math.min(results.afc, totalCapacity);
   const availableCapacity = Math.max(results.topup, 0);
-  const occupiedPct = totalCapacity > 0 ? Math.min((occupiedCapacity / totalCapacity) * 100, 100) : 0;
-  const availablePct = totalCapacity > 0 ? Math.min((availableCapacity / totalCapacity) * 100, 100 - occupiedPct) : 0;
+  const occupiedPct = totalCapacity > 0 ? Math.min(occupiedCapacity / totalCapacity * 100, 100) : 0;
+  const availablePct = totalCapacity > 0 ? Math.min(availableCapacity / totalCapacity * 100, 100 - occupiedPct) : 0;
   const estimatedBenefit = results.ahorroTopup + (formData.comprasFE > 0 ? results.ahorroFE1 : 0);
 
   useEffect(() => {
@@ -33,15 +33,15 @@ const Step4Results = ({ formData, results, onBack, registerNavigation }: Step4Pr
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -20 }}
       transition={{ duration: 0.3 }}
-      className="space-y-4"
-    >
+      className="space-y-4">
+      
       <section data-sami-key="results_mountain" className="space-y-3">
         <Card className="skandia-card overflow-hidden p-0">
           <div className="border-b border-border bg-secondary/60 px-5 py-4 sm:px-6 sm:py-5">
             <div className="grid gap-4 lg:grid-cols-[minmax(0,1.1fr)_260px] lg:items-end">
               <div>
                 <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary">Resultado</p>
-                <h2 className="mt-2 font-display text-2xl font-bold leading-tight text-foreground sm:text-3xl">
+                <h2 className="mt-2 font-display text-2xl leading-tight text-foreground sm:text-2xl font-normal">
                   {userName ? `${userName}, este es tu beneficio estimado.` : 'Este es tu beneficio estimado.'}
                 </h2>
                 <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">
@@ -75,14 +75,14 @@ const Step4Results = ({ formData, results, onBack, registerNavigation }: Step4Pr
                     initial={{ width: 0 }}
                     animate={{ width: `${occupiedPct}%` }}
                     transition={{ duration: 0.8, ease: 'easeOut' }}
-                    className="h-full bg-primary"
-                  />
+                    className="h-full bg-primary" />
+                  
                   <motion.div
                     initial={{ width: 0 }}
                     animate={{ width: `${availablePct}%` }}
                     transition={{ duration: 0.8, ease: 'easeOut', delay: 0.12 }}
-                    className="h-full bg-skandia-gold"
-                  />
+                    className="h-full bg-skandia-gold" />
+                  
                 </div>
               </div>
 
@@ -114,8 +114,8 @@ const Step4Results = ({ formData, results, onBack, registerNavigation }: Step4Pr
           </div>
         </Card>
       </section>
-    </motion.div>
-  );
+    </motion.div>);
+
 };
 
 export default Step4Results;
