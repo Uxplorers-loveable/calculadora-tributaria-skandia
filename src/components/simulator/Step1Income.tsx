@@ -1,12 +1,10 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ChevronRight } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import SkandiaTooltip from './SkandiaTooltip';
 import CurrencyInput from './CurrencyInput';
 import { FormData } from '@/lib/simulator-types';
@@ -17,20 +15,21 @@ interface Step1Props {
   setFormData: React.Dispatch<React.SetStateAction<FormData>>;
   totalIngresos: number;
   onNext: () => void;
+  registerNavigation: (navigation: { back?: () => void; next?: () => void; nextLabel?: string }) => void;
 }
 
-const Step1Income = ({ formData, setFormData, totalIngresos, onNext }: Step1Props) => {
+const Step1Income = ({ formData, setFormData, totalIngresos, onNext, registerNavigation }: Step1Props) => {
   const [salaryError, setSalaryError] = useState<string | null>(null);
 
   const update = (partial: Partial<FormData>) => {
-    setFormData(prev => ({ ...prev, ...partial }));
+    setFormData((prev) => ({ ...prev, ...partial }));
 
     if ('salMensual' in partial && (partial.salMensual ?? 0) > 0) {
       setSalaryError(null);
     }
   };
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     if (!formData.salMensual || formData.salMensual <= 0) {
       setSalaryError('Completa tu salario básico mensual para continuar.');
       return;
@@ -38,7 +37,12 @@ const Step1Income = ({ formData, setFormData, totalIngresos, onNext }: Step1Prop
 
     setSalaryError(null);
     onNext();
-  };
+  }, [formData.salMensual, onNext]);
+
+  useEffect(() => {
+    registerNavigation({ next: handleNext, nextLabel: 'Continuar' });
+    return () => registerNavigation({});
+  }, [handleNext, registerNavigation]);
 
   return (
     <motion.div key="step1" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }} className="flex min-h-full flex-col">
@@ -200,14 +204,6 @@ const Step1Income = ({ formData, setFormData, totalIngresos, onNext }: Step1Prop
             )}
           </div>
         </Card>
-      </div>
-
-      <div className="sticky bottom-0 z-10 -mx-4 mt-auto border-t border-border bg-background/95 px-4 py-4 backdrop-blur-sm sm:-mx-6 sm:px-6 lg:mx-0 lg:px-0">
-        <div className="flex justify-end">
-          <Button onClick={handleNext} className="h-11 rounded-full bg-primary px-7 text-primary-foreground hover:bg-primary/90">
-            Continuar <ChevronRight className="ml-2 h-4 w-4" />
-          </Button>
-        </div>
       </div>
     </motion.div>
   );
