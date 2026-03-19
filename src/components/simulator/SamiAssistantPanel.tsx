@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { MessageCircle, TrendingUp } from 'lucide-react';
+import { MessageCircle } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { FormData } from '@/lib/simulator-types';
@@ -173,18 +173,6 @@ const SamiAssistantPanel = ({ step, activeKey, formData }: SamiAssistantPanelPro
             <h4 className="font-display text-2xl font-bold leading-tight text-foreground">{content.title}</h4>
             <p className="text-sm leading-7 text-muted-foreground">{content.body}</p>
             {content.note && <p className="border-l-2 border-primary/20 pl-4 text-sm leading-7 text-foreground">{content.note}</p>}
-          </div>
-
-          <div className="rounded-2xl border border-border bg-secondary/60 p-5">
-            <div className="mb-3 flex items-center gap-2 text-primary">
-              <TrendingUp className="h-4 w-4" />
-              <p className="text-xs font-semibold uppercase tracking-[0.18em]">Qué estás construyendo</p>
-            </div>
-            <p className="text-sm leading-7 text-muted-foreground">
-              {userName
-                ? `${userName}, estás construyendo un panorama simple para decidir mejor cómo alinear ingresos, beneficio tributario y estrategia patrimonial.`
-                : 'Un panorama simple para decidir mejor cómo alinear ingresos, beneficio tributario y estrategia patrimonial.'}
-            </p>
           </div>
         </div>
       </Card>
