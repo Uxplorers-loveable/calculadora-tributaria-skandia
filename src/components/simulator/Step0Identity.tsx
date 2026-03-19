@@ -60,18 +60,10 @@ const Step0Identity = ({ formData, setFormData, onNext }: Step0Props) => {
         <div className="space-y-3">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Bienvenido</p>
           <h1 className="text-3xl sm:text-4xl font-bold font-display text-foreground max-w-3xl">
-            {userName ?
-            `Hola ${userName}, hagamos que tu estrategia patrimonial avance con una lectura simple de tu beneficio tributario.` :
-            'Haz que tu estrategia patrimonial avance con una lectura simple de tu beneficio tributario.'}
+            {userName ? `Hola ${userName}, las inversiones que buscas están aquí.` : 'Las inversiones que buscas están aquí.'}
           </h1>
-          <p className="text-base leading-8 text-muted-foreground max-w-3xl">Convertimos tu Fondo de Pensiones Voluntarias en una herramienta de optimización tributaria, para que tu patrimonio crezca con mayor eficiencia.
-
-
-
-          </p>
-          <p className="text-sm leading-7 text-foreground max-w-3xl">
-            Con el acompañamiento de nuestros Wealth Planners, información simple y seguimiento continuo, tu portafolio puede evolucionar contigo.
-          </p>
+          <p className="text-base leading-8 text-muted-foreground max-w-3xl">Convertimos tu Fondo de Pensiones Voluntarias en una herramienta de optimización tributaria, para que tu patrimonio crezca con mayor eficiencia.</p>
+          <p className="text-sm leading-7 text-foreground max-w-3xl">Este simulador te muestra ese panorama de forma clara y cercana.</p>
         </div>
       </Card>
 
