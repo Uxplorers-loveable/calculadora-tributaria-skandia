@@ -121,10 +121,10 @@ const CONTENT: Record<string, SamiContent> = {
     body: 'Estos instrumentos pueden ayudarte a construir patrimonio con mayor eficiencia. El simulador te muestra cuánto beneficio ya usas y cuánto te falta por activar.',
   },
   results_mountain: {
-    eyebrow: 'Resultado final',
-    title: 'Aquí ves tu capacidad total, lo que ya ocupas y lo que aún tienes disponible',
-    body: 'La lectura final está diseñada para que entiendas de forma inmediata tu capacidad de beneficio tributario, cuánto ya estás usando y cuánto te falta activar para completar tu optimización.',
-    note: 'Tu asesor puede ayudarte a convertir ese valor disponible en una estrategia concreta de inversión.',
+    eyebrow: 'Resultado',
+    title: 'Aquí ves lo que ya usas y lo que aún puedes activar',
+    body: 'Revisa tres datos clave: total posible, valor activo y valor disponible.',
+    note: 'Si quieres avanzar, un asesor puede ayudarte a definir el siguiente paso.',
   },
   results_benefits: {
     eyebrow: 'Detalle',
