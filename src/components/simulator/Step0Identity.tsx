@@ -8,7 +8,6 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { FormData } from '@/lib/simulator-types';
-import { getPersonalizedName } from '@/lib/personalization';
 
 interface Step0Props {
   formData: FormData;
@@ -27,8 +26,7 @@ const documentSchema = z.object({
 });
 
 const Step0Identity = ({ formData, setFormData, onNext }: Step0Props) => {
-  const [errors, setErrors] = useState<{documentType?: string;documentNumber?: string;}>({});
-  const userName = getPersonalizedName(formData.documentNumber);
+  const [errors, setErrors] = useState<{ documentType?: string; documentNumber?: string }>({});
 
   const update = (partial: Partial<FormData>) => {
     setFormData((prev) => ({ ...prev, ...partial }));
@@ -55,67 +53,72 @@ const Step0Identity = ({ formData, setFormData, onNext }: Step0Props) => {
   };
 
   return (
-    <motion.div key="step0" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }} className="space-y-6">
-      <Card data-sami-key="step0_intro" className="skandia-card space-y-6">
-        <div className="space-y-3">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Bienvenido</p>
-          <h1 className="text-3xl sm:text-4xl font-bold font-display text-foreground max-w-3xl">
-            {userName ? `Hola ${userName}, las inversiones que buscas están aquí.` : 'Las inversiones que buscas están aquí.'}
-          </h1>
-          <p className="text-base leading-8 text-muted-foreground max-w-3xl">Convertimos tu Fondo de Pensiones Voluntarias en una herramienta de optimización tributaria, para que tu patrimonio crezca con mayor eficiencia.</p>
-          <p className="text-sm leading-7 text-foreground max-w-3xl">Este simulador te muestra ese panorama de forma clara y cercana.</p>
-        </div>
-      </Card>
+    <motion.div key="step0" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }} className="flex min-h-full flex-col">
+      <div className="space-y-6">
+        <Card data-sami-key="step0_intro" className="skandia-card space-y-6">
+          <div className="space-y-3">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Bienvenido</p>
+            <h1 className="max-w-3xl font-display text-3xl font-bold text-foreground sm:text-4xl">
+              Las inversiones que buscas están aquí.
+            </h1>
+            <p className="max-w-3xl text-base leading-8 text-muted-foreground">Convertimos tu Fondo de Pensiones Voluntarias en una herramienta de optimización tributaria, para que tu patrimonio crezca con mayor eficiencia.</p>
+            <p className="max-w-3xl text-sm leading-7 text-foreground">Este simulador te muestra ese panorama de forma clara y cercana.</p>
+          </div>
+        </Card>
 
-      <Card className="skandia-card space-y-8 mb-6">
-        <div className="space-y-2">
-          <h2 className="text-lg font-bold font-display text-foreground">
-            {userName ? `Hola ${userName}, comencemos con tus datos básicos` : 'Comencemos con tus datos básicos'}
-          </h2>
-          <p className="text-sm text-muted-foreground">Solo te tomará un momento. Así iniciamos tu simulación con un contexto más preciso.</p>
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-6">
-          <div data-sami-key="documentType" className="space-y-2">
-            <Label className="text-sm font-semibold text-grey-600 font-display">Tipo de documento</Label>
-            <Select value={formData.documentType} onValueChange={(value) => update({ documentType: value })}>
-              <SelectTrigger className="h-12">
-                <SelectValue placeholder="Selecciona una opción" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="Cédula de Ciudadanía">Cédula de Ciudadanía</SelectItem>
-                <SelectItem value="Cédula de Extranjería">Cédula de Extranjería</SelectItem>
-              </SelectContent>
-            </Select>
-            {errors.documentType && <p className="text-xs text-destructive">{errors.documentType}</p>}
+        <Card className="skandia-card mb-6 space-y-8">
+          <div className="space-y-2">
+            <h2 className="text-lg font-bold font-display text-foreground">Comencemos con tus datos básicos</h2>
+            <p className="text-sm text-muted-foreground">Solo te tomará un momento. Así iniciamos tu simulación con un contexto más preciso.</p>
           </div>
 
-          <div data-sami-key="documentNumber" className="space-y-2">
-            <Label className="text-sm font-semibold text-grey-600 font-display">
-              Número de documento <span className="text-destructive">*</span>
-            </Label>
-            <Input type="text" inputMode="numeric"
-            required
-            aria-required="true"
-            aria-invalid={errors.documentNumber ? 'true' : 'false'}
-            className="h-12 text-base font-medium"
-            placeholder="Ej. 123456789"
-            value={formData.documentNumber}
-            onChange={(e) => update({ documentNumber: e.target.value.replace(/\D/g, '') })} />
-            
-            <p className="text-xs text-muted-foreground">Escríbelo solo con números.</p>
-            {errors.documentNumber && <p className="text-xs text-destructive">{errors.documentNumber}</p>}
-          </div>
-        </div>
-      </Card>
+          <div className="grid gap-6 md:grid-cols-2">
+            <div data-sami-key="documentType" className="space-y-2">
+              <Label className="text-sm font-semibold text-grey-600 font-display">Tipo de documento</Label>
+              <Select value={formData.documentType} onValueChange={(value) => update({ documentType: value })}>
+                <SelectTrigger className="h-12">
+                  <SelectValue placeholder="Selecciona una opción" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Cédula de Ciudadanía">Cédula de Ciudadanía</SelectItem>
+                  <SelectItem value="Cédula de Extranjería">Cédula de Extranjería</SelectItem>
+                </SelectContent>
+              </Select>
+              {errors.documentType && <p className="text-xs text-destructive">{errors.documentType}</p>}
+            </div>
 
-      <div className="flex justify-end">
-        <Button onClick={handleContinue} className="h-12 rounded-full bg-primary px-8 text-primary-foreground hover:bg-primary/90">
-          Empezar <ChevronRight className="ml-2 w-4 h-4" />
-        </Button>
+            <div data-sami-key="documentNumber" className="space-y-2">
+              <Label className="text-sm font-semibold text-grey-600 font-display">
+                Número de documento <span className="text-destructive">*</span>
+              </Label>
+              <Input
+                type="text"
+                inputMode="numeric"
+                required
+                aria-required="true"
+                aria-invalid={errors.documentNumber ? 'true' : 'false'}
+                className="h-12 text-base font-medium"
+                placeholder="Ej. 123456789"
+                value={formData.documentNumber}
+                onChange={(e) => update({ documentNumber: e.target.value.replace(/\D/g, '') })}
+              />
+
+              <p className="text-xs text-muted-foreground">Escríbelo solo con números.</p>
+              {errors.documentNumber && <p className="text-xs text-destructive">{errors.documentNumber}</p>}
+            </div>
+          </div>
+        </Card>
       </div>
-    </motion.div>);
 
+      <div className="sticky bottom-0 z-10 -mx-4 mt-auto border-t border-border bg-background/95 px-4 py-4 backdrop-blur-sm sm:-mx-6 sm:px-6 lg:mx-0 lg:px-0">
+        <div className="flex justify-end">
+          <Button onClick={handleContinue} className="h-12 rounded-full bg-primary px-8 text-primary-foreground hover:bg-primary/90">
+            Empezar <ChevronRight className="ml-2 h-4 w-4" />
+          </Button>
+        </div>
+      </div>
+    </motion.div>
+  );
 };
 
 export default Step0Identity;

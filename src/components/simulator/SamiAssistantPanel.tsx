@@ -139,7 +139,8 @@ const SamiAssistantPanel = ({ step, activeKey, formData, results }: SamiAssistan
   const baseContent = CONTENT[selectedKey];
   const userName = getPersonalizedName(formData.documentNumber);
   const suggestedMonthlyContribution = Math.max(results.topup, 0) / 10;
-  const content = userName
+  const shouldShowUserName = step > 0 && Boolean(userName);
+  const content = shouldShowUserName
     ? {
         ...baseContent,
         title:
@@ -164,7 +165,7 @@ const SamiAssistantPanel = ({ step, activeKey, formData, results }: SamiAssistan
             </div>
             <div>
               <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">SAMI te acompaña</p>
-              {userName && <p className="mt-1 text-xs font-medium text-foreground">Hola {userName}</p>}
+              {shouldShowUserName && <p className="mt-1 text-xs font-medium text-foreground">Hola {userName}</p>}
             </div>
           </div>
         </div>
