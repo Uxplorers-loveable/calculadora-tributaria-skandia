@@ -18,16 +18,16 @@ interface Step0Props {
 
 const documentSchema = z.object({
   documentType: z.enum(['Cédula de Ciudadanía', 'Cédula de Extranjería'], {
-    errorMap: () => ({ message: 'Selecciona un tipo de documento.' }),
+    errorMap: () => ({ message: 'Selecciona un tipo de documento.' })
   }),
-  documentNumber: z
-    .string()
-    .trim()
-    .regex(/^\d{5,20}$/, 'Ingresa un número de documento válido.'),
+  documentNumber: z.
+  string().
+  trim().
+  regex(/^\d{5,20}$/, 'Ingresa un número de documento válido.')
 });
 
 const Step0Identity = ({ formData, setFormData, onNext }: Step0Props) => {
-  const [errors, setErrors] = useState<{ documentType?: string; documentNumber?: string }>({});
+  const [errors, setErrors] = useState<{documentType?: string;documentNumber?: string;}>({});
   const userName = getPersonalizedName(formData.documentNumber);
 
   const update = (partial: Partial<FormData>) => {
@@ -38,14 +38,14 @@ const Step0Identity = ({ formData, setFormData, onNext }: Step0Props) => {
   const handleContinue = () => {
     const result = documentSchema.safeParse({
       documentType: formData.documentType,
-      documentNumber: formData.documentNumber,
+      documentNumber: formData.documentNumber
     });
 
     if (!result.success) {
       const fieldErrors = result.error.flatten().fieldErrors;
       setErrors({
         documentType: fieldErrors.documentType?.[0],
-        documentNumber: fieldErrors.documentNumber?.[0],
+        documentNumber: fieldErrors.documentNumber?.[0]
       });
       return;
     }
@@ -60,12 +60,14 @@ const Step0Identity = ({ formData, setFormData, onNext }: Step0Props) => {
         <div className="space-y-3">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Bienvenido</p>
           <h1 className="text-3xl sm:text-4xl font-bold font-display text-foreground max-w-3xl">
-            {userName
-              ? `Hola ${userName}, hagamos que tu estrategia patrimonial avance con una lectura simple de tu beneficio tributario.`
-              : 'Haz que tu estrategia patrimonial avance con una lectura simple de tu beneficio tributario.'}
+            {userName ?
+            `Hola ${userName}, hagamos que tu estrategia patrimonial avance con una lectura simple de tu beneficio tributario.` :
+            'Haz que tu estrategia patrimonial avance con una lectura simple de tu beneficio tributario.'}
           </h1>
-          <p className="text-base leading-8 text-muted-foreground max-w-3xl">
-            En Skandia conectas tu capital con oportunidades globales y conviertes tu Fondo de Pensiones Voluntarias en una herramienta para crecer con mayor eficiencia. Este simulador te muestra ese panorama de forma clara y cercana.
+          <p className="text-base leading-8 text-muted-foreground max-w-3xl">Convertimos tu Fondo de Pensiones Voluntarias en una herramienta de optimización tributaria, para que tu patrimonio crezca con mayor eficiencia.
+
+
+
           </p>
           <p className="text-sm leading-7 text-foreground max-w-3xl">
             Con el acompañamiento de nuestros Wealth Planners, información simple y seguimiento continuo, tu portafolio puede evolucionar contigo.
@@ -100,17 +102,15 @@ const Step0Identity = ({ formData, setFormData, onNext }: Step0Props) => {
             <Label className="text-sm font-semibold text-grey-600 font-display">
               Número de documento <span className="text-destructive">*</span>
             </Label>
-            <Input
-              type="text"
-              inputMode="numeric"
-              required
-              aria-required="true"
-              aria-invalid={errors.documentNumber ? 'true' : 'false'}
-              className="h-12 text-base font-medium"
-              placeholder="Ej. 123456789"
-              value={formData.documentNumber}
-              onChange={(e) => update({ documentNumber: e.target.value.replace(/\D/g, '') })}
-            />
+            <Input type="text" inputMode="numeric"
+            required
+            aria-required="true"
+            aria-invalid={errors.documentNumber ? 'true' : 'false'}
+            className="h-12 text-base font-medium"
+            placeholder="Ej. 123456789"
+            value={formData.documentNumber}
+            onChange={(e) => update({ documentNumber: e.target.value.replace(/\D/g, '') })} />
+            
             <p className="text-xs text-muted-foreground">Escríbelo solo con números.</p>
             {errors.documentNumber && <p className="text-xs text-destructive">{errors.documentNumber}</p>}
           </div>
@@ -122,8 +122,8 @@ const Step0Identity = ({ formData, setFormData, onNext }: Step0Props) => {
           Empezar <ChevronRight className="ml-2 w-4 h-4" />
         </Button>
       </div>
-    </motion.div>
-  );
+    </motion.div>);
+
 };
 
 export default Step0Identity;
