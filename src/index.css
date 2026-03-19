@@ -101,64 +101,64 @@
 
 @layer components {
   .skandia-card {
-    @apply bg-card rounded-2xl border border-border p-8;
+    @apply bg-card rounded-xl border border-border p-6;
     box-shadow: 0 4px 8px -4px hsl(var(--grey-900) / 0.06);
   }
 
   .skandia-tooltip-blue {
-    @apply rounded-lg border p-4 text-sm flex gap-3;
+    @apply rounded-lg border p-3 text-sm flex gap-3;
     background: hsl(var(--info-blue-bg));
     border-color: hsl(var(--info-blue-border));
     color: hsl(var(--info-blue-text));
   }
 
   .skandia-tooltip-amber {
-    @apply rounded-lg border p-4 text-sm flex gap-3;
+    @apply rounded-lg border p-3 text-sm flex gap-3;
     background: hsl(var(--info-amber-bg));
     border-color: hsl(var(--info-amber-border));
     color: hsl(var(--info-amber-text));
   }
 
   .skandia-tooltip-green {
-    @apply rounded-lg border p-4 text-sm flex gap-3;
+    @apply rounded-lg border p-3 text-sm flex gap-3;
     background: hsl(var(--info-green-bg));
     border-color: hsl(var(--info-green-border));
     color: hsl(var(--info-green-text));
   }
 
   .skandia-hero-dark {
-    @apply rounded-3xl text-primary-foreground;
+    @apply rounded-2xl text-primary-foreground;
     background: linear-gradient(135deg, hsl(var(--skandia-navy)), hsl(var(--skandia-navy-light)));
   }
 
   .skandia-hero-green {
-    @apply rounded-3xl text-primary-foreground;
+    @apply rounded-2xl text-primary-foreground;
     background:
       radial-gradient(circle at 80% 50%, hsl(var(--skandia-green-light) / 0.28), transparent 24%),
       linear-gradient(135deg, hsl(var(--skandia-green-dark)), hsl(var(--primary)) 58%, hsl(var(--primary)));
   }
 
   .skandia-gold-card {
-    @apply rounded-2xl border p-8;
+    @apply rounded-xl border p-6;
     background: hsl(var(--skandia-gold-light));
     border-color: hsl(var(--skandia-gold-border));
   }
 
   .skandia-green-card {
-    @apply rounded-2xl border p-8;
+    @apply rounded-xl border p-6;
     background: hsl(var(--success-green-light));
     border-color: hsl(var(--success-green-border));
   }
 
   .sami-bubble {
-    @apply p-5 rounded-2xl rounded-tl-none border max-w-2xl;
+    @apply max-w-2xl rounded-xl rounded-tl-none border p-4;
     background: hsl(var(--card));
     border-color: hsl(var(--border));
     box-shadow: 0 4px 8px -4px hsl(var(--grey-900) / 0.06);
   }
 
   .sami-bubble-gold {
-    @apply p-5 rounded-2xl rounded-tl-none border max-w-2xl;
+    @apply max-w-2xl rounded-xl rounded-tl-none border p-4;
     background: hsl(var(--skandia-gold-light));
     border-color: hsl(var(--skandia-gold-border));
     box-shadow: 0 4px 8px -4px hsl(var(--grey-900) / 0.06);

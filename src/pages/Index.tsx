@@ -69,9 +69,9 @@ const Index = () => {
       {step > 0 && <SimulatorSummaryBar step={step} formData={formData} results={results} />}
       <main
         ref={mainRef}
-        className="max-w-[1280px] mx-auto px-4 sm:px-6 pt-6 sm:pt-8 lg:grid lg:h-[calc(100vh-10.5rem)] lg:grid-cols-[minmax(0,1fr)_360px] lg:gap-8 lg:items-start lg:overflow-hidden"
+        className="mx-auto max-w-[1200px] px-4 pt-4 sm:px-6 sm:pt-6 lg:grid lg:h-[calc(100vh-9.75rem)] lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-6 lg:items-start lg:overflow-hidden"
       >
-        <section onClickCapture={handleSamiContext} onFocusCapture={handleSamiContext} className="lg:h-full lg:overflow-y-auto lg:pr-3 pb-20 lg:pb-10">
+        <section onClickCapture={handleSamiContext} onFocusCapture={handleSamiContext} className="pb-16 lg:h-full lg:overflow-y-auto lg:pr-2 lg:pb-8">
           <AnimatePresence mode="wait">
             {step === 0 && (
               <Step0Identity
@@ -114,7 +114,7 @@ const Index = () => {
           </AnimatePresence>
         </section>
 
-        <div className="mt-8 lg:mt-0 lg:h-full lg:overflow-hidden">
+        <div className="mt-6 lg:mt-0 lg:h-full lg:overflow-hidden">
           <SamiAssistantPanel step={step} activeKey={activeSamiKey} formData={formData} results={results} />
         </div>
       </main>
