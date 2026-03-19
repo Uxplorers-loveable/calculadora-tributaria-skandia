@@ -200,10 +200,12 @@ const Step1Income = ({ formData, setFormData, totalIngresos, onNext }: Step1Prop
         </div>
       </Card>
 
-      <div className="flex justify-end">
-        <Button onClick={handleNext} className="h-12 rounded-full bg-primary px-8 text-primary-foreground hover:bg-primary/90">
-          Continuar <ChevronRight className="ml-2 w-4 h-4" />
-        </Button>
+      <div className="sticky bottom-0 z-10 -mx-4 border-t border-border bg-background/95 px-4 py-4 backdrop-blur-sm sm:-mx-6 sm:px-6 lg:mx-0 lg:px-0">
+        <div className="flex justify-end">
+          <Button onClick={handleNext} className="h-11 rounded-full bg-primary px-7 text-primary-foreground hover:bg-primary/90">
+            Continuar <ChevronRight className="ml-2 h-4 w-4" />
+          </Button>
+        </div>
       </div>
     </motion.div>
   );
