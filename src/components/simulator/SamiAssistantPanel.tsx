@@ -2,8 +2,9 @@ import { motion } from 'framer-motion';
 import { MessageCircle } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { FormData } from '@/lib/simulator-types';
-import { SimulatorResults } from '@/lib/tax-engine';
+import { SimulatorResults, formatCOP } from '@/lib/tax-engine';
 import { getPersonalizedName } from '@/lib/personalization';
 
 interface SamiAssistantPanelProps {
