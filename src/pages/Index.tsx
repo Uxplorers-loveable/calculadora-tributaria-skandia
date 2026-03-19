@@ -114,7 +114,7 @@ const Index = () => {
           </AnimatePresence>
         </section>
 
-        <div className="mt-8 lg:mt-0 lg:h-full lg:overflow-hidden">
+        <div className="mt-6 lg:mt-0 lg:h-full lg:overflow-hidden">
           <SamiAssistantPanel step={step} activeKey={activeSamiKey} formData={formData} results={results} />
         </div>
       </main>

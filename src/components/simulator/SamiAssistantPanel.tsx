@@ -152,27 +152,27 @@ const SamiAssistantPanel = ({ step, activeKey, formData }: SamiAssistantPanelPro
       initial={{ opacity: 0, x: 16 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.35 }}
-      className="lg:sticky lg:top-6 lg:h-full"
+      className="lg:sticky lg:top-4 lg:h-full"
     >
-      <Card className="skandia-card overflow-hidden p-0 lg:flex lg:max-h-[calc(100vh-12rem)] lg:flex-col">
-        <div className="border-b border-border bg-secondary/60 px-6 py-5">
+      <Card className="skandia-card overflow-hidden p-0 lg:flex lg:max-h-[calc(100vh-11rem)] lg:flex-col">
+        <div className="border-b border-border bg-secondary/60 px-5 py-4">
           <div className="flex items-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-primary/10 bg-primary/5 text-primary">
-              <MessageCircle className="h-5 w-5" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-primary/10 bg-primary/5 text-primary">
+              <MessageCircle className="h-4 w-4" />
             </div>
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">SAMI te acompaña</p>
-              {userName && <p className="mt-1 text-sm font-medium text-foreground">Hola {userName}</p>}
+              <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">SAMI te acompaña</p>
+              {userName && <p className="mt-1 text-xs font-medium text-foreground">Hola {userName}</p>}
             </div>
           </div>
         </div>
 
-        <div className="space-y-6 px-6 py-6 lg:flex-1 lg:overflow-y-auto">
-          <Badge className="w-fit rounded-full border border-primary/10 bg-primary/5 px-3 py-1 text-primary">{content.eyebrow}</Badge>
-          <div className="space-y-4">
-            <h4 className="font-display text-2xl font-bold leading-tight text-foreground">{content.title}</h4>
-            <p className="text-sm leading-7 text-muted-foreground">{content.body}</p>
-            {content.note && <p className="border-l-2 border-primary/20 pl-4 text-sm leading-7 text-foreground">{content.note}</p>}
+        <div className="space-y-4 px-5 py-5 lg:flex-1 lg:overflow-y-auto">
+          <Badge className="w-fit rounded-full border border-primary/10 bg-primary/5 px-3 py-1 text-xs text-primary">{content.eyebrow}</Badge>
+          <div className="space-y-3">
+            <h4 className="font-display text-xl font-bold leading-tight text-foreground">{content.title}</h4>
+            <p className="text-sm leading-6 text-muted-foreground">{content.body}</p>
+            {content.note && <p className="border-l-2 border-primary/20 pl-3 text-sm leading-6 text-foreground">{content.note}</p>}
           </div>
         </div>
       </Card>
