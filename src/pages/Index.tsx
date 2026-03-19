@@ -66,7 +66,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-secondary font-body lg:h-screen lg:overflow-hidden">
       <SimulatorHeader currentStep={step} />
-      <SimulatorSummaryBar step={step} formData={formData} results={results} />
+      {step > 0 && <SimulatorSummaryBar step={step} formData={formData} results={results} />}
       <main
         ref={mainRef}
         className="max-w-[1280px] mx-auto px-4 sm:px-6 pt-6 sm:pt-8 lg:grid lg:h-[calc(100vh-10.5rem)] lg:grid-cols-[minmax(0,1fr)_360px] lg:gap-8 lg:items-start lg:overflow-hidden"
