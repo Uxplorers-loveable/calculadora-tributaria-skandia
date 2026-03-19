@@ -71,7 +71,7 @@ const Index = () => {
         ref={mainRef}
         className="mx-auto max-w-[1200px] px-4 pt-4 sm:px-6 sm:pt-6 lg:grid lg:h-[calc(100vh-9.75rem)] lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-6 lg:items-start lg:overflow-hidden"
       >
-        <section onClickCapture={handleSamiContext} onFocusCapture={handleSamiContext} className="pb-16 lg:h-full lg:overflow-y-auto lg:pr-2 lg:pb-8"
+        <section onClickCapture={handleSamiContext} onFocusCapture={handleSamiContext} className="pb-16 lg:h-full lg:overflow-y-auto lg:pr-2 lg:pb-8">
           <AnimatePresence mode="wait">
             {step === 0 && (
               <Step0Identity
