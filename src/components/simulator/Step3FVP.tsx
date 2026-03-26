@@ -45,7 +45,7 @@ const Step3FVP = ({ formData, setFormData, onNext, onBack, registerNavigation }:
           {formData.hasPAC && (
             <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="space-y-6 border-t border-border pt-4">
               <CurrencyInput
-                label="¿Cuánto aporta tu empresa al PAC cada mes?"
+                label="¿Cuánto va a ser tu aporte mensual al Plan de Ahorro Corporativo?"
                 hint="Ingresa el aporte mensual."
                 value={formData.pacEmpresa}
                 onChange={(v) => update({ pacEmpresa: v })}
