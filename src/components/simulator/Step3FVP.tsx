@@ -51,19 +51,6 @@ const Step3FVP = ({ formData, setFormData, onNext, onBack, registerNavigation }:
                 onChange={(v) => update({ pacEmpresa: v })}
               />
 
-              <CurrencyInput
-                label="¿Cuánto aportas tú al PAC cada mes?"
-                hint="Si no haces aportes propios, puedes dejarlo en cero."
-                value={formData.pacPropio}
-                onChange={(v) => update({ pacPropio: v })}
-              />
-
-              <CurrencyInput
-                label="¿Cuánto tienes acumulado en el PAC hoy?"
-                hint="Usa el saldo total más reciente que veas en tu extracto."
-                value={formData.pacSaldo}
-                onChange={(v) => update({ pacSaldo: v })}
-              />
 
               <SkandiaTooltip color="green" content="Los aportes al PAC comparten el mismo cupo tributario del FVP y la AFC. Aquí calculamos cuánto espacio ya estás usando y cuánto todavía podrías aprovechar." />
             </motion.div>
