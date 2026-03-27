@@ -93,10 +93,7 @@ const Step2Deductions = ({ formData, setFormData, onNext, onBack, registerNaviga
         </Card>
 
         <Card data-sami-key="ded_invoice" className="mb-6 rounded-lg border border-border border-t-4 border-t-success p-8 space-y-6">
-          <div className="flex items-center gap-3">
-            <h3 className="text-lg font-bold font-display text-foreground">¿Pides factura electrónica cuando haces compras?</h3>
-            <Badge className="border-success-border bg-success-light text-xs text-success">Fuera del tope global</Badge>
-          </div>
+          <h3 className="text-lg font-bold font-display text-foreground">¿Pides factura electrónica cuando haces compras?</h3>
           <CurrencyInput
             label="¿Cuánto estimas gastar al mes con factura electrónica?"
             hint="Incluye compras a tu nombre con medios de pago formales."
