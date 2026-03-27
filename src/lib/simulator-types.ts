@@ -1,4 +1,5 @@
 export interface FormData {
+  acceptedPolicy: boolean;
   documentType: string;
   documentNumber: string;
   salMensual: number;
@@ -31,6 +32,7 @@ export interface FormData {
 }
 
 export const defaultFormData: FormData = {
+  acceptedPolicy: false,
   documentType: '',
   documentNumber: '',
   salMensual: 0,

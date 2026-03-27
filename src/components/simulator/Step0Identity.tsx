@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { z } from 'zod';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
@@ -21,11 +22,14 @@ const documentSchema = z.object({
   documentNumber: z.
   string().
   trim().
-  regex(/^\d{5,20}$/, 'Ingresa un número de documento válido.')
+  regex(/^\d{5,20}$/, 'Ingresa un número de documento válido.'),
+  acceptedPolicy: z.literal(true, {
+    errorMap: () => ({ message: 'Debes aceptar la política de tratamiento de datos.' })
+  })
 });
 
 const Step0Identity = ({ formData, setFormData, onNext, registerNavigation }: Step0Props) => {
-  const [errors, setErrors] = useState<{documentType?: string;documentNumber?: string;}>({});
+  const [errors, setErrors] = useState<{documentType?: string;documentNumber?: string;acceptedPolicy?: string;}>({});
 
   const update = (partial: Partial<FormData>) => {
     setFormData((prev) => ({ ...prev, ...partial }));
@@ -35,14 +39,16 @@ const Step0Identity = ({ formData, setFormData, onNext, registerNavigation }: St
   const handleContinue = useCallback(() => {
     const result = documentSchema.safeParse({
       documentType: formData.documentType,
-      documentNumber: formData.documentNumber
+      documentNumber: formData.documentNumber,
+      acceptedPolicy: formData.acceptedPolicy
     });
 
     if (!result.success) {
       const fieldErrors = result.error.flatten().fieldErrors;
       setErrors({
         documentType: fieldErrors.documentType?.[0],
-        documentNumber: fieldErrors.documentNumber?.[0]
+        documentNumber: fieldErrors.documentNumber?.[0],
+        acceptedPolicy: fieldErrors.acceptedPolicy?.[0]
       });
       return;
     }
@@ -110,6 +116,38 @@ const Step0Identity = ({ formData, setFormData, onNext, registerNavigation }: St
               <p className="text-xs text-muted-foreground">Escríbelo solo con números.</p>
               {errors.documentNumber && <p className="text-xs text-destructive">{errors.documentNumber}</p>}
             </div>
+          </div>
+
+          <div className="space-y-2">
+            <div className="flex items-start gap-3">
+              <Checkbox
+                id="acceptedPolicy"
+                checked={formData.acceptedPolicy}
+                onCheckedChange={(checked) => update({ acceptedPolicy: checked === true })}
+                className="mt-0.5"
+              />
+              <label htmlFor="acceptedPolicy" className="text-sm leading-snug text-muted-foreground cursor-pointer">
+                Acepto y Autorizo la{' '}
+                <a
+                  href="https://www.skandia.co/politica-de-tratamiento-de-informacion"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-primary underline underline-offset-2 hover:text-primary/80"
+                >
+                  Política de protección de datos
+                </a>{' '}
+                y el{' '}
+                <a
+                  href="https://www.skandia.co/politica-de-tratamiento-de-informacion"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-primary underline underline-offset-2 hover:text-primary/80"
+                >
+                  Tratamiento de información personal
+                </a>.
+              </label>
+            </div>
+            {errors.acceptedPolicy && <p className="text-xs text-destructive">{errors.acceptedPolicy}</p>}
           </div>
         </Card>
       </div>
