@@ -32,6 +32,7 @@ export interface FormData {
 }
 
 export const defaultFormData: FormData = {
+  acceptedPolicy: false,
   documentType: '',
   documentNumber: '',
   salMensual: 0,
