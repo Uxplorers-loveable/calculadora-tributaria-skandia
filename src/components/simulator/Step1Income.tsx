@@ -154,7 +154,7 @@ const Step1Income = ({ formData, setFormData, totalIngresos, onNext, registerNav
                           <SelectItem value="si">Salarial</SelectItem>
                         </SelectContent>
                       </Select>
-                      <p className="text-xs text-muted-foreground">Si no estás seguro, puedes validarlo con tu empresa.</p>
+                      <p className="text-xs text-muted-foreground">Si no sabes cuál es el tipo de bono, puedes validarlo con tu empresa.</p>
                     </div>
                   </div>
                   <SkandiaTooltip
