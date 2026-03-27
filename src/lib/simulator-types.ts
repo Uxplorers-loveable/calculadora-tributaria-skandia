@@ -1,4 +1,5 @@
 export interface FormData {
+  acceptedPolicy: boolean;
   documentType: string;
   documentNumber: string;
   salMensual: number;
