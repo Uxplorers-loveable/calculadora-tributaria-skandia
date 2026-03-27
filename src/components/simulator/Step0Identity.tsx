@@ -47,7 +47,8 @@ const Step0Identity = ({ formData, setFormData, onNext, registerNavigation }: St
       const fieldErrors = result.error.flatten().fieldErrors;
       setErrors({
         documentType: fieldErrors.documentType?.[0],
-        documentNumber: fieldErrors.documentNumber?.[0]
+        documentNumber: fieldErrors.documentNumber?.[0],
+        acceptedPolicy: fieldErrors.acceptedPolicy?.[0]
       });
       return;
     }
