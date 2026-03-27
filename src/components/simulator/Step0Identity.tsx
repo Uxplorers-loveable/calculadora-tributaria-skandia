@@ -29,7 +29,7 @@ const documentSchema = z.object({
 });
 
 const Step0Identity = ({ formData, setFormData, onNext, registerNavigation }: Step0Props) => {
-  const [errors, setErrors] = useState<{documentType?: string;documentNumber?: string;}>({});
+  const [errors, setErrors] = useState<{documentType?: string;documentNumber?: string;acceptedPolicy?: string;}>({});
 
   const update = (partial: Partial<FormData>) => {
     setFormData((prev) => ({ ...prev, ...partial }));
