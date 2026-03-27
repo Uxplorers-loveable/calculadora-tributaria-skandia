@@ -106,7 +106,7 @@ export interface SimulatorInputs {
   tipo: 'Ordinario' | 'Integral';
   auxMensual: number;
   variableAnual: number; // input mensual, se anualiza internamente
-  bonoAnual: number; // input mensual equivalente, se anualiza internamente
+  bonoAnual: number; // input anual proyectado
   bonoEsSalarial: boolean;
   volObligAnual: number; // input mensual, se anualiza internamente
   numDep: number;
@@ -163,7 +163,7 @@ export function ejecutarSimulador(inputs: SimulatorInputs): SimulatorResults {
   const salAnual = calcularSalarioAnual(inputs.salMensual, inputs.tipo);
   const auxAnual = inputs.auxMensual * 12;
   const variable = inputs.variableAnual * 12;
-  const bono = inputs.bonoAnual * 12;
+  const bono = inputs.bonoAnual;
   const aporteVoluntarioObligatorio = inputs.volObligAnual * 12;
   const hip = inputs.interesesVivienda * 12;
   const salud = inputs.pagosSalud * 12;
