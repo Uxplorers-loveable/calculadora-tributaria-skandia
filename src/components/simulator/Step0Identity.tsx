@@ -39,7 +39,8 @@ const Step0Identity = ({ formData, setFormData, onNext, registerNavigation }: St
   const handleContinue = useCallback(() => {
     const result = documentSchema.safeParse({
       documentType: formData.documentType,
-      documentNumber: formData.documentNumber
+      documentNumber: formData.documentNumber,
+      acceptedPolicy: formData.acceptedPolicy
     });
 
     if (!result.success) {
