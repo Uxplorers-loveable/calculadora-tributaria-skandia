@@ -22,7 +22,10 @@ const documentSchema = z.object({
   documentNumber: z.
   string().
   trim().
-  regex(/^\d{5,20}$/, 'Ingresa un número de documento válido.')
+  regex(/^\d{5,20}$/, 'Ingresa un número de documento válido.'),
+  acceptedPolicy: z.literal(true, {
+    errorMap: () => ({ message: 'Debes aceptar la política de tratamiento de datos.' })
+  })
 });
 
 const Step0Identity = ({ formData, setFormData, onNext, registerNavigation }: Step0Props) => {
