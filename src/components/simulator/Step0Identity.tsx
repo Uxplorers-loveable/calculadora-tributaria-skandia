@@ -117,6 +117,38 @@ const Step0Identity = ({ formData, setFormData, onNext, registerNavigation }: St
               {errors.documentNumber && <p className="text-xs text-destructive">{errors.documentNumber}</p>}
             </div>
           </div>
+
+          <div className="space-y-2">
+            <div className="flex items-start gap-3">
+              <Checkbox
+                id="acceptedPolicy"
+                checked={formData.acceptedPolicy}
+                onCheckedChange={(checked) => update({ acceptedPolicy: checked === true })}
+                className="mt-0.5"
+              />
+              <label htmlFor="acceptedPolicy" className="text-sm leading-snug text-muted-foreground cursor-pointer">
+                Acepto y Autorizo la{' '}
+                <a
+                  href="https://www.skandia.co/politica-de-tratamiento-de-informacion"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-primary underline underline-offset-2 hover:text-primary/80"
+                >
+                  Política de protección de datos
+                </a>{' '}
+                y el{' '}
+                <a
+                  href="https://www.skandia.co/politica-de-tratamiento-de-informacion"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-primary underline underline-offset-2 hover:text-primary/80"
+                >
+                  Tratamiento de información personal
+                </a>.
+              </label>
+            </div>
+            {errors.acceptedPolicy && <p className="text-xs text-destructive">{errors.acceptedPolicy}</p>}
+          </div>
         </Card>
       </div>
     </motion.div>);
