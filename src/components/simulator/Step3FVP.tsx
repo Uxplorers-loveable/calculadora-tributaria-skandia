@@ -26,6 +26,7 @@ const Step3FVP = ({ formData, setFormData, onNext, onBack, registerNavigation }:
   return (
     <motion.div key="step3" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }} className="flex min-h-full flex-col">
       <div className="space-y-6">
+        {!formData.bonoEsSalarial && (
         <Card data-sami-key="pac" className="mb-6 rounded-lg border-t-4 p-8 space-y-6" style={{ borderTopColor: 'hsl(var(--skandia-gold))', borderColor: 'hsl(var(--border))' }}>
           <div className="flex flex-wrap items-center gap-3">
             <h3 className="text-lg font-bold font-display text-foreground">Plan de Ahorro Corporativo (PAC) Skandia</h3>
@@ -66,6 +67,7 @@ const Step3FVP = ({ formData, setFormData, onNext, onBack, registerNavigation }:
             </div>
           )}
         </Card>
+        )}
 
         <Card data-sami-key="fvp_afc" className="skandia-card mb-6 space-y-6">
           <h3 className="text-lg font-bold font-display text-foreground">¿Tienes FVP individual o cuenta AFC?</h3>
