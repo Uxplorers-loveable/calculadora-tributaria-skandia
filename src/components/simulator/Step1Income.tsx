@@ -138,8 +138,8 @@ const Step1Income = ({ formData, setFormData, totalIngresos, onNext, registerNav
                 <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="mt-4 space-y-4">
                   <div className="grid gap-4 md:grid-cols-2">
                     <CurrencyInput
-                      label="Valor mensual equivalente de tu bono"
-                      hint="Usa un promedio mensual equivalente para hacer la proyección anual."
+                      label="Valor anual equivalente de tu bono"
+                      hint="Ingresa el valor total estimado que recibirás en el año por este concepto."
                       value={formData.bonoAnual}
                       onChange={(v) => update({ bonoAnual: v })}
                     />
